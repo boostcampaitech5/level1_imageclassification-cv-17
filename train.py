@@ -15,11 +15,15 @@ from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 
-from dataset import MaskBaseDataset
-from loss import create_criterion
+from dataset import MaskBaseDataset # dataset.py
+from loss import create_criterion # loss.py
 
 
 def seed_everything(seed):
+    '''
+    PyTorch와 Numpy에서 사용되는 랜덤 시드를 설정하는 함수입니다.
+    시드 값을 설정하면, 해당 값에 대한 동일한 seed 값으로 다시 실행해도 동일한 결과가 나오도록 보장할 수 있습니다
+    '''
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)  # if use multi-GPU
@@ -30,11 +34,25 @@ def seed_everything(seed):
 
 
 def get_lr(optimizer):
+    '''
+    현재 optimizer의 학습률 (learning rate)을 반환하는 함수
+    optimizer의 param_groups 속성을 사용하여 parameter groups의 list를 얻고,
+    각 group의 첫 번째 parameter의 학습률 값을 반환합니다.
+    이 코드에서는 하나의 parameter group만 사용되고 있으므로, 학습률 값은 하나만 반환됩니다.
+    '''
     for param_group in optimizer.param_groups:
         return param_group['lr']
 
 
 def grid_image(np_images, gts, preds, n=16, shuffle=False):
+    '''
+    입력으로 받은 이미지들을 그리드 형태로 시각화하는 기능을 수행
+    주어진 배치 크기에서 n개의 이미지를 랜덤으로 선택하고,
+    해당 이미지들의 ground truth 및 예측값, 그리고 마스크, 성별, 나이의 세 가지 정보를 함께 시각화합니다.
+    선택된 이미지들을 n_grid x n_grid 크기의 그리드 형태로 배열하여 반환합니다.
+    시각화된 이미지와 함께 각 이미지의 ground truth와 예측값이 제목에 표시됩니다.
+    반환된 figure 객체를 이용하여 이미지를 출력할 수 있습니다.
+    '''
     batch_size = np_images.shape[0]
     assert n <= batch_size
 
@@ -70,6 +88,11 @@ def increment_path(path, exist_ok=False):
     Args:
         path (str or pathlib.Path): f"{model_dir}/{args.name}".
         exist_ok (bool): whether increment path (increment if False).
+
+    경로명을 자동으로 증가시켜주는 함수입니다.
+    입력받은 경로가 "runs/exp"이라면 이미 존재하는 경우(즉, exist_ok=True) 그대로 반환하고,
+    없는 경우에는 바로 해당 경로를 반환합니다. 
+    만약 exist_ok가 False인 경우, 해당 경로가 이미 존재하는 경우 경로명을 증가시켜주어 새로운 경로를 반환합니다. 예를 들어 "runs/exp0"이 이미 존재한다면, "runs/exp1"로 경로를 증가시켜주어 반환합니다.
     """
     path = Path(path)
     if (path.exists() and exist_ok) or (not path.exists()):
@@ -83,6 +106,26 @@ def increment_path(path, exist_ok=False):
 
 
 def train(data_dir, model_dir, args):
+    '''
+    data_dir : 데이터 경로
+    model_dir : 모델 경로
+    args : 인자
+
+    seed_everything(args.seed) 함수를 호출하여 학습시 고정된 시드를 사용하도록 설정
+    save_dir : increment_path 함수를 사용하여 모델이 저장될 경로를 생성
+    dataset_module : args.dataset이라는 인자를 통해 사용할 데이터셋을 설정하고 불러옴
+    transform_module : 데이터셋에 적용할 데이터 augmentation 기법을 설정
+    train_loader : train 데이터 loader
+    val_loader   : vaild 데이터 loader
+    criterion : create_criterion() 함수를 호출하여 손실 함수(criterion)를 생성
+    optimizer : import_module() 함수를 사용하여 torch.optim 모듈에서 사용자가 지정한 최적화 함수(optimizer)를 가져옴
+                lr은 학습률(learning rate)을 나타내며, weight_decay는 L2 정규화(regularization)의 강도를 조절합니다.
+    scheduler : StepLR은 일정한 스텝(step)마다 학습률을 감소시키는 스케줄러
+                args.lr_decay_step은 학습률 감소 스텝의 크기를 나타내며,
+                gamma는 감소 비율을 나타냄
+
+
+    '''
     seed_everything(args.seed)
 
     save_dir = increment_path(os.path.join(model_dir, args.name))

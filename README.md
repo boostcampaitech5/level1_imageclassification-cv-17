@@ -68,4 +68,11 @@
                 fc
     MyModel : 커스텀 모델
 
-
+### train.py
+dataset.py, loss.py의 함수를 import 해서 사용함
+- function
+    seed_everything : 랜덤 시드 설정, 해당 값에 대한 동일한 seed 값으로 다시 실행해도 동일한 결과가 나오도록 보장함
+    get_lr : 현재 optimizer의 학습률(learning rate)을 반환하는 함수
+    grid_image : 입력으로 받은 이미지들을 그리드 형태로 시각화하는 기능을 수행합니다
+    increment_path : 경로명을 자동으로 증가시켜주는 함수
+    train : data_dir(데이터 경로), model_dir(모델 경로), args(인자)를 받아와서 모델을 학습하는 함수

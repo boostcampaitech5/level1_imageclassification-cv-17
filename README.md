@@ -42,6 +42,7 @@
 
 
 ### inference.py : 
+dataset.py의 함수를 import 해서 사용함
 - function
     load_model : 저장된 모델 파일을 로드하여 PyTorch 모델 객체를 반환하는 함수 
     inference  : 모델을 사용하여 이미지를 추론하고, 추론 결과를 저장하는 함수

@@ -1,0 +1,7 @@
+# 주피터 터미널에서 모델 돌리는 방법 안내 by sh
+
+python train.py --data_dir {images경로} --model_dir {실험결과파일}
+
+augmentation='BaseAugmentation', batch_size=64, criterion='cross_entropy', data_dir='./input/data/train/images', dataset='MaskBaseDataset', epochs=1, log_interval=20, lr=0.001, lr_decay_step=20, model='BaseModel', model_dir='./runs', name='exp', optimizer='SGD', resize=[128, 96], seed=42, val_ratio=0.2, valid_batch_size=1000
+
+python train.py --data_dir ./input/data/train/images --model_dir ./runs --epochs = 25 --model = '

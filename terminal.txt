@@ -2,5 +2,3 @@
 python train.py --data_dir {images경로} --model_dir {실험결과폴더명}
 예시)
     python train.py --data_dir ./input/data/train/images --model_dir ./runs
-    
-브랜치 커밋 테스트 중입니다

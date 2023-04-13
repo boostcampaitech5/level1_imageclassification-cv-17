@@ -58,4 +58,14 @@
     is_criterion : 주어진 이름이 유효한 손실 함수 이름인지 확인
     create_criterion : nn.CrossEntropyLoss, FocalLoss, LabelSmoothingLossm F1Loss로 손실 함수를 생성
 
+### model.py
+- class
+    BaseModel : 기본 제공 baseline 모델
+                conv1-relu
+                conv2-relu-maxpool
+                conv3-relu-maxpool-dropout
+                avgpool
+                fc
+    MyModel : 커스텀 모델
+
 

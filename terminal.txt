@@ -1,7 +1,18 @@
 # 주피터 터미널에서 모델 돌리는 방법 안내 by sh
-python train.py --data_dir {images경로} --model_dir {실험결과폴더명}
 예시)
+    # 이미지 경로 & 실험 결과 저장할 폴더명
+    python train.py --data_dir {image경로} --model_dir {실험결과폴더명}
     python train.py --data_dir ../input/data/train/images --model_dir ./runs
 
-    # EfficientNetB3 & epochs 15
-    python train.py --data_dir ../input/data/train/images --model_dir ./efc_b3 --model EfficientNetB3 --epochs 15
+    # 실험 결과 저장할 폴더명 & 모델만 지정
+    python train.py --data_dir ../input/data/train/images --model_dir ./model_test --model ResNet34
+    
+    ## epochs & patience_limit 추가
+    python train.py --data_dir ../input/data/train/images --model_dir ./model_test --model EfficientNetB4 --epochs 10 --patience_limit 1
+
+
+# 패키지 목록 설치
+$ pip install –r requirements.txt
+
+# 설치된 패키지 목록 확인 
+$ pip freeze

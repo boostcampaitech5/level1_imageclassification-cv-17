@@ -10,14 +10,20 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import torch
 from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
+from torchvision import transforms
+from torchvision.transforms import Resize, ToTensor, Normalize
+from PIL import Image
 
 from dataset import MaskBaseDataset # dataset.py
+from dataset import TestDataset
 from loss import create_criterion # loss.py
 from f1score import get_F1_Score # f1score.py
+from submission import submission
 
 
 def seed_everything(seed):
@@ -307,7 +313,46 @@ def train(data_dir, model_dir, args):
                 best_loss = val_loss
                 patience_check = 0
             print()
+    
+    ## ---- making submission ----
+#     test_dir = '/opt/ml/input/data/eval'
+#     # meta 데이터와 이미지 경로를 불러옵니다.
+#     submission = pd.read_csv(os.path.join(test_dir, 'info.csv'))
+#     image_dir = os.path.join(test_dir, 'images')
 
+#     # Test Dataset 클래스 객체를 생성하고 DataLoader를 만듭니다.
+#     image_paths = [os.path.join(image_dir, img_id) for img_id in submission.ImageID]
+#     transform = transforms.Compose([
+#         Resize((512, 384), Image.BILINEAR),
+#         ToTensor(),
+#         Normalize(mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2)),
+#     ])
+#     dataset = TestDataset(image_paths, transform)
+
+#     loader = DataLoader(
+#         dataset,
+#         shuffle=False
+#     )
+
+#     # 모델을 정의합니다. (학습한 모델이 있다면 torch.load로 모델을 불러주세요!)
+# #     device = torch.device('cuda')
+# #     model = model(num_classes=18).to(device)
+#     model.eval()
+
+#     # 모델이 테스트 데이터셋을 예측하고 결과를 저장합니다.
+#     all_predictions = []
+#     for images in loader:
+#         with torch.no_grad():
+#             images = images.to(device)
+#             pred = model(images)
+#             pred = pred.argmax(dim=-1)
+#             all_predictions.extend(pred.cpu().numpy())
+#     submission['ans'] = all_predictions
+
+#     # 제출할 파일을 저장합니다.
+#     submission.to_csv(os.path.join(save_dir, 'submission.csv'), index=False)
+#     print('test inference is done!')
+    submission(model, save_dir=save_dir)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

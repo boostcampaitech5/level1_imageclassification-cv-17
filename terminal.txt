@@ -19,20 +19,29 @@ $ pip freeze
     
 ## 23.04.14 실험
 ### 승희
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB3 --epochs 20 --batch_size 128 ----valid_batch_size 128
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB3 --epochs 20 --batch_size 128 --valid_batch_size 128
 
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB4 --epochs 20 --batch_size 128 ----valid_batch_size 128
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB4 --epochs 20 --batch_size 128 --valid_batch_size 128
 
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB5 --epochs 20 --batch_size 128 ----valid_batch_size 128
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB5 --epochs 20 --batch_size 128 --valid_batch_size 128
 
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model vgg19 --epochs 20 --batch_size 128 ----valid_batch_size 128
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model vgg19 --epochs 20 --batch_size 128 --valid_batch_size 128
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB3 --epochs 20 --batch_size 128 --valid_batch_size 128 --criterion cross_entropy
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB4 --epochs 20 --batch_size 128 --valid_batch_size 128 --criterion cross_entropy
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB5 --epochs 20 --batch_size 128 --valid_batch_size 128 --criterion cross_entropy
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model vgg19 --epochs 20 --batch_size 128 --valid_batch_size 128 --criterion cross_entropy
+
 
 
 ### 용우
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnet34 --epochs 20 --batch_size 128 ----valid_batch_size 128
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnet34 --epochs 20 --batch_size 128 --valid_batch_size 128
 
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnext50_32x4d --epochs 20 --batch_size 128 ----valid_batch_size 128
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnext50_32x4d --epochs 20 --batch_size 128 --valid_batch_size 128
 
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnext101_32x8d --epochs 20 --batch_size 128 ----valid_batch_size 128
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnext101_32x8d --epochs 20 --batch_size 128 --valid_batch_size 128
 
 

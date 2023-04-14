@@ -90,7 +90,7 @@ class F1Loss(nn.Module):
         f1 : precision와 recall로 F1 score를 계산함
         return F1 score의 평균값을 1에서 빼주어 loss 값을 계산함
     '''
-    def __init__(self, classes=3, epsilon=1e-7):
+    def __init__(self, classes=18, epsilon=1e-7):
         super().__init__()
         self.classes = classes
         self.epsilon = epsilon

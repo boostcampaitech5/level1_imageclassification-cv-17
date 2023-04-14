@@ -1,6 +1,7 @@
 import torch.nn as nn
 import torch.nn.functional as F
-
+from torchvision.models import resnet34, resnext50_32x4d
+from efficientnet_pytorch import EfficientNet
 
 class BaseModel(nn.Module):
     def __init__(self, num_classes):
@@ -32,21 +33,78 @@ class BaseModel(nn.Module):
         x = x.view(-1, 128)
         return self.fc(x)
 
+class EfficientNetB3(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes, freeze = False):
+        super(EfficientNetB3, self).__init__()
+        self.model = EfficientNet.from_pretrained('efficientnet-b3')
+        self.num_ftrs = self.model._fc.in_features
+        self.model._fc = nn.Linear(self.num_ftrs, num_classes)
 
-# Custom Model Template
-class MyModel(nn.Module):
-    def __init__(self, num_classes):
-        super().__init__()
-
-        """
-        1. 위와 같이 생성자의 parameter 에 num_claases 를 포함해주세요.
-        2. 나만의 모델 아키텍쳐를 디자인 해봅니다.
-        3. 모델의 output_dimension 은 num_classes 로 설정해주세요.
-        """
+        if freeze :
+            for param in self.model.parameters():
+                param.requires_grad = False
 
     def forward(self, x):
-        """
-        1. 위에서 정의한 모델 아키텍쳐를 forward propagation 을 진행해주세요
-        2. 결과로 나온 output 을 return 해주세요
-        """
+        x = self.model(x)
+        return x
+    
+class EfficientNetB4(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes, freeze = False):
+        super(EfficientNetB4, self).__init__()
+        self.model = EfficientNet.from_pretrained('efficientnet-b4')
+        self.num_ftrs = self.model._fc.in_features
+        self.model._fc = nn.Linear(self.num_ftrs, num_classes)
+
+        if freeze :
+            for param in self.model.parameters():
+                param.requires_grad = False
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class ResNet34(nn.Module):
+    '''
+    생성자 : 김용우
+    수정자 : 박승희
+    pretrain된 resnet34를 가져와 
+    '''
+    def __init__(self, num_classes, freeze = False):
+        super(EfficientNetB4, self).__init__()
+        self.model = resnet34(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(num_ftrs, num_classes) # 18
+
+        if freeze :
+            for param in self.model.parameters():
+                param.requires_grad = False
+
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class ResNext50(nn.Module):
+    '''
+    생성자 : 이다현
+    수정자 : 박승희
+    '''
+    def __init__(self, num_classes, freeze = False):
+        super(EfficientNetB4, self).__init__()
+        self.model = resnext50_32x4d(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+
+        if freeze :
+            for param in self.model.parameters():
+                param.requires_grad = False
+
+    def forward(self, x):
+        x = self.model(x)
         return x

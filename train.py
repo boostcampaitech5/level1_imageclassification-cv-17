@@ -172,10 +172,10 @@ def train(data_dir, model_dir, args):
     )
 
     # -- model
+    freeze = args.freeze
     model_module = getattr(import_module("model"), args.model)  # default: BaseModel
-    model = model_module(
-        num_classes=num_classes
-    ).to(device)
+    model = model_module(num_classes=num_classes,
+                         freeze = freeze).to(device)
     model = torch.nn.DataParallel(model)
 
     # -- loss & metric
@@ -300,6 +300,7 @@ if __name__ == '__main__':
     # Container environment
     parser.add_argument('--data_dir', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/train/images'))
     parser.add_argument('--model_dir', type=str, default=os.environ.get('SM_MODEL_DIR', './model'))
+    parser.add_argument('--freeze', type=bool, default=False, help='model freeze (default: False)')
 
     args = parser.parse_args()
     print(args)

@@ -85,7 +85,7 @@ class ResNet34(nn.Module):
         super(ResNet34, self).__init__()
         self.model = resnet34(pretrained=True)
         self.num_ftrs = self.model.fc.in_features
-        self.model.fc = nn.Linear(num_ftrs, num_classes) # 18
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
 
     def forward(self, x):
         x = self.model(x)

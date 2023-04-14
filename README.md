@@ -67,7 +67,14 @@ dataset.py의 함수를 import 해서 사용함
                 conv3-relu-maxpool-dropout
                 avgpool
                 fc
-    MyModel : 커스텀 모델
+    EfficientNetB3 : from efficientnet_pytorch, no freeze
+    EfficientNetB4 : from efficientnet_pytorch, no freeze
+    EfficientNetB5 : from efficientnet_pytorch, no freeze
+    ResNet34       : from torchvision.models, no freeze
+    ResNext50      : from torchvision.models, no freeze
+    ResNext101     : from torchvision.models, no freeze
+    Vgg19          : from torchvision.models, no freeze
+    
 
 ### train.py
 dataset.py, loss.py의 함수를 import 해서 사용함

@@ -1,19 +1,38 @@
-# 주피터 터미널에서 모델 돌리는 방법 안내 by sh
-예시)
-    # 이미지 경로 & 실험 결과 저장할 폴더명
-    python train.py --data_dir {image경로} --model_dir {실험결과폴더명}
-    python train.py --data_dir ../input/data/train/images --model_dir ./runs
-
-    # 실험 결과 저장할 폴더명 & 모델만 지정
-    python train.py --data_dir ../input/data/train/images --model_dir ./model_test --model EfficientNetB4 --epochs 1
-    python train.py --data_dir ../input/data/train/images --model_dir ./model_test --model EfficientNetB4 --epochs 10 --batch_size 128
-    
-    ## epochs & patience_limit 추가
-    python train.py --data_dir ../input/data/train/images --model_dir ./model_test --model EfficientNetB4 --epochs 10 --patience_limit 1
-
-
 # 패키지 목록 설치
 $ pip install –r requirements.txt
 
 # 설치된 패키지 목록 확인 
 $ pip freeze
+
+# 주피터 터미널에서 모델 돌리는 방법 안내 by sh
+예시)
+    # 이미지 경로 & 실험 결과 저장할 폴더명
+    python train.py --data_dir {image경로} --model_dir {실험결과폴더명}
+    python train.py --data_dir ../input/data/train/images --model_dir ./runs
+    
+    ## epochs & patience_limit 추가
+    python train.py --data_dir ../input/data/train/images --model_dir ./model_test --model EfficientNetB4 --epochs 10 --patience_limit 1
+
+    # 실험 결과 저장할 폴더명 & 모델만 지정
+    python train.py --data_dir ../input/data/train/images --model_dir ./model --model_comparison EfficientNetB4 --epochs 1
+    
+    
+## 23.04.14 실험
+### 승희
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB3 --epochs 20 --batch_size 128 ----valid_batch_size 128
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB4 --epochs 20 --batch_size 128 ----valid_batch_size 128
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB5 --epochs 20 --batch_size 128 ----valid_batch_size 128
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model vgg19 --epochs 20 --batch_size 128 ----valid_batch_size 128
+
+
+### 용우
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnet34 --epochs 20 --batch_size 128 ----valid_batch_size 128
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnext50_32x4d --epochs 20 --batch_size 128 ----valid_batch_size 128
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnext101_32x8d --epochs 20 --batch_size 128 ----valid_batch_size 128
+
+

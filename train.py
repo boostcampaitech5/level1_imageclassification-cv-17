@@ -17,6 +17,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 from dataset import MaskBaseDataset # dataset.py
 from loss import create_criterion # loss.py
+from f1score import get_F1_Score # f1score.py
 
 
 def seed_everything(seed):
@@ -208,6 +209,8 @@ def train(data_dir, model_dir, args):
         model.train()
         loss_value = 0
         matches = 0
+        valid_f1_score = get_F1_Score()
+        
         for idx, train_batch in enumerate(train_loader):
             inputs, labels = train_batch
             inputs = inputs.to(device)
@@ -265,6 +268,7 @@ def train(data_dir, model_dir, args):
                 acc_item = (labels == preds).sum().item()
                 val_loss_items.append(loss_item)
                 val_acc_items.append(acc_item)
+                valid_f1_score.update(preds, labels)
 
                 if figure is None:
                     inputs_np = torch.clone(inputs).detach().cpu().permute(0, 2, 3, 1).numpy()
@@ -285,7 +289,8 @@ def train(data_dir, model_dir, args):
             torch.save(model.module.state_dict(), f"{save_dir}/last.pth")
             print(
                 f"[Val] acc : {val_acc:4.2%}, loss: {val_loss:4.2} || "
-                f"best acc : {best_val_acc:4.2%}, best loss: {best_val_loss:4.2}"
+                f"best acc : {best_val_acc:4.2%}, best loss: {best_val_loss:4.2} || "
+                f"f1 score : {valid_f1_score.get_score :4.2}"
             )
             logger.add_scalar("Val/loss", val_loss, epoch)
             logger.add_scalar("Val/accuracy", val_acc, epoch)

@@ -197,6 +197,10 @@ def train(data_dir, model_dir, args):
     with open(os.path.join(save_dir, 'config.json'), 'w', encoding='utf-8') as f:
         json.dump(vars(args), f, ensure_ascii=False, indent=4)
 
+    ## -- earystop = patience_limit
+    patience_limits = args.patience_limit
+    
+    ## ---- starting train ----
     best_val_acc = 0
     best_val_loss = np.inf
     for epoch in range(args.epochs):
@@ -243,6 +247,12 @@ def train(data_dir, model_dir, args):
             val_loss_items = []
             val_acc_items = []
             figure = None
+            
+            # early stop init
+            best_loss = 10 ** 9 # 매우 큰 값으로 초기값 가정
+            patience_limit = patience_limits # 몇 번의 epoch까지 지켜볼지를 결정
+            patience_check = 0 # 현재 몇 epoch 연속으로 loss 개선이 안되는지를 기록
+            
             for val_batch in val_loader:
                 inputs, labels = val_batch
                 inputs = inputs.to(device)
@@ -266,6 +276,8 @@ def train(data_dir, model_dir, args):
             val_loss = np.sum(val_loss_items) / len(val_loader)
             val_acc = np.sum(val_acc_items) / len(val_set)
             best_val_loss = min(best_val_loss, val_loss)
+            
+            ## 최고 val acc 모델 갱신
             if val_acc > best_val_acc:
                 print(f"New best model for val accuracy : {val_acc:4.2%}! saving the best model..")
                 torch.save(model.module.state_dict(), f"{save_dir}/best.pth")
@@ -278,6 +290,17 @@ def train(data_dir, model_dir, args):
             logger.add_scalar("Val/loss", val_loss, epoch)
             logger.add_scalar("Val/accuracy", val_acc, epoch)
             logger.add_figure("results", figure, epoch)
+            
+            # early stop
+            if val_loss > best_loss: # loss가 개선되지 않은 경우
+                patience_check += 1
+                if patience_check >= patience_limit: # early stopping 조건 만족 시 조기 종료
+                    print("Early stopping")
+                    break
+                    
+            else: # loss가 개선된 경우 계속 진행
+                best_loss = val_loss
+                patience_check = 0
             print()
 
 
@@ -305,6 +328,7 @@ if __name__ == '__main__':
     parser.add_argument('--data_dir', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/train/images'))
     parser.add_argument('--model_dir', type=str, default=os.environ.get('SM_MODEL_DIR', './model'))
     parser.add_argument('--freeze', type=bool, default=False, help='model freeze (default: False)')
+    parser.add_argument('--patience_limit', type=int, default=3, help='early stopping patience_limit (default: 3)')
 
     args = parser.parse_args()
     print(args)

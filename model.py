@@ -129,8 +129,8 @@ class Vgg19(nn.Module):
     def __init__(self, num_classes):
         super(Vgg19, self).__init__()
         self.model = vgg19(pretrained=True)
-        self.num_ftrs = self.model.fc.in_features
-        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        self.num_ftrs = self.model.classifier[6].in_features
+        self.model.classifier[6] = nn.Linear(self.num_ftrs, num_classes) # 18
         
     def forward(self, x):
         x = self.model(x)

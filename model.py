@@ -1,6 +1,6 @@
 import torch.nn as nn
 import torch.nn.functional as F
-from torchvision.models import resnet34, resnext50_32x4d, resnext101_32x8d, resnext101_64x4d, vgg19
+from torchvision.models import resnet34, resnext50_32x4d, resnext101_32x8d, vgg19
 from efficientnet_pytorch import EfficientNet
 
 class BaseModel(nn.Module):
@@ -114,21 +114,6 @@ class ResNext101_8d(nn.Module):
     def __init__(self, num_classes):
         super(ResNext101_8d, self).__init__()
         self.model = resnext101_32x8d(pretrained=True)
-        self.num_ftrs = self.model.fc.in_features
-        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
-        
-    def forward(self, x):
-        x = self.model(x)
-        return x
-    
-class ResNext101_4d(nn.Module):
-    '''
-    생성자 : 박승희
-    수정자 : 박승희
-    '''
-    def __init__(self, num_classes):
-        super(ResNext101_4d, self).__init__()
-        self.model = resnext101_64x4d(pretrained=True)
         self.num_ftrs = self.model.fc.in_features
         self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
         

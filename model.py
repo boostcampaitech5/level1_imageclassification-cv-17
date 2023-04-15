@@ -1,12 +1,14 @@
 import torch.nn as nn
 import torch.nn.functional as F
+import torch.nn.init as init
+
+# https://pytorch.org/vision/0.10/models.html
 from torchvision.models import vgg16, vgg16_bn, vgg19, vgg19_bn
 from torchvision.models import resnet34, resnet50, resnet101, resnet152, resnext50_32x4d, resnext101_32x8d, wide_resnet50_2, wide_resnet101_2
 from torchvision.models import densenet121, densenet169, densenet161, densenet201
-from torchvision.models import mnasnet0_5, mnasnet0_75, mnasnet1_0, mnasnet1_3
-# https://pytorch.org/vision/0.10/models.html#wide-resnet
+
 from efficientnet_pytorch import EfficientNet
-import torch.nn.init as init
+import timm
 
 def initialize_weights(model):
     """
@@ -303,6 +305,60 @@ class EfficientNetB7(nn.Module):
         x = self.model(x)
         return x
     
-## timm model ##
+#####  timm model  #######
+class vit_p8(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(vit_p8, self).__init__()
+        self.model = timm.create_model('vit_base_patch8_224', pretrained=True)
+        self.num_ftrs = self.model.head.in_features
+        self.model.head = nn.Linear(self.num_ftrs, num_classes)
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
     
+class vit_p16(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(vit_p16, self).__init__()
+        self.model = timm.create_model('vit_base_patch16_224', pretrained=True)
+        self.num_ftrs = self.model.head.in_features
+        self.model.head = nn.Linear(self.num_ftrs, num_classes)
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class vit_s_p16(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(vit_s_p16, self).__init__()
+        self.model = timm.create_model('vit_small_patch16_224', pretrained=True)
+        self.num_ftrs = self.model.head.in_features
+        self.model.head = nn.Linear(self.num_ftrs, num_classes)
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class vit_s_p32(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(vit_s_p32, self).__init__()
+        self.model = timm.create_model('vit_small_patch32_224', pretrained=True)
+        self.num_ftrs = self.model.head.in_features
+        self.model.head = nn.Linear(self.num_ftrs, num_classes)
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
 

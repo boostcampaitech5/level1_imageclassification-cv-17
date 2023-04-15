@@ -306,7 +306,7 @@ class EfficientNetB7(nn.Module):
         return x
     
 #####  timm model  #######
-class vit_p8(nn.Module):
+class Vit_p8(nn.Module):
     '''
     생성자 : 박승희
     '''
@@ -320,7 +320,7 @@ class vit_p8(nn.Module):
         x = self.model(x)
         return x
     
-class vit_p16(nn.Module):
+class Vit_p16(nn.Module):
     '''
     생성자 : 박승희
     '''
@@ -334,7 +334,7 @@ class vit_p16(nn.Module):
         x = self.model(x)
         return x
     
-class vit_s_p16(nn.Module):
+class Vit_s_p16(nn.Module):
     '''
     생성자 : 박승희
     '''
@@ -348,7 +348,7 @@ class vit_s_p16(nn.Module):
         x = self.model(x)
         return x
     
-class vit_s_p32(nn.Module):
+class Vit_s_p32(nn.Module):
     '''
     생성자 : 박승희
     '''
@@ -362,3 +362,44 @@ class vit_s_p32(nn.Module):
         x = self.model(x)
         return x
 
+class Swin_p4(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(swin_p4, self).__init__()
+        self.model = timm.create_model('swin_base_patch4_window7_224', pretrained=True)
+        self.num_ftrs = self.model.head.in_features
+        self.model.head = nn.Linear(self.num_ftrs, num_classes)
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class Swin_p4_l(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(swin_p4, self).__init__()
+        self.model = timm.create_model('swin_large_patch4_window7_224', pretrained=True)
+        self.num_ftrs = self.model.head.in_features
+        self.model.head = nn.Linear(self.num_ftrs, num_classes)
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class Swin_p4_s(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(swin_p4, self).__init__()
+        self.model = timm.create_model('swin_small_patch4_window7_224', pretrained=True)
+        self.num_ftrs = self.model.head.in_features
+        self.model.head = nn.Linear(self.num_ftrs, num_classes)
+
+    def forward(self, x):
+        x = self.model(x)
+        return x

@@ -201,8 +201,8 @@ class DenseNet121(nn.Module):
     def __init__(self, num_classes):
         super(DenseNet121, self).__init__()
         self.model = densenet121(pretrained=True)
-        self.num_ftrs = self.model.fc.in_features
-        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        self.num_ftrs = self.model.classifier.in_features
+        self.model.classifier = nn.Linear(self.num_ftrs, num_classes) # 18
         
     def forward(self, x):
         x = self.model(x)
@@ -215,8 +215,8 @@ class DenseNet161(nn.Module):
     def __init__(self, num_classes):
         super(densenet161, self).__init__()
         self.model = densenet161(pretrained=True)
-        self.num_ftrs = self.model.fc.in_features
-        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        self.num_ftrs = self.model.classifier.in_features
+        self.model.classifier = nn.Linear(self.num_ftrs, num_classes) # 18
         
     def forward(self, x):
         x = self.model(x)
@@ -229,8 +229,8 @@ class DenseNet169(nn.Module):
     def __init__(self, num_classes):
         super(DenseNet169, self).__init__()
         self.model = densenet169(pretrained=True)
-        self.num_ftrs = self.model.fc.in_features
-        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        self.num_ftrs = self.model.classifier.in_features
+        self.model.classifier = nn.Linear(self.num_ftrs, num_classes) # 18
         
     def forward(self, x):
         x = self.model(x)
@@ -243,8 +243,8 @@ class DenseNet201(nn.Module):
     def __init__(self, num_classes):
         super(DenseNet201, self).__init__()
         self.model = densenet201(pretrained=True)
-        self.num_ftrs = self.model.fc.in_features
-        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        self.num_ftrs = self.model.classifier.in_features
+        self.model.classifier = nn.Linear(self.num_ftrs, num_classes) # 18
         
     def forward(self, x):
         x = self.model(x)

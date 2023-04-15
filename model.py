@@ -65,7 +65,7 @@ class ResNet34(nn.Module):
         self.model = resnet34(pretrained=True)
         self.num_ftrs = self.model.fc.in_features
         self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
-        self.model.fc = initialize_weights(self.model.fc)
+        initialize_weights(self.model.fc)
 
     def forward(self, x):
         x = self.model(x)

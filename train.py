@@ -210,6 +210,12 @@ def train(data_dir, model_dir, args):
     ## ---- starting train ----
     best_val_acc = 0
     best_val_loss = np.inf
+    
+    # early stop init
+    best_loss = 10 ** 9 # 매우 큰 값으로 초기값 가정
+    patience_limit = patience_limits # 몇 번의 epoch까지 지켜볼지를 결정
+    patience_check = 0 # 현재 몇 epoch 연속으로 loss 개선이 안되는지를 기록
+    
     for epoch in range(args.epochs):
         # train loop
         model.train()
@@ -256,11 +262,6 @@ def train(data_dir, model_dir, args):
             val_loss_items = []
             val_acc_items = []
             figure = None
-            
-            # early stop init
-            best_loss = 10 ** 9 # 매우 큰 값으로 초기값 가정
-            patience_limit = patience_limits # 몇 번의 epoch까지 지켜볼지를 결정
-            patience_check = 0 # 현재 몇 epoch 연속으로 loss 개선이 안되는지를 기록
             
             for val_batch in val_loader:
                 inputs, labels = val_batch

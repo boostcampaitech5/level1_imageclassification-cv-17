@@ -1,6 +1,10 @@
 import torch.nn as nn
 import torch.nn.functional as F
-from torchvision.models import resnet34, resnext50_32x4d, resnext101_32x8d, vgg19
+from torchvision.models import vgg16, vgg16_bn, vgg19, vgg19_bn
+from torchvision.models import resnet34, resnet50, resnet101, resnet152, resnext50_32x4d, resnext101_32x8d, wide_resnet50_2, wide_resnet101_2
+from torchvision.models import densenet121, densenet169, densenet161, densenet201
+from torchvision.models import mnasnet0_5, mnasnet0_75, mnasnet1_0, mnasnet1_3
+# https://pytorch.org/vision/0.10/models.html#wide-resnet
 from efficientnet_pytorch import EfficientNet
 import torch.nn.init as init
 
@@ -51,6 +55,184 @@ class BaseModel(nn.Module):
         x = x.view(-1, 128)
         return self.fc(x)
 
+### ResNet ###
+class ResNet34(nn.Module):
+    '''
+    마지막 수정자 : 김용우
+    '''
+    def __init__(self, num_classes):
+        super(ResNet34, self).__init__()
+        self.model = resnet34(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        self.model.fc = initialize_weights(self.model.fc)
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class ResNet50(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(ResNet50, self).__init__()
+        self.model = resnet50(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class ResNet101(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(ResNet101, self).__init__()
+        self.model = resnet101(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class ResNet152(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(ResNet152, self).__init__()
+        self.model = resnet152(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
+
+### ResNext ###
+class ResNext50(nn.Module):
+    '''
+    생성자 : 이다현
+    수정자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(ResNext50, self).__init__()
+        self.model = resnext50_32x4d(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        
+    def forward(self, x):
+        x = self.model(x)
+        return x 
+
+class ResNext101_8d(nn.Module):
+    '''
+    생성자 : 박승희
+    수정자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(ResNext101_8d, self).__init__()
+        self.model = resnext101_32x8d(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        
+    def forward(self, x):
+        x = self.model(x)
+        return x
+
+### wide_resnet ###
+class WideResNet50(nn.Module):
+    '''
+    생성자 : 박승희
+    수정자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(WideResNet50, self).__init__()
+        self.model = wide_resnet50_2(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class WideResNet101(nn.Module):
+    '''
+    생성자 : 박승희
+    수정자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(WideResNet101, self).__init__()
+        self.model = wide_resnet101_2(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+### densenet ### 
+class DenseNet121(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(DenseNet121, self).__init__()
+        self.model = densenet121(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class DenseNet161(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(densenet161, self).__init__()
+        self.model = densenet161(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class DenseNet169(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(DenseNet169, self).__init__()
+        self.model = densenet169(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class DenseNet201(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(DenseNet201, self).__init__()
+        self.model = densenet201(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+### EfficientNet ###
 class EfficientNetB3(nn.Module):
     '''
     생성자 : 박승희
@@ -93,64 +275,34 @@ class EfficientNetB5(nn.Module):
         x = self.model(x)
         return x
     
-class ResNet34(nn.Module):
-    '''
-    생성자 : 김용우
-    수정자 : 박승희
-    pretrain된 resnet34를 가져와 
-    '''
-    def __init__(self, num_classes):
-        super(ResNet34, self).__init__()
-        self.model = resnet34(pretrained=True)
-        self.num_ftrs = self.model.fc.in_features
-        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
-        self.model.fc = initialize_weights(self.model.fc)
-
-    def forward(self, x):
-        x = self.model(x)
-        return x
-    
-class ResNext50(nn.Module):
-    '''
-    생성자 : 이다현
-    수정자 : 박승희
-    '''
-    def __init__(self, num_classes):
-        super(ResNext50, self).__init__()
-        self.model = resnext50_32x4d(pretrained=True)
-        self.num_ftrs = self.model.fc.in_features
-        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
-        
-    def forward(self, x):
-        x = self.model(x)
-        return x
-    
-class ResNext101_8d(nn.Module):
+class EfficientNetB6(nn.Module):
     '''
     생성자 : 박승희
-    수정자 : 박승희
     '''
     def __init__(self, num_classes):
-        super(ResNext101_8d, self).__init__()
-        self.model = resnext101_32x8d(pretrained=True)
-        self.num_ftrs = self.model.fc.in_features
-        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
-        
-    def forward(self, x):
-        x = self.model(x)
-        return x
+        super(EfficientNetB6, self).__init__()
+        self.model = EfficientNet.from_pretrained('efficientnet-b6')
+        self.num_ftrs = self.model._fc.in_features
+        self.model._fc = nn.Linear(self.num_ftrs, num_classes)
 
-class Vgg19(nn.Module):
-    '''
-    생성자 : 이상민
-    수정자 : 박승희
-    '''
-    def __init__(self, num_classes):
-        super(Vgg19, self).__init__()
-        self.model = vgg19(pretrained=True)
-        self.num_ftrs = self.model.classifier[6].in_features
-        self.model.classifier[6] = nn.Linear(self.num_ftrs, num_classes) # 18
-        
     def forward(self, x):
         x = self.model(x)
         return x
+    
+class EfficientNetB7(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(EfficientNetB7, self).__init__()
+        self.model = EfficientNet.from_pretrained('efficientnet-b7')
+        self.num_ftrs = self.model._fc.in_features
+        self.model._fc = nn.Linear(self.num_ftrs, num_classes)
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+## timm model ##
+    
+

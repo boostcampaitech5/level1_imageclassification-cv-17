@@ -2,6 +2,24 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torchvision.models import resnet34, resnext50_32x4d, resnext101_32x8d, vgg19
 from efficientnet_pytorch import EfficientNet
+import torch.nn.init as init
+
+def initialize_weights(model):
+    """
+    Xavier uniform 분포로 모든 weight 를 초기화합니다.
+    더 많은 weight 초기화 방법은 다음 문서에서 참고해주세요. https://pytorch.org/docs/stable/nn.init.html
+    """
+    for m in model.modules():
+        if isinstance(m, nn.Conv2d):
+            init.xavier_uniform_(m.weight.data)
+            if m.bias is not None:
+                m.bias.data.zero_()
+        elif isinstance(m, nn.BatchNorm2d):
+            m.weight.data.fill_(1)
+            m.bias.data.zero_()
+        elif isinstance(m, nn.Linear):
+            m.weight.data.normal_(0, 0.01)
+            m.bias.data.zero_()
 
 class BaseModel(nn.Module):
     def __init__(self, num_classes):
@@ -86,6 +104,7 @@ class ResNet34(nn.Module):
         self.model = resnet34(pretrained=True)
         self.num_ftrs = self.model.fc.in_features
         self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+        self.model.fc = initialize_weights(self.model.fc)
 
     def forward(self, x):
         x = self.model(x)

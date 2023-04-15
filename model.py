@@ -67,6 +67,20 @@ class ResNet34(nn.Module):
         self.model = resnet34(pretrained=True)
         self.num_ftrs = self.model.fc.in_features
         self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class ResNet34_init(nn.Module):
+    '''
+    마지막 수정자 : 김용우
+    '''
+    def __init__(self, num_classes):
+        super(ResNet34, self).__init__()
+        self.model = resnet34(pretrained=True)
+        self.num_ftrs = self.model.fc.in_features
+        self.model.fc = nn.Linear(self.num_ftrs, num_classes) # 18
         initialize_weights(self.model.fc)
 
     def forward(self, x):
@@ -86,6 +100,8 @@ class ResNet50(nn.Module):
     def forward(self, x):
         x = self.model(x)
         return x
+    
+
     
 class ResNet101(nn.Module):
     '''

@@ -35,13 +35,16 @@ python train.py --data_dir ../input/data/train/images --model_dir ./model_select
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNext101_8d --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNext101_8d'
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model WideResNet50 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'WideResNet50'
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model WideResNet101 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'WideResNet101'
-
-## 승희 resnet
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet34 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet34'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet34 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet34_2' --patience_limit 5
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet34_init --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet34_init'
 
-### 승희 denset 실험
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB3 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB3'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB4 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB4'
+
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet121 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet121'
+
+### 승희 denset 실험
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet161 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet161'
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet169 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet169'
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet201 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet201'
@@ -54,6 +57,8 @@ python train.py --data_dir ../input/data/train/images --model_dir ./model_select
 
 
 ### 승희 efficientnet 실험
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB5 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB5'
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB6 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB6'
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB7 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB7'
 

@@ -23,7 +23,7 @@ from dataset import MaskBaseDataset # dataset.py
 from dataset import TestDataset
 from loss import create_criterion # loss.py
 from f1score import get_F1_Score # f1score.py
-from submission import submission # submission.py
+from submission import submission
 
 
 def seed_everything(seed):
@@ -190,8 +190,8 @@ def train(data_dir, model_dir, args):
 #             param.requires_grad = False
 
     # -- loss & metric
-    criterion = create_criterion(args.criterion)  # default: focal_loss
-    opt_module = getattr(import_module("torch.optim"), args.optimizer)  # default: Adam
+    criterion = create_criterion(args.criterion)  # default: cross_entropy
+    opt_module = getattr(import_module("torch.optim"), args.optimizer)  # default: SGD
     optimizer = opt_module(
         filter(lambda p: p.requires_grad, model.parameters()),
         lr=args.lr,

@@ -43,11 +43,14 @@ python train.py --data_dir ../input/data/train/images --model_dir ./model_select
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB4 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB4'
 
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet121 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet121'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet161 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet161'
 
 ### 승희 denset 실험
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet161 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet161'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet169 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet169'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet201 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet201'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet161 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet161 --patience_limit 5
+
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet169 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet169' --patience_limit 5
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet201 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet201' --patience_limit 5
 
 ### 승희 vgg실험
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model Vgg16 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'Vgg16'

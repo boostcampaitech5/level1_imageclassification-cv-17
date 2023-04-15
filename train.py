@@ -303,6 +303,7 @@ def train(data_dir, model_dir, args):
             logger.add_figure("results", figure, epoch)
             
             # early stop
+            print('early stopping patience', patience_check)
             if val_loss > best_loss: # loss가 개선되지 않은 경우
                 patience_check += 1
                 if patience_check >= patience_limit: # early stopping 조건 만족 시 조기 종료

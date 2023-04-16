@@ -313,7 +313,7 @@ def train(data_dir, model_dir, args):
             print()
     
     # ---- making submission ----
-    submission(model, save_dir=save_dir, submission_name = arg.submission_name)
+    submission(model, save_dir=save_dir)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -323,7 +323,7 @@ if __name__ == '__main__':
     parser.add_argument('--epochs', type=int, default=10, help='number of epochs to train (default: 10)')
     parser.add_argument('--dataset', type=str, default='MaskBaseDataset', help='dataset augmentation type (default: MaskBaseDataset)')
     parser.add_argument('--augmentation', type=str, default='BaseAugmentation', help='data augmentation type (default: BaseAugmentation)')
-    parser.add_argument("--resize", nargs="+", type=list, default=[128, 96], help='resize size for image when training')
+    parser.add_argument("--resize", nargs="+", type=int, default=[128, 96], help='resize size for image when training')
     parser.add_argument('--batch_size', type=int, default=64, help='input batch size for training (default: 64)')
     parser.add_argument('--valid_batch_size', type=int, default=64, help='input batch size for validing (default: 64)')
     parser.add_argument('--model', type=str, default='BaseModel', help='model type (default: BaseModel)')
@@ -340,7 +340,7 @@ if __name__ == '__main__':
     parser.add_argument('--model_dir', type=str, default=os.environ.get('SM_MODEL_DIR', './model'))
     parser.add_argument('--freeze', type=bool, default=False, help='model freeze (default: False)')
     parser.add_argument('--patience_limit', type=int, default=3, help='early stopping patience_limit (default: 3)')
-    parser.add_argument('--submission_name', type=str, default='submission', help='submission name (default: submission)')
+#     parser.add_argument('--submission_name', type=str, default='submission', help='submission name (default: submission)')
 
 
     args = parser.parse_args()

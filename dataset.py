@@ -73,7 +73,10 @@ class CustomAugmentation:
 class NoAugmentation:
     def __init__(self, resize=(512, 384), mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2), **args):
         self.transform = Compose([
-            Resize(resize[0], resize[1], p=1.0))
+            Resize(resize[0], resize[1]),
+            Normalize(mean=mean, std=std, max_pixel_value=255.0, p=1.0),
+            ToTensorV2(p=1.0),
+            ], p=1.0)
 
     def __call__(self, image):
         return self.transform(image)

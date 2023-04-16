@@ -130,8 +130,6 @@ def train(data_dir, model_dir, args):
     scheduler : StepLR은 일정한 스텝(step)마다 학습률을 감소시키는 스케줄러
                 args.lr_decay_step은 학습률 감소 스텝의 크기를 나타내며,
                 gamma는 감소 비율을 나타냄
-
-
     '''
     seed_everything(args.seed)
 

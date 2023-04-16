@@ -10,6 +10,9 @@ from PIL import Image
 from torch.utils.data import Dataset, Subset, random_split
 from torchvision.transforms import Resize, ToTensor, Normalize, Compose, CenterCrop, ColorJitter
 
+from albumentations import *
+from albumentations.pytorch import ToTensorV2
+
 IMG_EXTENSIONS = [
     ".jpg", ".JPG", ".jpeg", ".JPEG", ".png",
     ".PNG", ".ppm", ".PPM", ".bmp", ".BMP",
@@ -66,7 +69,31 @@ class CustomAugmentation:
 
     def __call__(self, image):
         return self.transform(image)
+    
+class NoAugmentation:
+    def __init__(self, resize=(512, 384), mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2), **args):
+        self.transform = Compose([
+            Resize(resize[0], resize[1], p=1.0))
 
+    def __call__(self, image):
+        return self.transform(image)
+    
+
+class YongAugmentation:
+    def __init__(self, resize=(512, 384), mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2), **args):
+        self.transform = Compose([
+            Resize(resize[0], resize[1], p=1.0),
+            HorizontalFlip(p=0.5),
+            ShiftScaleRotate(p=0.5),
+            HueSaturationValue(hue_shift_limit=0.2, sat_shift_limit=0.2, val_shift_limit=0.2, p=0.5),
+            RandomBrightnessContrast(brightness_limit=(-0.1, 0.1), contrast_limit=(-0.1, 0.1), p=0.5),
+            GaussNoise(p=0.5),
+            Normalize(mean=mean, std=std, max_pixel_value=255.0, p=1.0),
+            ToTensorV2(p=1.0),
+        ], p=1.0)
+
+    def __call__(self, image):
+        return self.transform(image)
 
 class MaskLabels(int, Enum):
     MASK = 0

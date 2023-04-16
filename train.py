@@ -18,12 +18,13 @@ from torch.utils.tensorboard import SummaryWriter
 from torchvision import transforms
 from torchvision.transforms import Resize, ToTensor, Normalize
 from PIL import Image
+import wandb
 
 from dataset import MaskBaseDataset # dataset.py
 from dataset import TestDataset
 from loss import create_criterion # loss.py
 from f1score import get_F1_Score # f1score.py
-from submission import submission
+from submission import submission # submission.py
 
 
 def seed_everything(seed):
@@ -110,6 +111,28 @@ def increment_path(path, exist_ok=False):
         i = [int(m.groups()[0]) for m in matches if m]
         n = max(i) + 1 if i else 2
         return f"{path}{n}"
+    
+def wandb_config(args):
+    config_dict  = {'seed'         : args.seed,
+                    'epochs'       : args.epochs,
+                    'dataset'      : args.dataset,
+                    'augmentation' : args.augmentation,
+                    'resize'       : args.resize,
+                    'batch_size'   : args.batch_size,
+                    'valid_batch_size' : args.valid_batch_size,
+                    'model'            : args.model,
+                    'optimizer'        : args.optimizer,
+                    'lr'               : args.lr,
+                    'val_ratio'        : args.val_ratio,
+                    'criterion'        : args.criterion,
+                    'lr_decay_step'    : args.lr_decay_step,
+                    'log_interval'     : args.log_interval,
+                    'name'             : args.name,
+                    'model_dir'        : args.model_dir,
+                    'freeze'           : args.freeze,
+                    'patience_limit'   : args.patience_limit}
+    return config_dict
+   
 
 
 def train(data_dir, model_dir, args):
@@ -202,6 +225,10 @@ def train(data_dir, model_dir, args):
     with open(os.path.join(save_dir, 'config.json'), 'w', encoding='utf-8') as f:
         json.dump(vars(args), f, ensure_ascii=False, indent=4)
 
+    # wandb log
+    wandb.init(project = "Mask_Classification", sync_tensorboard=True, config = wandb_config(args))
+    wandb.run.name = args.exp_name
+
     ## ---- starting train ----
     best_val_acc = 0
     best_val_loss = np.inf
@@ -243,9 +270,9 @@ def train(data_dir, model_dir, args):
                     f"Epoch[{epoch+1}/{args.epochs}]({idx + 1}/{len(train_loader)}) || "
                     f"training loss {train_loss:4.4} || training accuracy {train_acc:4.2%} || lr {current_lr}"
                 )
-                logger.add_scalar("Train/loss", train_loss, epoch * len(train_loader) + idx)
-                logger.add_scalar("Train/accuracy", train_acc, epoch * len(train_loader) + idx)
-
+#                 logger.add_scalar("Train/loss", train_loss, epoch * len(train_loader) + idx)
+#                 logger.add_scalar("Train/accuracy", train_acc, epoch * len(train_loader) + idx)
+                wandb.log({"train acc": train_acc, "train loss": train_loss}, step = epoch)
                 loss_value = 0
                 matches = 0
 
@@ -284,6 +311,7 @@ def train(data_dir, model_dir, args):
             val_acc = np.sum(val_acc_items) / len(val_set)
             best_val_loss = min(best_val_loss, val_loss)
             
+            
             ## 최고 val acc 모델 갱신
             if val_acc > best_val_acc:
                 print(f"New best model for val accuracy : {val_acc:4.2%}! saving the best model..")
@@ -295,9 +323,10 @@ def train(data_dir, model_dir, args):
                 f"best acc : {best_val_acc:4.2%}, best loss: {best_val_loss:4.2} || "
                 f"f1 score : {valid_f1_score.get_score :4.2}"
             )
-            logger.add_scalar("Val/loss", val_loss, epoch)
-            logger.add_scalar("Val/accuracy", val_acc, epoch)
-            logger.add_figure("results", figure, epoch)
+#             logger.add_scalar("Val/loss", val_loss, epoch)
+#             logger.add_scalar("Val/accuracy", val_acc, epoch)
+#             logger.add_figure("results", figure, epoch)
+            wandb.log({"valid acc": val_acc, "valid loss": val_loss, 'valid_f1_score' : valid_f1_score},step = epoch)
             
             # early stop
             if val_loss > best_loss: # loss가 개선되지 않은 경우
@@ -341,6 +370,7 @@ if __name__ == '__main__':
     parser.add_argument('--freeze', type=bool, default=False, help='model freeze (default: False)')
     parser.add_argument('--patience_limit', type=int, default=3, help='early stopping patience_limit (default: 3)')
 #     parser.add_argument('--submission_name', type=str, default='submission', help='submission name (default: submission)')
+    parser.add_argument('--exp_name', type=str, default='exp', help='wandb exp name (default: exp)')
 
 
     args = parser.parse_args()

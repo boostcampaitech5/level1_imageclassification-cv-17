@@ -10,7 +10,7 @@ from PIL import Image
 from torch.utils.data import Dataset, Subset, random_split
 from torchvision.transforms import Resize, ToTensor, Normalize, Compose, CenterCrop, ColorJitter
 
-from albumentations import *
+import albumentations as A
 from albumentations.pytorch import ToTensorV2
 
 IMG_EXTENSIONS = [
@@ -69,49 +69,48 @@ class CustomAugmentation:
 
     def __call__(self, image):
         return self.transform(image)
-    
+
 class NoAugmentation:
-    def __init__(self, resize=(512, 384), mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2), **args):
-        self.transform = Compose([
-            Resize(resize[0], resize[1]),
+    def __init__(self, resize, mean, std, **args):
+        self.transform = A.Compose([
+            Resize(resize),
             Normalize(mean=mean, std=std, max_pixel_value=255.0, p=1.0),
             ToTensorV2(p=1.0),
-            ], p=1.0)
-
-    def __call__(self, image):
-        return self.transform(image)
-    
-
-class YongAugmentation:
-    def __init__(self, resize=(512, 384), mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2), **args):
-        self.transform = Compose([
-            Resize(resize[0], resize[1], p=1.0),
-            HorizontalFlip(p=0.5),
-            ShiftScaleRotate(p=0.5),
-            HueSaturationValue(hue_shift_limit=0.2, sat_shift_limit=0.2, val_shift_limit=0.2, p=0.5),
-            RandomBrightnessContrast(brightness_limit=(-0.1, 0.1), contrast_limit=(-0.1, 0.1), p=0.5),
-            GaussNoise(p=0.5),
-            Normalize(mean=mean, std=std, max_pixel_value=255.0, p=1.0),
-            ToTensorV2(p=1.0),
-        ], p=1.0)
+        ])
 
     def __call__(self, image):
         return self.transform(image)
 
-class ticketAugmentation:
-    def __init__(self, resize=(512, 384), mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2), **args):
-        self.transform = Compose([
-            Resize(resize[0], resize[1]),
-            HorizontalFlip(),
-            Crop(x_min=100,y_min=100,x_max=300,y_max=400),
-            RandomBrightnessContrast(brightness_limit=(-0.5, 0.5), contrast_limit=0, p=1),
-            GaussNoise(p=0.5,var_limit=(100,200)),
-            Normalize(mean=mean, std=std, max_pixel_value=255.0, p=1.0),
-            ToTensorV2(p=1.0)
-        ],p=1.0)
+# class YongAugmentation:
+#     def __init__(self, resize=(512, 384), mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2), **args):
+#         self.transform = Compose([
+#             Resize(resize[0], resize[1], p=1.0),
+#             HorizontalFlip(p=0.5),
+#             ShiftScaleRotate(p=0.5),
+#             HueSaturationValue(hue_shift_limit=0.2, sat_shift_limit=0.2, val_shift_limit=0.2, p=0.5),
+#             RandomBrightnessContrast(brightness_limit=(-0.1, 0.1), contrast_limit=(-0.1, 0.1), p=0.5),
+#             GaussNoise(p=0.5),
+#             Normalize(mean=mean, std=std, max_pixel_value=255.0, p=1.0),
+#             ToTensorV2(p=1.0),
+#         ], p=1.0)
 
-    def __call__(self, image):
-        return self.transform(image)
+#     def __call__(self, image):
+#         return self.transform(image)
+
+# class ticketAugmentation:
+#     def __init__(self, resize=(512, 384), mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2), **args):
+#         self.transform = Compose([
+#             Resize(resize[0], resize[1]),
+#             HorizontalFlip(),
+#             Crop(x_min=100,y_min=100,x_max=300,y_max=400),
+#             RandomBrightnessContrast(brightness_limit=(-0.5, 0.5), contrast_limit=0, p=1),
+#             GaussNoise(p=0.5,var_limit=(100,200)),
+#             Normalize(mean=mean, std=std, max_pixel_value=255.0, p=1.0),
+#             ToTensorV2(p=1.0)
+#         ],p=1.0)
+
+#     def __call__(self, image):
+#         return self.transform(image)
 
 #### Dataset ####
 class MaskLabels(int, Enum):

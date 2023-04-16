@@ -9,7 +9,7 @@ id : shee6185
 pw : 5f4efc744a076b7cd977f846cfe1c89c21858a9c
 
 # 주피터 터미널에서 모델 돌리는 방법 안내 by sh
-예시)
+trian.py 예시)
     # 이미지 경로 & 실험 결과 저장할 폴더명
     python train.py --data_dir {image경로} --model_dir {실험결과폴더명}
     python train.py --data_dir ../input/data/train/images --model_dir ./runs
@@ -21,38 +21,16 @@ pw : 5f4efc744a076b7cd977f846cfe1c89c21858a9c
     python train.py --data_dir ../input/data/train/images --model_dir ./model --model_comparison EfficientNetB4 --epochs 1
     
     
-## 23.04.14 실험
-### model_comparison : 승희 완료
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB3 --epochs 20 --batch_size 128 --valid_batch_size 128 --name
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB4 --epochs 20 --batch_size 128 --valid_batch_size 128
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB5 --epochs 20 --batch_size 128 --valid_batch_size 128
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model vgg19 --epochs 20 --batch_size 128 --valid_batch_size 128
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnet34 --epochs 20 --batch_size 128 --valid_batch_size 128
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnext50_32x4d --epochs 20 --batch_size 128 --valid_batch_size 128
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnext101_32x8d --epochs 20 --batch_size 128 --valid_batch_size 128
+    ## 윤표 2위 실험 재현
+    python train.py --data_dir ../input/data/train/images --model_dir ./redo_ticket_rank2 --model ResNet34_init --epochs 20 --name 'redo_ticket_rank2' --resize 512 384 --augmentation 'YoonpyoAugmentation' --seed 111
 
-## model_select : 승희 완료 - res, 
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet50 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet50'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet101 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet101'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet152 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet152'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNext50 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNext50'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNext101_8d --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNext101_8d'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model WideResNet50 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'WideResNet50'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model WideResNet101 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'WideResNet101'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet34 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet34'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet34 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet34_2' --patience_limit 5
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet34_init --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet34_init'
+    python train.py --data_dir ../input/data/train/images --model_dir ./redo_ticket_rank2 --model ResNet34_init --epochs 20 --name 'redo_ticket_rank2' --resize 512 384 --seed 111
 
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB3 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB3'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB4 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB4'
 
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet121 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet121'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet161 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet161'
+    ## 완디비 테스트 : exp_name 완디비 실험 명칭
+    python train.py --data_dir ../input/data/train/images --model_dir ./wandb_test --model ResNet34_init --epochs 5 --name 'wandb_test' --resize 512 384 --augmentation 'YoonpyoAugmentation' --seed 111 --exp_name 'test_wandb2'
 
-## 윤표 2위 실험 재현
-python train.py --data_dir ../input/data/train/images --model_dir ./redo_ticket_rank2 --model ResNet34_init --epochs 20 --name 'redo_ticket_rank2' --resize 512 384 --augmentation 'YoonpyoAugmentation' --seed 111
 
-python train.py --data_dir ../input/data/train/images --model_dir ./redo_ticket_rank2 --model ResNet34_init --epochs 20 --name 'redo_ticket_rank2' --resize 512 384 --seed 111
-
-## 완디비 테스트
-python train-wandb.py --data_dir ../input/data/train/images --model_dir ./wandb_test --model ResNet34_init --epochs 5 --name 'wandb_test' --resize 512 384 --augmentation 'YoonpyoAugmentation' --seed 111 --exp_name 'test_wandb2'
+inference.py 예시)
+    # inference 작동코드 : model_dir - best.pth 위치, output_dir : output.csv 저장위치
+    python inference.py --model ResNet34_init --data_dir ../input/data/eval --model_dir ./wandb_test/wandb_test7 --output_dir ./wandb_test/wandb_test7 --batch_size 64

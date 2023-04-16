@@ -4,6 +4,10 @@ $ pip install –r requirements.txt
 # 설치된 패키지 목록 확인 
 $ pip freeze
 
+# 완디비 승희 계정으로 로그인하기
+id : shee6185
+pw : 5f4efc744a076b7cd977f846cfe1c89c21858a9c
+
 # 주피터 터미널에서 모델 돌리는 방법 안내 by sh
 예시)
     # 이미지 경로 & 실험 결과 저장할 폴더명
@@ -45,41 +49,10 @@ python train.py --data_dir ../input/data/train/images --model_dir ./model_select
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet121 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet121'
 python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet161 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet161'
 
-### 승희 denset 실험
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet161 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet161 --patience_limit 5
+## 윤표 2위 실험 재현
+python train.py --data_dir ../input/data/train/images --model_dir ./redo_ticket_rank2 --model ResNet34_init --epochs 20 --name 'redo_ticket_rank2' --resize 512 384 --augmentation 'YoonpyoAugmentation' --seed 111
 
+python train.py --data_dir ../input/data/train/images --model_dir ./redo_ticket_rank2 --model ResNet34_init --epochs 20 --name 'redo_ticket_rank2' --resize 512 384 --seed 111
 
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet169 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet169' --patience_limit 5
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet201 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet201' --patience_limit 5
-
-### 승희 vgg실험
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model Vgg16 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'Vgg16'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model Vgg16_bn --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'Vgg16_bn'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model Vgg19 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'Vgg19'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model Vgg19_bn --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'Vgg19_bn'
-
-
-### 승희 efficientnet 실험
-
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB5 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB5'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB6 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB6'
-python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB7 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB7'
-
-
-## --dataset MaskSplitByProfileDataset
-
-
-## cross_entropy 버전
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB3 --epochs 20 --batch_size 128 --valid_batch_size 128 --criterion cross_entropy
-
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB4 --epochs 20 --batch_size 128 --valid_batch_size 128 --criterion cross_entropy
-
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB5 --epochs 20 --batch_size 128 --valid_batch_size 128 --criterion cross_entropy
-
-python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model vgg19 --epochs 20 --batch_size 128 --valid_batch_size 128 --criterion cross_entropy
-
-
-
-
-
-
+## 완디비 테스트
+python train-wandb.py --data_dir ../input/data/train/images --model_dir ./wandb_test --model ResNet34_init --epochs 5 --name 'wandb_test' --resize 512 384 --augmentation 'YoonpyoAugmentation' --seed 111 --exp_name 'test_wandb2'

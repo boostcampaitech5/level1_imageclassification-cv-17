@@ -7,7 +7,7 @@ import pandas as pd
 import torch
 from torch.utils.data import DataLoader
 
-from dataset import TestDataset, MaskBaseDataset
+from dataset import inference_TestDataset, MaskBaseDataset
 
 
 def load_model(saved_model, num_classes, device):
@@ -89,11 +89,11 @@ def inference(data_dir, model_dir, output_dir, args):
     info = pd.read_csv(info_path)
 
     img_paths = [os.path.join(img_root, img_id) for img_id in info.ImageID]
-    dataset = TestDataset(img_paths, args.resize)
+    dataset = inference_TestDataset(img_paths, args.resize)
     loader = torch.utils.data.DataLoader(
         dataset,
         batch_size=args.batch_size,
-        num_workers=multiprocessing.cpu_count() // 2,
+#         num_workers=multiprocessing.cpu_count() // 2,
         shuffle=False,
         pin_memory=use_cuda,
         drop_last=False,
@@ -132,7 +132,7 @@ if __name__ == '__main__':
 
     # Data and model checkpoints directories
     parser.add_argument('--batch_size', type=int, default=1000, help='input batch size for validing (default: 1000)')
-    parser.add_argument('--resize', type=tuple, default=(96, 128), help='resize size for image when you trained (default: (96, 128))')
+    parser.add_argument('--resize', nargs="+", type=tuple, default=(512, 384), help='resize size for image when you trained (default: (512, 384))')
     parser.add_argument('--model', type=str, default='BaseModel', help='model type (default: BaseModel)')
 
     # Container environment
@@ -148,4 +148,4 @@ if __name__ == '__main__':
 
     os.makedirs(output_dir, exist_ok=True)
 
-    inference(data_dir, model_dir, output_dir, args)
+    inference(data_dir, model_dir, output_dir, args) # model_dir -> load_model(saved_model 

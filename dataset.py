@@ -10,8 +10,8 @@ from PIL import Image
 from torch.utils.data import Dataset, Subset, random_split
 from torchvision.transforms import Resize, ToTensor, Normalize, Compose, CenterCrop, ColorJitter
 
-import albumentations as A
-from albumentations.pytorch import ToTensorV2
+# import albumentations as A
+# from albumentations.pytorch import ToTensorV2
 
 IMG_EXTENSIONS = [
     ".jpg", ".JPG", ".jpeg", ".JPEG", ".png",
@@ -70,12 +70,13 @@ class CustomAugmentation:
     def __call__(self, image):
         return self.transform(image)
 
-class NoAugmentation:
+class YoonpyoAugmentation:
     def __init__(self, resize, mean, std, **args):
-        self.transform = A.Compose([
-            Resize(resize),
-            Normalize(mean=mean, std=std, max_pixel_value=255.0, p=1.0),
-            ToTensorV2(p=1.0),
+        self.transform = Compose([
+            Resize(resize, Image.BILINEAR),
+            CenterCrop((380,380)),
+            ToTensor(),
+            Normalize(mean=mean, std=std)
         ])
 
     def __call__(self, image):

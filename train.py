@@ -226,7 +226,7 @@ def train(data_dir, model_dir, args):
         json.dump(vars(args), f, ensure_ascii=False, indent=4)
 
     # wandb log
-    wandb.init(project = "Mask_Classification", sync_tensorboard=True, config = wandb_config(args))
+    wandb.init(project = "Mask_Classification", config = wandb_config(args))
     wandb.run.name = args.exp_name
 
     ## ---- starting train ----

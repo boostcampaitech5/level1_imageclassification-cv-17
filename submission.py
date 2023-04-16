@@ -12,7 +12,7 @@ from torchvision.transforms import Resize, ToTensor, Normalize
 
 from dataset import TestDataset
 
-def submission(model, save_dir, submission_name):
+def submission(model, save_dir):
     print("test inference started!")
     # 테스트 데이터셋 폴더 경로를 지정해주세요.
     test_dir = '/opt/ml/input/data/eval'
@@ -50,5 +50,5 @@ def submission(model, save_dir, submission_name):
     submission['ans'] = all_predictions
 
     # 제출할 파일을 저장합니다.
-    submission.to_csv(os.path.join(save_dir, f'{submission_name}.csv'), index=False)
+    submission.to_csv(os.path.join(save_dir, 'submission.csv'), index=False)
     print('test inference is done!')

@@ -18,6 +18,7 @@ from torch.utils.tensorboard import SummaryWriter
 from torchvision import transforms
 from torchvision.transforms import Resize, ToTensor, Normalize
 from PIL import Image
+import seaborn as sns
 
 from dataset import MaskBaseDataset # dataset.py
 from dataset import TestDataset
@@ -130,7 +131,6 @@ def wandb_config(args):
                     'log_interval'     : args.log_interval,
                     'name'             : args.name,
                     'model_dir'        : args.model_dir,
-                    'freeze'           : args.freeze,
                     'patience_limit'   : args.patience_limit}
     return config_dict
 
@@ -339,9 +339,10 @@ def train(data_dir, model_dir, args):
             else: # loss가 개선된 경우 계속 진행
                 best_loss = val_loss
                 patience_check = 0
+                best_cm=valid_f1_score.get_cm
             print('early stopping patience', patience_check)
             print()
-            
+    print(best_cm)
     wandb.finish()
     
     # ---- making submission or inference ----

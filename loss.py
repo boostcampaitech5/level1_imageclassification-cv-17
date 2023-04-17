@@ -2,6 +2,19 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+class CrossEntropyLossWithLabelSmoothing(nn.Module):
+    def __init__(self, smoothing=0.1):
+        super().__init__()
+        self.smoothing = smoothing
+        
+    def forward(self, input, target):
+        log_prob = F.log_softmax(input, dim=-1)
+        nll_loss = -log_prob.gather(dim=-1, index=target.unsqueeze(1))
+        nll_loss = nll_loss.squeeze(1)
+        smooth_loss = -log_prob.mean(dim=-1)
+        loss = (1 - self.smoothing) * nll_loss + self.smoothing * smooth_loss
+        return loss.mean()
+    
 
 # https://discuss.pytorch.org/t/is-this-a-correct-implementation-for-focal-loss-in-pytorch/43327/8
 class FocalLoss(nn.Module):

@@ -2,18 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class CrossEntropyLossWithLabelSmoothing(nn.Module):
-    def __init__(self, smoothing=0.1):
-        super().__init__()
-        self.smoothing = smoothing
-        
-    def forward(self, input, target):
-        log_prob = F.log_softmax(input, dim=-1)
-        nll_loss = -log_prob.gather(dim=-1, index=target.unsqueeze(1))
-        nll_loss = nll_loss.squeeze(1)
-        smooth_loss = -log_prob.mean(dim=-1)
-        loss = (1 - self.smoothing) * nll_loss + self.smoothing * smooth_loss
-        return loss.mean()
+
     
 
 # https://discuss.pytorch.org/t/is-this-a-correct-implementation-for-focal-loss-in-pytorch/43327/8
@@ -79,7 +68,7 @@ class LabelSmoothingLoss(nn.Module):
                이후 true_dist와 pred의 원소별 곱의 합을 평균하여 반환합니다.
 
     '''
-    def __init__(self, classes=3, smoothing=0.0, dim=-1):
+    def __init__(self, classes=3, smoothing=0.01, dim=-1):
         super(LabelSmoothingLoss, self).__init__()
         self.confidence = 1.0 - smoothing
         self.smoothing = smoothing
@@ -94,6 +83,18 @@ class LabelSmoothingLoss(nn.Module):
             true_dist.scatter_(1, target.data.unsqueeze(1), self.confidence)
         return torch.mean(torch.sum(-true_dist * pred, dim=self.dim))
 
+class CrossEntropyLossWithLabelSmoothing(nn.Module):
+    def __init__(self, smoothing=0.1):
+        super().__init__()
+        self.smoothing = smoothing
+        
+    def forward(self, input, target):
+        log_prob = F.log_softmax(input, dim=-1)
+        nll_loss = -log_prob.gather(dim=-1, index=target.unsqueeze(1))
+        nll_loss = nll_loss.squeeze(1)
+        smooth_loss = -log_prob.mean(dim=-1)
+        loss = (1 - self.smoothing) * nll_loss + self.smoothing * smooth_loss
+        return loss.mean()
 
 # https://gist.github.com/SuperShinyEyes/dcc68a08ff8b615442e3bc6a9b55a354
 class F1Loss(nn.Module):
@@ -144,7 +145,8 @@ _criterion_entrypoints = {
     'focal': FocalLoss,
     'focal_ce': FocalLoss_ce,
     'label_smoothing': LabelSmoothingLoss,
-    'f1': F1Loss
+    'f1': F1Loss,
+    'cross_labelsmooth': CrossEntropyLossWithLabelSmoothing
 }
 
 

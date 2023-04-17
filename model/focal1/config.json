@@ -1,0 +1,24 @@
+{
+    "seed": 42,
+    "epochs": 20,
+    "dataset": "MaskBaseDataset",
+    "augmentation": "YoonpyoAugmentation",
+    "resize": [
+        512,
+        384
+    ],
+    "batch_size": 64,
+    "valid_batch_size": 64,
+    "model": "ResNet34_init",
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "val_ratio": 0.2,
+    "criterion": "focal",
+    "lr_decay_step": 20,
+    "log_interval": 20,
+    "name": "focal1",
+    "data_dir": "../input/data/train/images",
+    "model_dir": "./model",
+    "freeze": false,
+    "patience_limit": 3
+}

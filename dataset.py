@@ -381,17 +381,17 @@ class TestDataset(Dataset):
     def __len__(self):
         return len(self.img_paths)
 
-# class TestDataset(Dataset):
-#     def __init__(self, img_paths, transform):
-#         self.img_paths = img_paths
-#         self.transform = transform
+class SM_TestDataset(Dataset):
+    def __init__(self, img_paths, transform):
+        self.img_paths = img_paths
+        self.transform = transform
 
-#     def __getitem__(self, index):
-#         image = Image.open(self.img_paths[index])
+    def __getitem__(self, index):
+        image = Image.open(self.img_paths[index])
 
-#         if self.transform:
-#             image = self.transform(image)
-#         return image
+        if self.transform:
+            image = self.transform(image)
+        return image
 
-#     def __len__(self):
-#         return len(self.img_paths)
+    def __len__(self):
+        return len(self.img_paths)

@@ -1,0 +1,82 @@
+# 패키지 목록 설치
+$ pip install –r requirements.txt
+
+# 설치된 패키지 목록 확인 
+$ pip freeze
+
+# 주피터 터미널에서 모델 돌리는 방법 안내 by sh
+예시)
+    # 이미지 경로 & 실험 결과 저장할 폴더명
+    python train.py --data_dir {image경로} --model_dir {실험결과폴더명}
+    python train.py --data_dir ../input/data/train/images --model_dir ./runs
+    
+    ## epochs & patience_limit 추가
+    python train.py --data_dir ../input/data/train/images --model_dir ./model_test --model EfficientNetB4 --epochs 10 --patience_limit 1
+
+    # 실험 결과 저장할 폴더명 & 모델만 지정
+    python train.py --data_dir ../input/data/train/images --model_dir ./model --model_comparison EfficientNetB4 --epochs 1
+    
+    
+## 23.04.14 실험
+### model_comparison : 승희 완료
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB3 --epochs 20 --batch_size 128 --valid_batch_size 128 --name
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB4 --epochs 20 --batch_size 128 --valid_batch_size 128
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB5 --epochs 20 --batch_size 128 --valid_batch_size 128
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model vgg19 --epochs 20 --batch_size 128 --valid_batch_size 128
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnet34 --epochs 20 --batch_size 128 --valid_batch_size 128
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnext50_32x4d --epochs 20 --batch_size 128 --valid_batch_size 128
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model resnext101_32x8d --epochs 20 --batch_size 128 --valid_batch_size 128
+
+## model_select : 승희 완료 - res, 
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet50 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet50'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet101 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet101'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet152 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet152'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNext50 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNext50'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNext101_8d --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNext101_8d'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model WideResNet50 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'WideResNet50'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model WideResNet101 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'WideResNet101'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet34 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet34'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet34 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet34_2' --patience_limit 5
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model ResNet34_init --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'ResNet34_init'
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB3 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB3'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB4 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB4'
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet121 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet121'
+
+### 승희 denset 실험
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet161 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet161'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet169 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet169'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model DenseNet201 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'DenseNet201'
+
+### 승희 vgg실험
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model Vgg16 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'Vgg16'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model Vgg16_bn --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'Vgg16_bn'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model Vgg19 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'Vgg19'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model Vgg19_bn --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'Vgg19_bn'
+
+
+### 승희 efficientnet 실험
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB5 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB5'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB6 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB6'
+python train.py --data_dir ../input/data/train/images --model_dir ./model_select --model EfficientNetB7 --epochs 20 --batch_size 128 --valid_batch_size 128 --name 'EfficientNetB7'
+
+
+## --dataset MaskSplitByProfileDataset
+
+
+## cross_entropy 버전
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB3 --epochs 20 --batch_size 128 --valid_batch_size 128 --criterion cross_entropy
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB4 --epochs 20 --batch_size 128 --valid_batch_size 128 --criterion cross_entropy
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model EfficientNetB5 --epochs 20 --batch_size 128 --valid_batch_size 128 --criterion cross_entropy
+
+python train.py --data_dir ../input/data/train/images --model_dir ./model_comparison --model vgg19 --epochs 20 --batch_size 128 --valid_batch_size 128 --criterion cross_entropy
+
+
+
+
+
+

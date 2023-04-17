@@ -163,18 +163,19 @@ def train(data_dir, model_dir, args):
     train_loader = DataLoader(
         train_set,
         batch_size=args.batch_size,
-        num_workers=multiprocessing.cpu_count() // 2,
+        num_workers=4,
         shuffle=True,
-        pin_memory=use_cuda,
+#         pin_memory=use_cuda,
         drop_last=True,
     )
 
     val_loader = DataLoader(
         val_set,
         batch_size=args.valid_batch_size,
-        num_workers=multiprocessing.cpu_count() // 2,
+        num_workers=4,
+#         num_workers=multiprocessing.cpu_count() // 2,
         shuffle=False,
-        pin_memory=use_cuda,
+#         pin_memory=use_cuda,
         drop_last=True,
     )
 
@@ -193,17 +194,17 @@ def train(data_dir, model_dir, args):
     criterion = create_criterion(args.criterion)  # default: cross_entropy
     opt_module = getattr(import_module("torch.optim"), args.optimizer)  # default: SGD
     optimizer = opt_module(
-        filter(lambda p: p.requires_grad, model.parameters()),
+#         filter(lambda p: p.requires_grad, model.parameters()),
+        model.parameters(),
         lr=args.lr,
-        weight_decay=5e-4
+#         weight_decay=5e-4
     )
     scheduler = StepLR(optimizer, args.lr_decay_step, gamma=0.5)
-
-    # -- logging
+    
+    
     logger = SummaryWriter(log_dir=save_dir)
     with open(os.path.join(save_dir, 'config.json'), 'w', encoding='utf-8') as f:
         json.dump(vars(args), f, ensure_ascii=False, indent=4)
-
     ## ---- starting train ----
     best_val_acc = 0
     best_val_loss = np.inf
@@ -221,10 +222,8 @@ def train(data_dir, model_dir, args):
         matches = 0
         valid_f1_score = get_F1_Score()
         
-        for idx, train_batch in enumerate(train_loader):
-            inputs, labels = train_batch
-            inputs = inputs.to(device)
-            labels = labels.to(device)
+        for idx, (inputs,labels) in enumerate(train_loader):
+            inputs, labels = inputs.cuda(),labels.cuda()
 
             optimizer.zero_grad()
 
@@ -236,6 +235,7 @@ def train(data_dir, model_dir, args):
             optimizer.step()
 
             loss_value += loss.item()
+            
             matches += (preds == labels).sum().item()
             if (idx + 1) % args.log_interval == 0:
                 train_loss = loss_value / args.log_interval
@@ -245,13 +245,10 @@ def train(data_dir, model_dir, args):
                     f"Epoch[{epoch+1}/{args.epochs}]({idx + 1}/{len(train_loader)}) || "
                     f"training loss {train_loss:4.4} || training accuracy {train_acc:4.2%} || lr {current_lr}"
                 )
-                logger.add_scalar("Train/loss", train_loss, epoch * len(train_loader) + idx)
-                logger.add_scalar("Train/accuracy", train_acc, epoch * len(train_loader) + idx)
-
                 loss_value = 0
                 matches = 0
 
-        scheduler.step()
+#         scheduler.step()
 
         # val loop
         with torch.no_grad():
@@ -261,10 +258,8 @@ def train(data_dir, model_dir, args):
             val_acc_items = []
             figure = None
             
-            for val_batch in val_loader:
-                inputs, labels = val_batch
-                inputs = inputs.to(device)
-                labels = labels.to(device)
+            for inputs,labels in val_loader:
+                inputs, labels = inputs.cuda(),labels.cuda()
 
                 outs = model(inputs)
                 preds = torch.argmax(outs, dim=-1)
@@ -272,20 +267,29 @@ def train(data_dir, model_dir, args):
                 loss_item = criterion(outs, labels).item()
                 acc_item = (labels == preds).sum().item()
                 val_loss_items.append(loss_item)
-                val_acc_items.append(acc_item)
+                val_acc_items.append(acc_item)                
                 valid_f1_score.update(preds, labels)
-
-                if figure is None:
-                    inputs_np = torch.clone(inputs).detach().cpu().permute(0, 2, 3, 1).numpy()
-                    inputs_np = dataset_module.denormalize_image(inputs_np, dataset.mean, dataset.std)
-                    figure = grid_image(
-                        inputs_np, labels, preds, n=16, shuffle=args.dataset != "MaskSplitByProfileDataset"
-                    )
-
+                
             val_loss = np.sum(val_loss_items) / len(val_loader)
             val_acc = np.sum(val_acc_items) / len(val_set)
             best_val_loss = min(best_val_loss, val_loss)
+
+#                 if figure is None:
+#                     inputs_np = torch.clone(inputs).detach().cpu().permute(0, 2, 3, 1).numpy()
+#                     inputs_np = dataset_module.denormalize_image(inputs_np, dataset.mean, dataset.std)
+#                     figure = grid_image(
+#                         inputs_np, labels, preds, n=16, shuffle=args.dataset != "MaskSplitByProfileDataset"
             
+            # early stop
+            if val_loss > best_loss: # loss가 개선되지 않은 경우
+                patience_check += 1
+                if patience_check >= patience_limit:
+                    print("Early stopping")
+                    break
+            else: # loss가 개선된 경우 계속 진행
+                best_loss = val_loss
+                patience_check = 0
+                
             ## 최고 val acc 모델 갱신
             if val_acc > best_val_acc:
                 print(f"New best model for val accuracy : {val_acc:4.2%}! saving the best model..")
@@ -297,22 +301,6 @@ def train(data_dir, model_dir, args):
                 f"best acc : {best_val_acc:4.2%}, best loss: {best_val_loss:4.2} || "
                 f"f1 score : {valid_f1_score.get_score :4.2}"
             )
-            logger.add_scalar("Val/loss", val_loss, epoch)
-            logger.add_scalar("Val/accuracy", val_acc, epoch)
-            logger.add_figure("results", figure, epoch)
-            
-            # early stop
-            if val_loss > best_loss: # loss가 개선되지 않은 경우
-                patience_check += 1
-                if patience_check >= patience_limit: # early stopping 조건 만족 시 조기 종료
-                    print("Early stopping")
-                    break
-                    
-            else: # loss가 개선된 경우 계속 진행
-                best_loss = val_loss
-                patience_check = 0
-            print('early stopping patience', patience_check)
-            print()
     
     # ---- making submission ----
     submission(model, save_dir=save_dir)
@@ -322,10 +310,10 @@ if __name__ == '__main__':
 
     # Data and model checkpoints directories
     parser.add_argument('--seed', type=int, default=42, help='random seed (default: 42)')
-    parser.add_argument('--epochs', type=int, default=10, help='number of epochs to train (default: 10)')
+    parser.add_argument('--epochs', type=int, default=20, help='number of epochs to train (default: 10)')
     parser.add_argument('--dataset', type=str, default='MaskBaseDataset', help='dataset augmentation type (default: MaskBaseDataset)')
     parser.add_argument('--augmentation', type=str, default='BaseAugmentation', help='data augmentation type (default: BaseAugmentation)')
-    parser.add_argument("--resize", nargs="+", type=list, default=[128, 96], help='resize size for image when training')
+    parser.add_argument("--resize", nargs="+", type=list, default=(512,384), help='resize size for image when training')
     parser.add_argument('--batch_size', type=int, default=64, help='input batch size for training (default: 64)')
     parser.add_argument('--valid_batch_size', type=int, default=64, help='input batch size for validing (default: 64)')
     parser.add_argument('--model', type=str, default='BaseModel', help='model type (default: BaseModel)')

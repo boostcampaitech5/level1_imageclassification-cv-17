@@ -36,6 +36,18 @@ class FocalLoss(nn.Module):
             reduction=self.reduction
         )
 
+class FocalLoss2(nn.Module):
+    def __init__(self, gamma=2):
+        nn.Module.__init__(self)
+        self.gamma = gamma
+
+    def forward(self, input, target):
+        ce_loss = nn.CrossEntropyLoss()(input, target)
+        pt = torch.exp(-ce_loss)
+        focal_loss = ((1 - pt) ** self.gamma * ce_loss).mean()
+        
+        return focal_loss
+    
 
 class LabelSmoothingLoss(nn.Module):
     '''
@@ -117,6 +129,7 @@ class F1Loss(nn.Module):
 _criterion_entrypoints = {
     'cross_entropy': nn.CrossEntropyLoss,
     'focal': FocalLoss,
+    'focal2': FocalLoss2,
     'label_smoothing': LabelSmoothingLoss,
     'f1': F1Loss
 }

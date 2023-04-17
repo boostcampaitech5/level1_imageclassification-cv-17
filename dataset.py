@@ -9,6 +9,7 @@ import torch
 from PIL import Image
 from torch.utils.data import Dataset, Subset, random_split
 from torchvision.transforms import Resize, ToTensor, Normalize, Compose, CenterCrop, ColorJitter
+from torch.optim.lr_scheduler import StepLR
 
 IMG_EXTENSIONS = [
     ".jpg", ".JPG", ".jpeg", ".JPEG", ".png",
@@ -52,7 +53,6 @@ class AddGaussianNoise(object):
     def __repr__(self):
         return self.__class__.__name__ + '(mean={0}, std={1})'.format(self.mean, self.std)
 
-
 class CustomAugmentation:
     def __init__(self, resize, mean, std, **args):
         self.transform = Compose([
@@ -62,6 +62,18 @@ class CustomAugmentation:
             ToTensor(),
             Normalize(mean=mean, std=std),
             AddGaussianNoise()
+        ])
+
+    def __call__(self, image):
+        return self.transform(image)
+
+class YoonpyoAugmentation:
+    def __init__(self, resize, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), **args):
+        self.transform = Compose([
+            Resize(resize),
+            CenterCrop((380,380)),
+            ToTensor(),
+            Normalize(mean=mean, std=std)
         ])
 
     def __call__(self, image):
@@ -349,6 +361,25 @@ class MaskSplitByProfileDataset(MaskBaseDataset):
 
 #     def __len__(self):
 #         return len(self.img_paths)
+
+class inference_TestDataset(Dataset):
+    def __init__(self, img_paths, resize=(512, 384), mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246)):
+        self.img_paths = img_paths
+        self.transform = Compose([
+            Resize(resize, Image.BILINEAR),
+            ToTensor(),
+            Normalize(mean=mean, std=std),
+        ])
+
+    def __getitem__(self, index):
+        image = Image.open(self.img_paths[index])
+
+        if self.transform:
+            image = self.transform(image)
+        return image
+
+    def __len__(self):
+        return len(self.img_paths)
 
 class TestDataset(Dataset):
     def __init__(self, img_paths, transform):

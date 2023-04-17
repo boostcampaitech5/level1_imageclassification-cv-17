@@ -246,6 +246,7 @@ def train(data_dir, model_dir, args):
         loss_value = 0
         matches = 0
         valid_f1_score = get_F1_Score()
+        train_f1_score = get_F1_Score()
         
         for idx, (inputs,labels) in enumerate(train_loader):
             inputs, labels = inputs.cuda(),labels.cuda()
@@ -265,12 +266,13 @@ def train(data_dir, model_dir, args):
             if (idx + 1) % args.log_interval == 0:
                 train_loss = loss_value / args.log_interval
                 train_acc = matches / args.batch_size / args.log_interval
+                train_f1_score.update(preds, labels)
                 current_lr = get_lr(optimizer)
                 print(
                     f"Epoch[{epoch+1}/{args.epochs}]({idx + 1}/{len(train_loader)}) || "
-                    f"training loss {train_loss:4.4} || training accuracy {train_acc:4.2%} || lr {current_lr}"
+                    f"training loss {train_loss:4.4} || training accuracy {train_acc:4.2%} || train_f1_score {train_f1_score.get_score :4.2} || lr {current_lr}"
                 )
-                wandb.log({"train acc": train_acc, "train loss": train_loss}, step = epoch)
+                wandb.log({"train acc": train_acc, "train loss": train_loss, 'train_f1_score' : train_f1_score.get_score}, step = epoch)
                 loss_value = 0
                 matches = 0
 

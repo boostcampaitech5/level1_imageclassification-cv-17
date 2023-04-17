@@ -23,7 +23,8 @@ from dataset import MaskBaseDataset # dataset.py
 from dataset import TestDataset
 from loss import create_criterion # loss.py
 from f1score import get_F1_Score # f1score.py
-from submission import submission
+from submission import submission # submission.py
+from inference import inference # inference.py
 import wandb
 
 
@@ -340,9 +341,14 @@ def train(data_dir, model_dir, args):
                 patience_check = 0
             print('early stopping patience', patience_check)
             print()
+            
+    wandb.finish()
     
-    # ---- making submission ----
-    submission(model, save_dir=save_dir)
+    # ---- making submission or inference ----
+    if args.inference_make:
+        test_dir = '/opt/ml/input/data/eval'
+        inference(test_dir, save_dir, save_dir, args) # data_dir : test이미지셋
+#         submission(model, save_dir=save_dir)
 
 
 if __name__ == '__main__':
@@ -353,7 +359,7 @@ if __name__ == '__main__':
     parser.add_argument('--epochs', type=int, default=20, help='number of epochs to train (default: 10)')
     parser.add_argument('--dataset', type=str, default='MaskBaseDataset', help='dataset augmentation type (default: MaskBaseDataset)')
     parser.add_argument('--augmentation', type=str, default='BaseAugmentation', help='data augmentation type (default: BaseAugmentation)')
-    parser.add_argument("--resize", nargs="+", type=int, default=[512,384], help='resize size for image when training')
+    parser.add_argument("--resize", nargs="+", type=tuple, default=(512,384), help='resize size for image when training')
     parser.add_argument('--batch_size', type=int, default=64, help='input batch size for training (default: 64)')
     parser.add_argument('--valid_batch_size', type=int, default=64, help='input batch size for validing (default: 64)')
     parser.add_argument('--model', type=str, default='BaseModel', help='model type (default: BaseModel)')
@@ -371,7 +377,8 @@ if __name__ == '__main__':
     parser.add_argument('--freeze', type=bool, default=False, help='model freeze (default: False)')
     parser.add_argument('--patience_limit', type=int, default=3, help='early stopping patience_limit (default: 3)')
     parser.add_argument('--exp_name', type=str, default='exp', help='wandb exp name (default: exp)')
-
+    parser.add_argument('--inference_make', type=bool, default=False, help='inference make info (default : False)')
+    
     args = parser.parse_args()
     print(args)
 

@@ -115,7 +115,7 @@ class AgeLabels(int, Enum):
 
         if value < 30:
             return cls.YOUNG
-        elif value < 60: # or 59
+        elif value < 59: # 60 성능 저하
             return cls.MIDDLE
         else:
             return cls.OLD

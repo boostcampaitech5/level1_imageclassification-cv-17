@@ -79,6 +79,18 @@ class YoonpyoAugmentation:
     def __call__(self, image):
         return self.transform(image)
 
+class YoonpyoAugmentation_resize:
+    def __init__(self, resize, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), **args):
+        self.transform = Compose([
+            CenterCrop((380,380)),
+            Resize(resize),
+            ToTensor(),
+            Normalize(mean=mean, std=std)
+        ])
+
+    def __call__(self, image):
+        return self.transform(image)
+
 
 class MaskLabels(int, Enum):
     MASK = 0

@@ -30,3 +30,6 @@ python inference.py --model ResNet34_init --data_dir ../input/data/eval --model_
 python train.py --data_dir ../input/data/train/images --model_dir ./model --model ResNet34_init  --epochs 20 --augmentation 'YoonpyoAugmentation' --lr 1e-3 --patience_limit 3 --name 'focal1'
 <focal2>
 python train.py --data_dir ../input/data/train/images --model_dir ./model --model ResNet34_init  --epochs 20 --augmentation 'YoonpyoAugmentation' --lr 1e-3 --patience_limit 3 --criterion focal2 --name 'focal2'
+
+<바꿘 testdataset>
+python train.py --data_dir ../input/data/train/images --model_dir ./model --model ResNet34_init  --epochs 20 --augmentation 'YoonpyoAugmentation' --lr 1e-3 --patience_limit 3 --name 'change_testfunc'

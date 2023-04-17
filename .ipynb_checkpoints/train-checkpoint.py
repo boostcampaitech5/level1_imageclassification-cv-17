@@ -321,7 +321,11 @@ def train(data_dir, model_dir, args):
                 torch.save(model.module.state_dict(), f"{save_dir}/best.pth")
                 best_val_acc = val_acc
             torch.save(model.module.state_dict(), f"{save_dir}/last.pth")
-      wandb.log({"valid acc": val_acc, "valid loss": val_loss, 'valid_f1_score' : valid_f1_score},step = epoch)
+            print(
+                f"[Val] acc : {val_acc:4.2%}, loss: {val_loss:4.2} || "
+                f"best acc : {best_val_acc:4.2%}, best loss: {best_val_loss:4.2} || "
+                f"f1 score : {valid_f1_score.get_score :4.2}"
+            )
             wandb.log({"valid acc": val_acc, "valid loss": val_loss, 'valid_f1_score' : valid_f1_score.get_score},step = epoch)
             
             # early stop
@@ -340,104 +344,6 @@ def train(data_dir, model_dir, args):
     # ---- making submission ----
     submission(model, save_dir=save_dir)
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-
-    # Data and model checkpoints directories
-    parser.add_argument('--seed', type=int, default=42, help='random seed (default: 42)')
-    parser.add_argument('--epochs', type=int, default=10, help='number of epochs to train (default: 10)')
-    parser.add_argument('--dataset', type=str, default='MaskBaseDataset', help='dataset augmentation type (default: MaskBaseDataset)')
-    parser.add_argument('--augmentation', type=str, default='BaseAugmentation', help='data augmentation type (default: BaseAugmentation)')
-    parser.add_argument("--resize", nargs="+", type=int, default=[512, 384], help='resize size for image when training')
-    parser.add_argument('--batch_size', type=int, default=64, help='input batch size for training (default: 64)')
-    parser.add_argument('--valid_batch_size', type=int, default=64, help='input batch size for validing (default: 64)')
-    parser.add_argument('--model', type=str, default='BaseModel', help='model type (default: BaseModel)')
-    parser.add_argument('--optimizer', type=str, default='Adam', help='optimizer type (default: Adam)')
-    parser.add_argument('--lr', type=float, default=1e-3, help='learning rate (default: 1e-3)')
-    parser.add_argument('--val_ratio', type=float, default=0.2, help='ratio for validaton (default: 0.2)')
-    parser.add_argument('--criterion', type=str, default='focal', help='criterion type (default: focal loss)')
-    parser.add_argument('--lr_decay_step', type=int, default=20, help='learning rate scheduler deacy step (default: 20)')
-    parser.add_argument('--log_interval', type=int, default=20, help='how many batches to wait before logging training status')
-    parser.add_argument('--name', default='exp', help='model save at {SM_MODEL_DIR}/{name}')
-
-    # Container environment
-    parser.add_argument('--data_dir', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/train/images'))
-    parser.add_argument('--model_dir', type=str, default=os.environ.get('SM_MODEL_DIR', './model'))
-    parser.add_argument('--freeze', type=bool, default=False, help='model freeze (default: False)')
-    parser.add_argument('--patience_limit', type=int, default=3, help='early stopping patience_limit (default: 3)')
-#     parser.add_argument('--submission_name', type=str, default='submission', help='submission name (default: submission)')
-    parser.add_argument('--exp_name', type=str, default='exp', help='wandb exp name (default: exp)')
-
-
-    args = parser.parse_args()
-    print(args)
-
-    data_dir = args.data_dir
-    model_dir = args.model_dir
-
-    train(data_dir, model_dir, args)
-
-            
-            # early stop
-            if val_loss > best_loss: # loss가 개선되지 않은 경우
-                patience_check += 1
-                if patience_check >= patience_limit: # early stopping 조건 만족 시 조기 종료
-                    print("Early stopping")
-                    break
-                    
-            else: # loss가 개선된 경우 계속 진행
-                best_loss = val_loss
-                patience_check = 0
-            print('early stopping patience', patience_check)
-            print()
-    
-    # ---- making submission ----
-    submission(model, save_dir=save_dir)
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-
-    # Data and model checkpoints directories
-    parser.add_argument('--seed', type=int, default=42, help='random seed (default: 42)')
-    parser.add_argument('--epochs', type=int, default=10, help='number of epochs to train (default: 10)')
-    parser.add_argument('--dataset', type=str, default='MaskBaseDataset', help='dataset augmentation type (default: MaskBaseDataset)')
-    parser.add_argument('--augmentation', type=str, default='BaseAugmentation', help='data augmentation type (default: BaseAugmentation)')
-    parser.add_argument("--resize", nargs="+", type=int, default=[512, 384], help='resize size for image when training')
-    parser.add_argument('--batch_size', type=int, default=64, help='input batch size for training (default: 64)')
-    parser.add_argument('--valid_batch_size', type=int, default=64, help='input batch size for validing (default: 64)')
-    parser.add_argument('--model', type=str, default='BaseModel', help='model type (default: BaseModel)')
-    parser.add_argument('--optimizer', type=str, default='Adam', help='optimizer type (default: Adam)')
-    parser.add_argument('--lr', type=float, default=1e-3, help='learning rate (default: 1e-3)')
-    parser.add_argument('--val_ratio', type=float, default=0.2, help='ratio for validaton (default: 0.2)')
-    parser.add_argument('--criterion', type=str, default='focal', help='criterion type (default: focal loss)')
-    parser.add_argument('--lr_decay_step', type=int, default=20, help='learning rate scheduler deacy step (default: 20)')
-    parser.add_argument('--log_interval', type=int, default=20, help='how many batches to wait before logging training status')
-    parser.add_argument('--name', default='exp', help='model save at {SM_MODEL_DIR}/{name}')
-
-    # Container environment
-    parser.add_argument('--data_dir', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/train/images'))
-    parser.add_argument('--model_dir', type=str, default=os.environ.get('SM_MODEL_DIR', './model'))
-    parser.add_argument('--freeze', type=bool, default=False, help='model freeze (default: False)')
-    parser.add_argument('--patience_limit', type=int, default=3, help='early stopping patience_limit (default: 3)')
-#     parser.add_argument('--submission_name', type=str, default='submission', help='submission name (default: submission)')
-    parser.add_argument('--exp_name', type=str, default='exp', help='wandb exp name (default: exp)')
-
-
-    args = parser.parse_args()
-    print(args)
-
-    data_dir = args.data_dir
-    model_dir = args.model_dir
-
-    train(data_dir, model_dir, args)
-       print(
-                f"[Val] acc : {val_acc:4.2%}, loss: {val_loss:4.2} || "
-                f"best acc : {best_val_acc:4.2%}, best loss: {best_val_loss:4.2} || "
-                f"f1 score : {valid_f1_score.get_score :4.2}"
-            )
-    
-    # ---- making submission ----
-    submission(model, save_dir=save_dir)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

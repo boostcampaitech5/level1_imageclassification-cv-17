@@ -362,7 +362,7 @@ class MaskSplitByProfileDataset(MaskBaseDataset):
 #     def __len__(self):
 #         return len(self.img_paths)
 
-class inference_TestDataset(Dataset):
+class TestDataset(Dataset):
     def __init__(self, img_paths, resize=(512, 384), mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246)):
         self.img_paths = img_paths
         self.transform = Compose([
@@ -381,17 +381,17 @@ class inference_TestDataset(Dataset):
     def __len__(self):
         return len(self.img_paths)
 
-class TestDataset(Dataset):
-    def __init__(self, img_paths, transform):
-        self.img_paths = img_paths
-        self.transform = transform
+# class TestDataset(Dataset):
+#     def __init__(self, img_paths, transform):
+#         self.img_paths = img_paths
+#         self.transform = transform
 
-    def __getitem__(self, index):
-        image = Image.open(self.img_paths[index])
+#     def __getitem__(self, index):
+#         image = Image.open(self.img_paths[index])
 
-        if self.transform:
-            image = self.transform(image)
-        return image
+#         if self.transform:
+#             image = self.transform(image)
+#         return image
 
-    def __len__(self):
-        return len(self.img_paths)
+#     def __len__(self):
+#         return len(self.img_paths)

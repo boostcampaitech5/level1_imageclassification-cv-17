@@ -7,7 +7,7 @@ import pandas as pd
 import torch
 from torch.utils.data import DataLoader
 
-from dataset import inference_TestDataset, MaskBaseDataset
+from dataset import TestDataset, MaskBaseDataset
 
 
 def load_model(saved_model, num_classes, device):

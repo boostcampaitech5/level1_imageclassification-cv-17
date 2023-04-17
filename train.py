@@ -348,6 +348,8 @@ def train(data_dir, model_dir, args):
     if args.inference_make:
         test_dir = '/opt/ml/input/data/eval'
         inference(test_dir, save_dir, save_dir, args) # data_dir : test이미지셋
+        
+#     if args.submission_make:
 #         submission(model, save_dir=save_dir)
 
 
@@ -374,7 +376,7 @@ if __name__ == '__main__':
     # Container environment
     parser.add_argument('--data_dir', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/train/images'))
     parser.add_argument('--model_dir', type=str, default=os.environ.get('SM_MODEL_DIR', './model'))
-    parser.add_argument('--freeze', type=bool, default=False, help='model freeze (default: False)')
+#     parser.add_argument('--freeze', type=bool, default=False, help='model freeze (default: False)')
     parser.add_argument('--patience_limit', type=int, default=3, help='early stopping patience_limit (default: 3)')
     parser.add_argument('--exp_name', type=str, default='exp', help='wandb exp name (default: exp)')
     parser.add_argument('--inference_make', type=bool, default=False, help='inference make info (default : False)')

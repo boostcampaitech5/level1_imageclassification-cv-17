@@ -327,7 +327,7 @@ class Vit_p8(nn.Module):
     생성자 : 박승희
     '''
     def __init__(self, num_classes):
-        super(vit_p8, self).__init__()
+        super(Vit_p8, self).__init__()
         self.model = timm.create_model('vit_base_patch8_224', pretrained=True)
         self.num_ftrs = self.model.head.in_features
         self.model.head = nn.Linear(self.num_ftrs, num_classes)
@@ -341,7 +341,7 @@ class Vit_p16(nn.Module):
     생성자 : 박승희
     '''
     def __init__(self, num_classes):
-        super(vit_p16, self).__init__()
+        super(Vit_p16, self).__init__()
         self.model = timm.create_model('vit_base_patch16_224', pretrained=True)
         self.num_ftrs = self.model.head.in_features
         self.model.head = nn.Linear(self.num_ftrs, num_classes)
@@ -355,7 +355,7 @@ class Vit_s_p16(nn.Module):
     생성자 : 박승희
     '''
     def __init__(self, num_classes):
-        super(vit_s_p16, self).__init__()
+        super(Vit_s_p16, self).__init__()
         self.model = timm.create_model('vit_small_patch16_224', pretrained=True)
         self.num_ftrs = self.model.head.in_features
         self.model.head = nn.Linear(self.num_ftrs, num_classes)
@@ -369,7 +369,7 @@ class Vit_s_p32(nn.Module):
     생성자 : 박승희
     '''
     def __init__(self, num_classes):
-        super(vit_s_p32, self).__init__()
+        super(Vit_s_p32, self).__init__()
         self.model = timm.create_model('vit_small_patch32_224', pretrained=True)
         self.num_ftrs = self.model.head.in_features
         self.model.head = nn.Linear(self.num_ftrs, num_classes)
@@ -383,7 +383,7 @@ class Swin_p4(nn.Module):
     생성자 : 박승희
     '''
     def __init__(self, num_classes):
-        super(swin_p4, self).__init__()
+        super(Swin_p4, self).__init__()
         self.model = timm.create_model('swin_base_patch4_window7_224', pretrained=True)
         self.num_ftrs = self.model.head.in_features
         self.model.head = nn.Linear(self.num_ftrs, num_classes)
@@ -397,7 +397,7 @@ class Swin_p4_l(nn.Module):
     생성자 : 박승희
     '''
     def __init__(self, num_classes):
-        super(swin_p4, self).__init__()
+        super(Swin_p4_l, self).__init__()
         self.model = timm.create_model('swin_large_patch4_window7_224', pretrained=True)
         self.num_ftrs = self.model.head.in_features
         self.model.head = nn.Linear(self.num_ftrs, num_classes)
@@ -411,7 +411,7 @@ class Swin_p4_s(nn.Module):
     생성자 : 박승희
     '''
     def __init__(self, num_classes):
-        super(swin_p4, self).__init__()
+        super(Swin_p4_s, self).__init__()
         self.model = timm.create_model('swin_small_patch4_window7_224', pretrained=True)
         self.num_ftrs = self.model.head.in_features
         self.model.head = nn.Linear(self.num_ftrs, num_classes)

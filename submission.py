@@ -42,7 +42,7 @@ def submission(model, save_dir):
     # 모델이 테스트 데이터셋을 예측하고 결과를 저장합니다.
     all_predictions = []
     with torch.no_grad():
-        for images in loader::
+        for images in loader:
             images = images.to(device)
             pred = model(images)
             pred = pred.argmax(dim=-1)

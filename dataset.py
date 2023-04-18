@@ -474,6 +474,7 @@ class MaskSplitByProfileDataset(MaskBaseDataset):
     def __init__(self, data_dir, outlier_remove, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), val_ratio=0.2):
         self.indices = defaultdict(list)
         super().__init__(data_dir, outlier_remove, mean, std, val_ratio)
+        self.outlier_remove = outlier_remove
 
     @staticmethod
     def _split_profile(profiles, val_ratio):

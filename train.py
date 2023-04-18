@@ -167,6 +167,7 @@ def train(data_dir, model_dir, args):
     dataset_module = getattr(import_module("dataset"), args.dataset)  # default: MaskBaseDataset
     dataset = dataset_module(
         data_dir=data_dir,
+        outlier_remove=args.outlier_remove
     )
     num_classes = dataset.num_classes  # 18
 
@@ -383,6 +384,7 @@ if __name__ == '__main__':
     parser.add_argument('--patience_limit', type=int, default=3, help='early stopping patience_limit (default: 3)')
     parser.add_argument('--exp_name', type=str, default='exp', help='wandb exp name (default: exp)')
     parser.add_argument('--inference_make', type=bool, default=True, help='inference make info (default : False)')
+    parser.add_argument('--outlier_remove', type=bool, default=False, help='remove outlier (default : False)')
     args = parser.parse_args()
     print(args)
 

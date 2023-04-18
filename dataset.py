@@ -79,6 +79,7 @@ class YoonpyoAugmentation:
     def __call__(self, image):
         return self.transform(image)
 
+
 class YoonpyoAugmentation_resize:
     def __init__(self, resize, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), **args):
         self.transform = Compose([
@@ -151,13 +152,14 @@ class MaskBaseDataset(Dataset):
     gender_labels = []
     age_labels = []
 
-    def __init__(self, data_dir, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), val_ratio=0.2):
+    def __init__(self, data_dir, outlier_remove, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), val_ratio=0.2):
         self.data_dir = data_dir
         self.mean = mean
         self.std = std
         self.val_ratio = val_ratio
 
         self.transform = None
+        self.outlier_remove = outlier_remove
         self.setup()
         self.calc_statistics()
 
@@ -177,6 +179,13 @@ class MaskBaseDataset(Dataset):
                 mask_label = self._file_names[_file_name]
 
                 id, gender, race, age = profile.split("_")
+                if self.outlier_remove:
+                    sex_mislabeled_profiles = ['001498-1', '004432', '006359', '006360', '006361', '006362']
+                    if id in sex_mislabeled_profiles:
+                        if gender == 'male':
+                            gender == 'female'
+                        else:
+                            gender == 'male'
                 gender_label = GenderLabels.from_str(gender)
                 age_label = AgeLabels.from_number(age)
 
@@ -302,7 +311,7 @@ class MaskPreprocessDataset(Dataset):
 #     gender_labels = []
 #     age_labels = []
     
-    def __init__(self, data_dir, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), val_ratio=0.2):
+    def __init__(self, data_dir, outlier_remove, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), val_ratio=0.2):
         self.data_dir = data_dir
         self.mean = mean
         self.std = std
@@ -311,6 +320,7 @@ class MaskPreprocessDataset(Dataset):
         self.mask_labels = []
         self.gender_labels = []
         self.age_labels = []
+        self.outlier_remove = outlier_remove
         
         self.label_paths = {i:[] for i in range(18)}
         
@@ -337,6 +347,13 @@ class MaskPreprocessDataset(Dataset):
                 mask_label = self._file_names[_file_name]
 
                 id, gender, race, age = profile.split("_")
+                if self.outlier_remove:
+                    sex_mislabeled_profiles = ['001498-1', '004432', '006359', '006360', '006361', '006362']
+                    if id in sex_mislabeled_profiles:
+                        if gender == 'male':
+                            gender == 'female'
+                        else:
+                            gender == 'male'
                 gender_label = GenderLabels.from_str(gender)
                 age_label = AgeLabels.from_number(age)
 
@@ -454,9 +471,9 @@ class MaskSplitByProfileDataset(MaskBaseDataset):
         이후 `split_dataset` 에서 index 에 맞게 Subset 으로 dataset 을 분기합니다.
     """
 
-    def __init__(self, data_dir, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), val_ratio=0.2):
+    def __init__(self, data_dir, outlier_remove, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), val_ratio=0.2):
         self.indices = defaultdict(list)
-        super().__init__(data_dir, mean, std, val_ratio)
+        super().__init__(data_dir, outlier_remove, mean, std, val_ratio)
 
     @staticmethod
     def _split_profile(profiles, val_ratio):
@@ -497,6 +514,13 @@ class MaskSplitByProfileDataset(MaskBaseDataset):
                     mask_label = self._file_names[_file_name]
 
                     id, gender, race, age = profile.split("_")
+                    if self.outlier_remove:
+                        sex_mislabeled_profiles = ['001498-1', '004432', '006359', '006360', '006361', '006362']
+                        if id in sex_mislabeled_profiles:
+                            if gender == 'male':
+                                gender == 'female'
+                            else:
+                                gender == 'male'
                     gender_label = GenderLabels.from_str(gender)
                     age_label = AgeLabels.from_number(age)
 

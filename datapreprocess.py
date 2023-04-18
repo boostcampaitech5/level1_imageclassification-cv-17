@@ -38,6 +38,7 @@ from f1score import get_F1_Score # f1score.py
 from submission import submission # submission.py
 from inference import inference # inference.py
 import wandb
+import shutil
 
 class RandomGaussianBlur(object):
     def __init__(self, kernel_size):
@@ -65,9 +66,9 @@ def random_transform(image):
     return transform(image)    
 
 
-def AddAugmentation(label_paths,idx,aug_size, dir_name):
+def AddAugmentation(label_paths, idx, aug_size, aug_dir_name):
     idx2label = ['mask']*6+['incorrect']*6+['normal']*6
-#     os.makedirs(dir_name.exist_ok = True)
+    os.makedirs(aug_dir_name, exist_ok = True)
     idx = int(idx)
     aug_size = int(aug_size)
     data_size = len(label_paths[idx])
@@ -91,34 +92,45 @@ def AddAugmentation(label_paths,idx,aug_size, dir_name):
     #         print(random_int)
             img = Image.open(label_paths[idx][random_int])
             img = random_transform(img)
-            img.save(os.path.join(dir_name+'/train/images',img_id,idx2label[idx]+str(_+10)+'.jpg'))
+            img.save(os.path.join(aug_dir_name+'/train/images', img_id, idx2label[idx]+str(_+10)+'.jpg'))
             
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--dataset', type=str, default='MaskPreprocessDataset', help='dataset augmentation type (default: MaskBaseDataset)')
-    parser.add_argument('--data_dir', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/train/images'))
 #     parser.add_argument('--delplus', type=int, default=0,choices=[1, 0], help = 'want? (y : 1 enter ,n : 0 enter 1를 입력하면 지정 텍스트 파일을 읽어 실행됨)') # 무조건 실행되므로 필요없음
-    parser.add_argument('--dir_name', type=str, default='/opt/ml/input/data/augmentation_delete_data', help = 'creat preprocess dataset folder')
+    parser.add_argument('--aug_dir_name', type=str, default='/opt/ml/input/data/augmentation_delete_data', help = 'create preprocess dataset folder')
 
     args = parser.parse_args()
     print(args)
+    
+    # 원본 데이터
+    src_dir = '/opt/ml/input/data' 
 
+    # 증강 및 삭제할 데이터
+    dst_dir = args.aug_dir_name
+
+    def copy_data(src, dst):
+        
+        shutil.copytree(src, dst)
+
+    src, dst = '/opt/ml/input/data', '/opt/ml/input/augmentation_delete_data'
+    copy_data(src,dst)
+    
 #     delplus = args.delplus
-    data_dir = args.data_dir
-    dir_name = args.dir_name
+    aug_dir_name = args.aug_dir_name
 
     dataset_module = getattr(import_module("dataset"), args.dataset)  # default: MaskPreprocessDataset
     dataset = dataset_module(
-        data_dir=data_dir,
+        data_dir=aug_dir_name,
     )
     
     # -- delplus 다현 추가 부분
     with open('./delplustxt.txt', 'r') as f:
         for line in f:
             idx,size = line.strip().split(',')
-            AddAugmentation(dataset.label_paths,idx,size, dir_name)
+            AddAugmentation(dataset.label_paths, idx, size, aug_dir_name)
+    print('datapreprocess is done! if you want to use preprocessed data, put data_dir parser --data_dir /opt/ml/input/augmentation_delete_data')
             
-
-# python datapreprocess.py --data_dir /opt/ml/input/data/train/images
+# python datapreprocess.py --aug_dir_name /opt/ml/input/augmentation_delete_data/train/images

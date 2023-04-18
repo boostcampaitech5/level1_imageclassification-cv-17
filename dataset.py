@@ -292,8 +292,8 @@ class MaskBaseDataset(Dataset):
         train_set, val_set = random_split(self, [n_train, n_val])
         return train_set, val_set
 
-class MaskPreprocessDataset(Dataset):
-    num_classes = 3 * 2 * 3
+class MaskDataset(Dataset):
+    num_classes = 3
 
     _file_names = {
         "mask1": MaskLabels.MASK,
@@ -305,11 +305,6 @@ class MaskPreprocessDataset(Dataset):
         "normal": MaskLabels.NORMAL
     }
 
-#      move -> init
-#     image_paths = []
-#     mask_labels = []
-#     gender_labels = []
-#     age_labels = []
     
     def __init__(self, data_dir, outlier_remove, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), val_ratio=0.2):
         self.data_dir = data_dir
@@ -318,16 +313,16 @@ class MaskPreprocessDataset(Dataset):
         self.val_ratio = val_ratio
         self.image_paths = []
         self.mask_labels = []
-        self.gender_labels = []
-        self.age_labels = []
+        
+#         self.gender_labels = []
+#         self.age_labels = []
         self.outlier_remove = outlier_remove
         
-        self.label_paths = {i:[] for i in range(18)}
+        self.label_paths = {i:[] for i in range(3)} # MASK = 0, INCORRECT = 1, NORMAL = 2
         
         self.transform = None
         self.setup()
         self.calc_statistics()
-        
         
 
     def setup(self):
@@ -354,15 +349,15 @@ class MaskPreprocessDataset(Dataset):
                             gender == 'female'
                         else:
                             gender == 'male'
-                gender_label = GenderLabels.from_str(gender)
-                age_label = AgeLabels.from_number(age)
+#                 gender_label = GenderLabels.from_str(gender)
+#                 age_label = AgeLabels.from_number(age)
 
                 self.image_paths.append(img_path)
                 self.mask_labels.append(mask_label)
-                self.gender_labels.append(gender_label)
-                self.age_labels.append(age_label)
-                idx = MaskBaseDataset.encode_multi_class(mask_label, gender_label, age_label) 
-                self.label_paths[idx].append(img_path)
+#                 self.gender_labels.append(gender_label)
+#                 self.age_labels.append(age_label)
+#                 idx = MaskBaseDataset.encode_multi_class(mask_label, gender_label, age_label) 
+                self.label_paths[mask_label].append(img_path)
 
     def calc_statistics(self):
         has_statistics = self.mean is not None and self.std is not None
@@ -386,12 +381,12 @@ class MaskPreprocessDataset(Dataset):
 
         image = self.read_image(index)
         mask_label = self.get_mask_label(index)
-        gender_label = self.get_gender_label(index)
-        age_label = self.get_age_label(index)
-        multi_class_label = self.encode_multi_class(mask_label, gender_label, age_label)
+#         gender_label = self.get_gender_label(index)
+#         age_label = self.get_age_label(index)
+#         multi_class_label = self.encode_multi_class(mask_label, gender_label, age_label)
 
         image_transform = self.transform(image)
-        return image_transform, multi_class_label
+        return image_transform, mask_label
 
     def __len__(self):
         return len(self.image_paths)
@@ -402,17 +397,17 @@ class MaskPreprocessDataset(Dataset):
         '''
         return self.mask_labels[index]
 
-    def get_gender_label(self, index) -> GenderLabels:
-        '''
-        지정된 인덱스의 성별 라벨을 반환합니다.
-        '''
-        return self.gender_labels[index]
+#     def get_gender_label(self, index) -> GenderLabels:
+#         '''
+#         지정된 인덱스의 성별 라벨을 반환합니다.
+#         '''
+#         return self.gender_labels[index]
 
-    def get_age_label(self, index) -> AgeLabels:
-        '''
-        지정된 인덱스의 나이 라벨을 반환합니다.
-        '''
-        return self.age_labels[index]
+#     def get_age_label(self, index) -> AgeLabels:
+#         '''
+#         지정된 인덱스의 나이 라벨을 반환합니다.
+#         '''
+#         return self.age_labels[index]
 
     def read_image(self, index):
         '''
@@ -421,22 +416,22 @@ class MaskPreprocessDataset(Dataset):
         image_path = self.image_paths[index]
         return Image.open(image_path)
 
-    @staticmethod
-    def encode_multi_class(mask_label, gender_label, age_label) -> int:
-        '''
-        다중 클래스 분류를 위해 세 개의 라벨을 하나의 숫자로 인코딩
-        '''
-        return mask_label * 6 + gender_label * 3 + age_label
+#     @staticmethod
+#     def encode_multi_class(mask_label, gender_label, age_label) -> int:
+#         '''
+#         다중 클래스 분류를 위해 세 개의 라벨을 하나의 숫자로 인코딩
+#         '''
+#         return mask_label * 6 + gender_label * 3 + age_label
 
-    @staticmethod
-    def decode_multi_class(multi_class_label) -> Tuple[MaskLabels, GenderLabels, AgeLabels]:
-        '''
-        인코딩된 숫자를 세 개의 라벨로 디코딩
-        '''
-        mask_label = (multi_class_label // 6) % 3
-        gender_label = (multi_class_label // 3) % 2
-        age_label = multi_class_label % 3
-        return mask_label, gender_label, age_label
+#     @staticmethod
+#     def decode_multi_class(multi_class_label) -> Tuple[MaskLabels, GenderLabels, AgeLabels]:
+#         '''
+#         인코딩된 숫자를 세 개의 라벨로 디코딩
+#         '''
+#         mask_label = (multi_class_label // 6) % 3
+#         gender_label = (multi_class_label // 3) % 2
+#         age_label = multi_class_label % 3
+#         return mask_label, gender_label, age_label
 
     @staticmethod
     def denormalize_image(image, mean, std):
@@ -462,25 +457,333 @@ class MaskPreprocessDataset(Dataset):
         train_set, val_set = random_split(self, [n_train, n_val])
         return train_set, val_set
     
-class DatasetSplitter(Dataset):
-    def __init__(self, dataset,cls_name,transform = None):
-        self.dataset = dataset
-        self.cls_name = cls_name
+
+class GenderDataset(Dataset):
+    num_classes = 2
+    
+    _file_names = {
+        "mask1": MaskLabels.MASK,
+        "mask2": MaskLabels.MASK,
+        "mask3": MaskLabels.MASK,
+        "mask4": MaskLabels.MASK,
+        "mask5": MaskLabels.MASK,
+        "incorrect_mask": MaskLabels.INCORRECT,
+        "normal": MaskLabels.NORMAL
+    }
+    
+    def __init__(self, data_dir, outlier_remove, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), val_ratio=0.2):
+        self.data_dir = data_dir
+        self.mean = mean
+        self.std = std
+        self.val_ratio = val_ratio
+        self.image_paths = []
+#         self.mask_labels = []
+        self.gender_labels = []
+#         self.age_labels = []
+        self.outlier_remove = outlier_remove
+        
+        self.label_paths = {i:[] for i in range(2)} # male 0, female 1
+        
+        self.transform = None
+        self.setup()
+        self.calc_statistics()
+        
+
+    def setup(self):
+        profiles = os.listdir(self.data_dir)
+        for profile in profiles:
+            if profile.startswith("."):  # "." 로 시작하는 파일은 무시합니다
+                continue
+
+            img_folder = os.path.join(self.data_dir, profile)
+            for file_name in os.listdir(img_folder):
+                _file_name, ext = os.path.splitext(file_name)
+                if _file_name not in self._file_names:  # "." 로 시작하는 파일 및 invalid 한 파일들은 무시합니다
+                    continue
+
+                img_path = os.path.join(self.data_dir, profile, file_name)  # (resized_data, 000004_male_Asian_54, mask1.jpg)
+                
+#                 mask_label = self._file_names[_file_name]
+
+                id, gender, race, age = profile.split("_")
+                if self.outlier_remove:
+                    sex_mislabeled_profiles = ['001498-1', '004432', '006359', '006360', '006361', '006362']
+                    if id in sex_mislabeled_profiles:
+                        if gender == 'male':
+                            gender == 'female'
+                        else:
+                            gender == 'male'
+                gender_label = GenderLabels.from_str(gender)
+#                 age_label = AgeLabels.from_number(age)
+
+                self.image_paths.append(img_path)
+#                 self.mask_labels.append(mask_label)
+                self.gender_labels.append(gender_label)
+#                 self.age_labels.append(age_label)
+#                 idx = MaskBaseDataset.encode_multi_class(mask_label, gender_label, age_label) 
+                self.label_paths[gender_label].append(img_path)
+
+    def calc_statistics(self):
+        has_statistics = self.mean is not None and self.std is not None
+        if not has_statistics:
+            print("[Warning] Calculating statistics... It can take a long time depending on your CPU machine")
+            sums = []
+            squared = []
+            for image_path in self.image_paths[:3000]:
+                image = np.array(Image.open(image_path)).astype(np.int32)
+                sums.append(image.mean(axis=(0, 1)))
+                squared.append((image ** 2).mean(axis=(0, 1)))
+
+            self.mean = np.mean(sums, axis=0) / 255
+            self.std = (np.mean(squared, axis=0) - self.mean ** 2) ** 0.5 / 255
+
+    def set_transform(self, transform):
         self.transform = transform
 
-    def __getitem__(self,index):
-        img = self.dataset.image_paths[idx]
+    def __getitem__(self, index):
+        assert self.transform is not None, ".set_tranform 메소드를 이용하여 transform 을 주입해주세요"
+
+        image = self.read_image(index)
+#         mask_label = self.get_mask_label(index)
+        gender_label = self.get_gender_label(index)
+#         age_label = self.get_age_label(index)
+#         multi_class_label = self.encode_multi_class(mask_label, gender_label, age_label)
+
+        image_transform = self.transform(image)
+        return image_transform, gender_label
+
+    def __len__(self):
+        return len(self.image_paths)
+
+#     def get_mask_label(self, index) -> MaskLabels:
+#         '''
+#         지정된 인덱스의 마스크 라벨을 반환합니다.
+#         '''
+#         return self.mask_labels[index]
+
+    def get_gender_label(self, index) -> GenderLabels:
+        '''
+        지정된 인덱스의 성별 라벨을 반환합니다.
+        '''
+        return self.gender_labels[index]
+
+#     def get_age_label(self, index) -> AgeLabels:
+#         '''
+#         지정된 인덱스의 나이 라벨을 반환합니다.
+#         '''
+#         return self.age_labels[index]
+
+    def read_image(self, index):
+        '''
+        지정된 인덱스의 이미지 데이터를 읽어들입니다.
+        '''
+        image_path = self.image_paths[index]
+        return Image.open(image_path)
+
+#     @staticmethod
+#     def encode_multi_class(mask_label, gender_label, age_label) -> int:
+#         '''
+#         다중 클래스 분류를 위해 세 개의 라벨을 하나의 숫자로 인코딩
+#         '''
+#         return mask_label * 6 + gender_label * 3 + age_label
+
+#     @staticmethod
+#     def decode_multi_class(multi_class_label) -> Tuple[MaskLabels, GenderLabels, AgeLabels]:
+#         '''
+#         인코딩된 숫자를 세 개의 라벨로 디코딩
+#         '''
+#         mask_label = (multi_class_label // 6) % 3
+#         gender_label = (multi_class_label // 3) % 2
+#         age_label = multi_class_label % 3
+#         return mask_label, gender_label, age_label
+
+    @staticmethod
+    def denormalize_image(image, mean, std):
+        '''
+        이미지의 정규화된 값을 원래 픽셀 값으로 변환합니다.
+        '''
+        img_cp = image.copy()
+        img_cp *= std
+        img_cp += mean
+        img_cp *= 255.0
+        img_cp = np.clip(img_cp, 0, 255).astype(np.uint8)
+        return img_cp
+
+    def split_dataset(self) -> Tuple[Subset, Subset]:
+        """
+        데이터셋을 train 과 val 로 나눕니다,
+        pytorch 내부의 torch.utils.data.random_split 함수를 사용하여
+        torch.utils.data.Subset 클래스 둘로 나눕니다.
+        구현이 어렵지 않으니 구글링 혹은 IDE (e.g. pycharm) 의 navigation 기능을 통해 코드를 한 번 읽어보는 것을 추천드립니다^^
+        """
+        n_val = int(len(self) * self.val_ratio)
+        n_train = len(self) - n_val
+        train_set, val_set = random_split(self, [n_train, n_val])
+        return train_set, val_set
+    
+class AgeDataset(Dataset):
+    num_classes = 3
+    
+    _file_names = {
+        "mask1": MaskLabels.MASK,
+        "mask2": MaskLabels.MASK,
+        "mask3": MaskLabels.MASK,
+        "mask4": MaskLabels.MASK,
+        "mask5": MaskLabels.MASK,
+        "incorrect_mask": MaskLabels.INCORRECT,
+        "normal": MaskLabels.NORMAL
+    }
+    
+    def __init__(self, data_dir, outlier_remove, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), val_ratio=0.2):
+        self.data_dir = data_dir
+        self.mean = mean
+        self.std = std
+        self.val_ratio = val_ratio
+        self.image_paths = []
+#         self.mask_labels = []
+#         self.gender_labels = []
+        self.age_labels = []
+        self.outlier_remove = outlier_remove
         
-        if self.cls_name == 'mask':
-             label = self.mask_labels[idx]
-        elif self.cls_name == 'gender':
-            label = self.gender_labels[idx]
-        else:
-            label = self.age_labels[idx]
-        if self.transform:
-            img = self.tramsform(img)
-            
-        return img,label
+        self.label_paths = {i:[] for i in range(3)} # 0~30 : 0, 31~58 : 1, 59~ : 2
+        
+        self.transform = None
+        self.setup()
+        self.calc_statistics()
+        
+
+    def setup(self):
+        profiles = os.listdir(self.data_dir)
+        for profile in profiles:
+            if profile.startswith("."):  # "." 로 시작하는 파일은 무시합니다
+                continue
+
+            img_folder = os.path.join(self.data_dir, profile)
+            for file_name in os.listdir(img_folder):
+                _file_name, ext = os.path.splitext(file_name)
+                if _file_name not in self._file_names:  # "." 로 시작하는 파일 및 invalid 한 파일들은 무시합니다
+                    continue
+
+                img_path = os.path.join(self.data_dir, profile, file_name)  # (resized_data, 000004_male_Asian_54, mask1.jpg)
+                
+#                 mask_label = self._file_names[_file_name]
+
+                id, gender, race, age = profile.split("_")
+#                 if self.outlier_remove:
+#                     sex_mislabeled_profiles = ['001498-1', '004432', '006359', '006360', '006361', '006362']
+#                     if id in sex_mislabeled_profiles:
+#                         if gender == 'male':
+#                             gender == 'female'
+#                         else:
+#                             gender == 'male'
+#                 gender_label = GenderLabels.from_str(gender)
+                age_label = AgeLabels.from_number(age)
+
+                self.image_paths.append(img_path)
+#                 self.mask_labels.append(mask_label)
+#                 self.gender_labels.append(gender_label)
+                self.age_labels.append(age_label)
+#                 idx = MaskBaseDataset.encode_multi_class(mask_label, gender_label, age_label) 
+                self.label_paths[age_label].append(img_path)
+
+    def calc_statistics(self):
+        has_statistics = self.mean is not None and self.std is not None
+        if not has_statistics:
+            print("[Warning] Calculating statistics... It can take a long time depending on your CPU machine")
+            sums = []
+            squared = []
+            for image_path in self.image_paths[:3000]:
+                image = np.array(Image.open(image_path)).astype(np.int32)
+                sums.append(image.mean(axis=(0, 1)))
+                squared.append((image ** 2).mean(axis=(0, 1)))
+
+            self.mean = np.mean(sums, axis=0) / 255
+            self.std = (np.mean(squared, axis=0) - self.mean ** 2) ** 0.5 / 255
+
+    def set_transform(self, transform):
+        self.transform = transform
+
+    def __getitem__(self, index):
+        assert self.transform is not None, ".set_tranform 메소드를 이용하여 transform 을 주입해주세요"
+
+        image = self.read_image(index)
+#         mask_label = self.get_mask_label(index)
+#         gender_label = self.get_gender_label(index)
+        age_label = self.get_age_label(index)
+#         multi_class_label = self.encode_multi_class(mask_label, gender_label, age_label)
+
+        image_transform = self.transform(image)
+        return image_transform, age_label
+
+    def __len__(self):
+        return len(self.image_paths)
+
+#     def get_mask_label(self, index) -> MaskLabels:
+#         '''
+#         지정된 인덱스의 마스크 라벨을 반환합니다.
+#         '''
+#         return self.mask_labels[index]
+
+#     def get_gender_label(self, index) -> GenderLabels:
+#         '''
+#         지정된 인덱스의 성별 라벨을 반환합니다.
+#         '''
+#         return self.gender_labels[index]
+
+    def get_age_label(self, index) -> AgeLabels:
+        '''
+        지정된 인덱스의 나이 라벨을 반환합니다.
+        '''
+        return self.age_labels[index]
+
+    def read_image(self, index):
+        '''
+        지정된 인덱스의 이미지 데이터를 읽어들입니다.
+        '''
+        image_path = self.image_paths[index]
+        return Image.open(image_path)
+
+#     @staticmethod
+#     def encode_multi_class(mask_label, gender_label, age_label) -> int:
+#         '''
+#         다중 클래스 분류를 위해 세 개의 라벨을 하나의 숫자로 인코딩
+#         '''
+#         return mask_label * 6 + gender_label * 3 + age_label
+
+#     @staticmethod
+#     def decode_multi_class(multi_class_label) -> Tuple[MaskLabels, GenderLabels, AgeLabels]:
+#         '''
+#         인코딩된 숫자를 세 개의 라벨로 디코딩
+#         '''
+#         mask_label = (multi_class_label // 6) % 3
+#         gender_label = (multi_class_label // 3) % 2
+#         age_label = multi_class_label % 3
+#         return mask_label, gender_label, age_label
+
+    @staticmethod
+    def denormalize_image(image, mean, std):
+        '''
+        이미지의 정규화된 값을 원래 픽셀 값으로 변환합니다.
+        '''
+        img_cp = image.copy()
+        img_cp *= std
+        img_cp += mean
+        img_cp *= 255.0
+        img_cp = np.clip(img_cp, 0, 255).astype(np.uint8)
+        return img_cp
+
+    def split_dataset(self) -> Tuple[Subset, Subset]:
+        """
+        데이터셋을 train 과 val 로 나눕니다,
+        pytorch 내부의 torch.utils.data.random_split 함수를 사용하여
+        torch.utils.data.Subset 클래스 둘로 나눕니다.
+        구현이 어렵지 않으니 구글링 혹은 IDE (e.g. pycharm) 의 navigation 기능을 통해 코드를 한 번 읽어보는 것을 추천드립니다^^
+        """
+        n_val = int(len(self) * self.val_ratio)
+        n_train = len(self) - n_val
+        train_set, val_set = random_split(self, [n_train, n_val])
+        return train_set, val_set
+
 
 class MaskSplitByProfileDataset(MaskBaseDataset):
     """
@@ -559,7 +862,10 @@ class MaskSplitByProfileDataset(MaskBaseDataset):
 
         '''
         return [Subset(self, indices) for phase, indices in self.indices.items()]
+    
 
+
+###### TestDataset ##########
 
 # class TestDataset(Dataset):
 #     def __init__(self, img_paths, resize=(512, 384), mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246)):

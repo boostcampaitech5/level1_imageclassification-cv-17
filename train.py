@@ -19,13 +19,15 @@ from torchvision import transforms
 from torchvision.transforms import Resize, ToTensor, Normalize
 from PIL import Image
 import seaborn as sns
+import time
+import datetime
 
-from dataset import MaskBaseDataset, MaskPreprocessDataset, DatasetSplitter # dataset.py
+from dataset import MaskBaseDataset, MaskDataset, GenderDataset, AgeDataset # dataset.py
 from dataset import TestDataset
 from loss import create_criterion # loss.py
 from f1score import get_F1_Score # f1score.py
 from submission import submission # submission.py
-from inference import inference # inference.py
+from inference import inference, mask_inference, gender_inference, age_inference # inference.py
 import wandb
 
 
@@ -170,7 +172,7 @@ def train(data_dir, model_dir, args):
         outlier_remove=args.outlier_remove
     )
     
-    num_classes = 3#dataset.num_classes  # 3
+    num_classes = dataset.num_classes # mask : 3, gender : 2, age : 3
 
     # -- augmentation
     transform_module = getattr(import_module("dataset"), args.augmentation)  # default: BaseAugmentation
@@ -180,7 +182,6 @@ def train(data_dir, model_dir, args):
         std=dataset.std,
     )
     dataset.set_transform(transform)
-#     dataset = DatasetSplitter(dataset, 'mask', transform)
 
     # -- data_loader
     train_set, val_set = dataset.split_dataset()
@@ -233,6 +234,7 @@ def train(data_dir, model_dir, args):
     
     wandb.init(project = "Mask_Classification", config = wandb_config(args))
     wandb.run.name = args.exp_name
+    
     ## ---- starting train ----
     best_val_acc = 0
     best_val_loss = np.inf
@@ -243,7 +245,10 @@ def train(data_dir, model_dir, args):
     patience_limit = patience_limits # 몇 번의 epoch까지 지켜볼지를 결정
     patience_check = 0 # 현재 몇 epoch 연속으로 loss 개선이 안되는지를 기록
     
+    # time
+    start_time = time.time()
     for epoch in range(args.epochs):
+        midel_time = time.time()
         # train loop
         model.train()
         loss_value = 0
@@ -256,8 +261,11 @@ def train(data_dir, model_dir, args):
 
             optimizer.zero_grad()
 
-            outs = model(inputs)
+            outs = model(inputs) # batch_size, label
             preds = torch.argmax(outs, dim=-1)
+            if args.criterion == 'f1' or args.criterion == 'label_smoothing':
+                criterion.classes = num_classes
+
             loss = criterion(outs, labels)
 
             loss.backward()
@@ -327,11 +335,17 @@ def train(data_dir, model_dir, args):
                 torch.save(model.module.state_dict(), f"{save_dir}/best.pth")
                 best_val_acc = val_acc
             torch.save(model.module.state_dict(), f"{save_dir}/last.pth")
+            
+            # time
+            sec = time.time()-midel_time # 종료 - 시작 (걸린 시간)
+            times = str(datetime.timedelta(seconds=sec)) # 걸린시간 보기좋게 바꾸기
+            short = times.split(".")[0] # 초 단위 까지만
             print(
                 f"[Val] acc : {val_acc:4.2%}, loss: {val_loss:4.2} || "
                 f"best acc : {best_val_acc:4.2%}, best loss: {best_val_loss:4.2} || "
-                f"f1 score : {valid_f1_score.get_score :4.2}"
+                f"f1 score : {valid_f1_score.get_score :4.2} || epoch time {short}"
             )
+
             wandb.log({"valid acc": val_acc, "valid loss": val_loss, 'valid_f1_score' : valid_f1_score.get_score},step = epoch)
             
             # early stop
@@ -347,13 +361,29 @@ def train(data_dir, model_dir, args):
                 best_cm=valid_f1_score.get_cm
             print('early stopping patience', patience_check)
             print()
+    # total time
+    sec = time.time()- start_time # 종료 - 시작 (걸린 시간)
+    times = str(datetime.timedelta(seconds=sec)) # 걸린시간 보기좋게 바꾸기
+    short = times.split(".")[0] # 초 단위 까지만
+    print(f'Total time : {short}')
     print(best_cm)
     wandb.finish()
     
+    model_type = args.model_type
     # ---- making submission or inference ----
     if args.inference_make:
         test_dir = '/opt/ml/input/data/eval'
-        inference(test_dir, save_dir, save_dir, args) # data_dir : test이미지셋
+        
+        if model_type == 'MaskBase':
+            inference(test_dir, save_dir, save_dir, args) # model_dir -> load_model(saved_model 
+        elif model_type == 'Mask':
+            mask_inference(test_dir, save_dir, save_dir, args) # model_dir -> load_model(saved_model 
+        elif model_type == 'Gender':
+            gender_inference(test_dir, save_dir, save_dir, args) # model_dir -> load_model(saved_model 
+        elif model_type == 'Age':
+            age_inference(test_dir, save_dir, save_dir, args) # model_dir -> load_model(saved_model 
+        else:
+            print('inference 파일 생성 에러')
         
 #     if args.submission_make:
 #         submission(model, save_dir=save_dir)
@@ -365,8 +395,8 @@ if __name__ == '__main__':
     # Data and model checkpoints directories
     parser.add_argument('--seed', type=int, default=111, help='random seed (default: 111)')
     parser.add_argument('--epochs', type=int, default=20, help='number of epochs to train (default: 20)')
-    parser.add_argument('--dataset', type=str, default='MaskPreprocessDataset', help='dataset augmentation type (default: MaskPreprocessDataset)')
-    parser.add_argument('--augmentation', type=str, default='YoonpyoAugmentation', help='data augmentation type (default: YoonpyoAugmentation)')
+    parser.add_argument('--dataset', type=str, default='MaskBaseDataset', help='dataset augmentation type (default: MaskPreprocessDataset)')
+    parser.add_argument('--augmentation', type=str, default='BaseAugmentation', help='data augmentation type (default: YoonpyoAugmentation)')
     parser.add_argument("--resize", nargs="+", type=tuple, default=(512,384), help='resize size for image when training')
     parser.add_argument('--batch_size', type=int, default=32, help='input batch size for training (default: 32)')
     parser.add_argument('--valid_batch_size', type=int, default=32, help='input batch size for validing (default: 32)')
@@ -374,10 +404,10 @@ if __name__ == '__main__':
     parser.add_argument('--optimizer', type=str, default='AdamW', help='optimizer type (default: AdamW)')
     parser.add_argument('--lr', type=float, default=1e-5, help='learning rate (default: 1e-5)')
     parser.add_argument('--val_ratio', type=float, default=0.2, help='ratio for validaton (default: 0.2)')
-    parser.add_argument('--criterion', type=str, default='focal_ce', help='criterion type (default: focal_ce)')
+    parser.add_argument('--criterion', type=str, default='cross_entropy', help='criterion type (default: cross_entropy)')
     parser.add_argument('--lr_decay_step', type=int, default=20, help='learning rate scheduler deacy step (default: 20)')
     parser.add_argument('--log_interval', type=int, default=20, help='how many batches to wait before logging training status')
-    parser.add_argument('--name', default='exp_mask', help='model save at {SM_MODEL_DIR}/{name}')
+    parser.add_argument('--name', default='exp', help='model save at {SM_MODEL_DIR}/{name}')
 
     # Container environment
     parser.add_argument('--data_dir', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/train/images'))
@@ -387,6 +417,7 @@ if __name__ == '__main__':
     parser.add_argument('--exp_name', type=str, default='mask', help='wandb exp name (default: exp)')
     parser.add_argument('--inference_make', type=bool, default=True, help='inference make info (default : False)')
     parser.add_argument('--outlier_remove', type=bool, default=False, help='remove outlier (default : False)')
+    parser.add_argument('--model_type', type=str, default='MaskBase', help = 'Mask or Gender or Age or MaskBase')
     args = parser.parse_args()
     print(args)
 

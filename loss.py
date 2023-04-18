@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import loss
 
 
     
@@ -124,6 +125,8 @@ class F1Loss(nn.Module):
     def forward(self, y_pred, y_true):
         assert y_pred.ndim == 2
         assert y_true.ndim == 1
+#         if y_pred.ndim == 2:
+#             y_pred = y_pred[1]
         y_true = F.one_hot(y_true, self.classes).to(torch.float32)
         y_pred = F.softmax(y_pred, dim=1)
 
@@ -146,7 +149,7 @@ _criterion_entrypoints = {
     'focal_ce': FocalLoss_ce,
     'label_smoothing': LabelSmoothingLoss,
     'f1': F1Loss,
-    'cross_labelsmooth': CrossEntropyLossWithLabelSmoothing
+    'cross_labelsmooth': CrossEntropyLossWithLabelSmoothing,
 }
 
 

@@ -7,7 +7,7 @@ import random
 import re
 from importlib import import_module
 from pathlib import Path
-
+from tqdm import tqdm
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -134,6 +134,62 @@ def wandb_config(args):
                     'patience_limit'   : args.patience_limit}
     return config_dict
 
+def AddAugmentation(label_paths,idx,aug_size):
+    dir_name = '../input/au_data'
+    idx2label = ['mask']*6+['incorrect']*6+['normal']*6
+#     os.makedirs(dir_name.exist_ok = True)
+    idx = int(idx)
+    aug_size = int(aug_size)
+    data_size = len(label_paths[idx])
+    repeat = aug_size - data_size
+    print(aug_size, data_size, repeat)
+    print("up", repeat)
+    if repeat < 0: #마이너스면 삭제 처리해줌 
+        for _ in tqdm(range(-repeat)):        
+            if len(label_paths[idx]) <= 0:  # 이미지 경로가 남아있지 않으면 중지
+                break
+            random_int = random.randint(0, len(label_paths[idx])-1)
+            img_path = label_paths[idx][random_int]
+            os.remove(img_path)
+            label_paths[idx].remove(img_path)
+
+
+    else : #플러스면 증강 처리해줌
+        for _ in tqdm(range(repeat)):
+            random_int = random.randint(0,data_size-1)
+            img_id = label_paths[idx][random_int].split('/')[-2]
+    #         print(random_int)
+            img = Image.open(label_paths[idx][random_int])
+            img = random_transform(img)
+            img.save(os.path.join(dir_name+'/train/images',img_id,idx2label[idx]+str(_+10)+'.jpg'))
+def random_transform(image):
+    scale = (0.005, 0.025)
+    ratio = (0.3, 3.3)
+    transform = transforms.Compose([transforms.ToTensor(),
+                                    transforms.RandomHorizontalFlip(p=0.6),
+                                   transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
+#                                    transforms.RandomRotation(15),
+                                   transforms.RandomErasing(p=0.7, scale=scale, ratio=ratio),
+                                   transforms.RandomErasing(p=0.5, scale=scale, ratio=ratio),
+                                    
+                                    RandomGaussianBlur(kernel_size=3),
+                                   transforms.RandomRotation(5),
+                                    
+                                 transforms.ToPILImage()
+                                   ])
+    return transform(image)    
+import torchvision.transforms.functional as F
+
+class RandomGaussianBlur(object):
+    def __init__(self, kernel_size):
+        self.kernel_size = kernel_size
+        
+    def __call__(self, img):
+        if np.random.rand() < 0.5:
+            return img
+        else:
+            
+            return F.gaussian_blur(img, kernel_size=self.kernel_size, sigma=(0.1, 2.0))    
 def train(data_dir, model_dir, args):
     '''
     data_dir : 데이터 경로
@@ -179,6 +235,17 @@ def train(data_dir, model_dir, args):
     )
     dataset.set_transform(transform)
 
+
+    # -- delplus 다현 추가 부분
+    if args.delplus == 1: #y를 입력받으면
+        dir_name = 'gender_augmentation_data'
+        with open('./delplustxt.txt', 'r') as f:
+            for line in f:
+                idx,size = line.strip().split(',')
+                #print(a,b)
+                AddAugmentation(dataset.label_paths,idx,size)
+                
+ 
     # -- data_loader
     train_set, val_set = dataset.split_dataset()
 
@@ -364,9 +431,15 @@ if __name__ == '__main__':
     parser.add_argument('--epochs', type=int, default=20, help='number of epochs to train (default: 10)')
     parser.add_argument('--dataset', type=str, default='MaskBaseDataset', help='dataset augmentation type (default: MaskBaseDataset)')
     parser.add_argument('--augmentation', type=str, default='BaseAugmentation', help='data augmentation type (default: BaseAugmentation)')
+    
+        ## 다현 추가 부분
+    parser.add_argument('--delplus', type=int, default=0,choices=[1, 0], help = 'want? (y : 1 enter ,n : 0 enter)')
+    ## 1를 입력하면 지정 텍스트 파일을 읽어 실행된다.
+
+    
     parser.add_argument("--resize", nargs="+", type=tuple, default=(512,384), help='resize size for image when training')
-    parser.add_argument('--batch_size', type=int, default=34, help='input batch size for training (default: 64)')
-    parser.add_argument('--valid_batch_size', type=int, default=34, help='input batch size for validing (default: 64)')
+    parser.add_argument('--batch_size', type=int, default=32, help='input batch size for training (default: 64)')
+    parser.add_argument('--valid_batch_size', type=int, default=32, help='input batch size for validing (default: 64)')
     parser.add_argument('--model', type=str, default='BaseModel', help='model type (default: BaseModel)')
     parser.add_argument('--optimizer', type=str, default='Adam', help='optimizer type (default: Adam)')
     parser.add_argument('--lr', type=float, default=1e-3, help='learning rate (default: 1e-3)')

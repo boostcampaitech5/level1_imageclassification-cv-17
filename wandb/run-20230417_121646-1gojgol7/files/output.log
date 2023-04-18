@@ -1,0 +1,10 @@
+
+Epoch[1/20](20/386) || training loss 2.565 || training accuracy 7.79% || train_f1_score 0.23 || lr 1e-05
+Epoch[1/20](40/386) || training loss 2.504 || training accuracy 12.35% || train_f1_score 0.14 || lr 1e-05
+Epoch[1/20](60/386) || training loss 2.426 || training accuracy 23.97% || train_f1_score 0.19 || lr 1e-05
+Traceback (most recent call last):
+  File "train.py", line 442, in <module>
+    train(data_dir, model_dir, args)
+  File "train.py", line 295, in train
+    inputs, labels = inputs.cuda(),labels.cuda()
+KeyboardInterrupt

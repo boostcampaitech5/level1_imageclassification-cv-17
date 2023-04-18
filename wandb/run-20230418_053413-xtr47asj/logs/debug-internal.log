@@ -1,0 +1,171 @@
+2023-04-18 05:34:13,522 INFO    StreamThr :9262 [internal.py:wandb_internal():86] W&B internal server running at pid: 9262, started at: 2023-04-18 05:34:13.522031
+2023-04-18 05:34:13,524 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status
+2023-04-18 05:34:13,526 INFO    WriterThread:9262 [datastore.py:open_for_write():85] open: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/run-xtr47asj.wandb
+2023-04-18 05:34:13,527 DEBUG   SenderThread:9262 [sender.py:send():375] send: header
+2023-04-18 05:34:13,595 DEBUG   SenderThread:9262 [sender.py:send():375] send: run
+2023-04-18 05:34:14,085 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: check_version
+2023-04-18 05:34:14,085 INFO    SenderThread:9262 [dir_watcher.py:__init__():219] watching files in: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files
+2023-04-18 05:34:14,086 INFO    SenderThread:9262 [sender.py:_start_run_threads():1124] run started: xtr47asj with start time 1681796053.52076
+2023-04-18 05:34:14,086 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: summary_record
+2023-04-18 05:34:14,086 INFO    SenderThread:9262 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2023-04-18 05:34:14,086 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: check_version
+2023-04-18 05:34:14,159 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: run_start
+2023-04-18 05:34:14,162 DEBUG   HandlerThread:9262 [system_info.py:__init__():31] System info init
+2023-04-18 05:34:14,162 DEBUG   HandlerThread:9262 [system_info.py:__init__():46] System info init done
+2023-04-18 05:34:14,162 INFO    HandlerThread:9262 [system_monitor.py:start():181] Starting system monitor
+2023-04-18 05:34:14,162 INFO    SystemMonitor:9262 [system_monitor.py:_start():145] Starting system asset monitoring threads
+2023-04-18 05:34:14,163 INFO    HandlerThread:9262 [system_monitor.py:probe():201] Collecting system info
+2023-04-18 05:34:14,163 INFO    SystemMonitor:9262 [interfaces.py:start():190] Started cpu monitoring
+2023-04-18 05:34:14,164 INFO    SystemMonitor:9262 [interfaces.py:start():190] Started disk monitoring
+2023-04-18 05:34:14,165 INFO    SystemMonitor:9262 [interfaces.py:start():190] Started gpu monitoring
+2023-04-18 05:34:14,166 INFO    SystemMonitor:9262 [interfaces.py:start():190] Started memory monitoring
+2023-04-18 05:34:14,167 INFO    SystemMonitor:9262 [interfaces.py:start():190] Started network monitoring
+2023-04-18 05:34:14,175 DEBUG   HandlerThread:9262 [system_info.py:probe():195] Probing system
+2023-04-18 05:34:14,181 DEBUG   HandlerThread:9262 [system_info.py:_probe_git():180] Probing git
+2023-04-18 05:34:14,193 DEBUG   HandlerThread:9262 [system_info.py:_probe_git():188] Probing git done
+2023-04-18 05:34:14,193 DEBUG   HandlerThread:9262 [system_info.py:probe():240] Probing system done
+2023-04-18 05:34:14,193 DEBUG   HandlerThread:9262 [system_monitor.py:probe():210] {'os': 'Linux-4.4.0-59-generic-x86_64-with-glibc2.10', 'python': '3.8.5', 'heartbeatAt': '2023-04-18T05:34:14.175361', 'startedAt': '2023-04-18T05:34:13.513514', 'docker': None, 'cuda': None, 'args': ('--data_dir', '../input/au_data/train/images', '--model_dir', './model', '--model', 'EfficientNetB3', '--epochs', '18', '--augmentation', 'YoonpyoAugmentation', '--lr', '1e-5', '--patience_limit', '3', '--name', 'da_focal_age59_5', '--exp_name', 'da_focal_age59_5'), 'state': 'running', 'program': 'train.py', 'codePath': 'train.py', 'git': {'remote': 'https://github.com/boostcampaitech5/level1_imageclassification-cv-17.git', 'commit': '64730113f8fc12337288c2efc47deb0a84c376a9'}, 'email': None, 'root': '/opt/ml/level1_imageclassification-cv-17', 'host': 'c70b99b40838', 'username': 'root', 'executable': '/opt/conda/bin/python', 'cpu_count': 8, 'cpu_count_logical': 8, 'cpu_freq': {'current': 2200.0479999999993, 'min': 0.0, 'max': 0.0}, 'cpu_freq_per_core': [{'current': 2200.048, 'min': 0.0, 'max': 0.0}, {'current': 2200.048, 'min': 0.0, 'max': 0.0}, {'current': 2200.048, 'min': 0.0, 'max': 0.0}, {'current': 2200.048, 'min': 0.0, 'max': 0.0}, {'current': 2200.048, 'min': 0.0, 'max': 0.0}, {'current': 2200.048, 'min': 0.0, 'max': 0.0}, {'current': 2200.048, 'min': 0.0, 'max': 0.0}, {'current': 2200.048, 'min': 0.0, 'max': 0.0}], 'disk': {'total': 98.30496215820312, 'used': 80.15734100341797}, 'gpu': 'Tesla V100-PCIE-32GB', 'gpu_count': 1, 'gpu_devices': [{'name': 'Tesla V100-PCIE-32GB', 'memory_total': 34089730048}], 'memory': {'total': 88.50595092773438}}
+2023-04-18 05:34:14,193 INFO    HandlerThread:9262 [system_monitor.py:probe():211] Finished collecting system info
+2023-04-18 05:34:14,193 INFO    HandlerThread:9262 [system_monitor.py:probe():214] Publishing system info
+2023-04-18 05:34:14,194 DEBUG   HandlerThread:9262 [system_info.py:_save_pip():51] Saving list of pip packages installed into the current environment
+2023-04-18 05:34:14,194 DEBUG   HandlerThread:9262 [system_info.py:_save_pip():67] Saving pip packages done
+2023-04-18 05:34:14,194 DEBUG   HandlerThread:9262 [system_info.py:_save_conda():74] Saving list of conda packages installed into the current environment
+2023-04-18 05:34:15,087 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_created():278] file/dir created: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/conda-environment.yaml
+2023-04-18 05:34:15,088 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_created():278] file/dir created: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/requirements.txt
+2023-04-18 05:34:15,088 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_created():278] file/dir created: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/wandb-summary.json
+2023-04-18 05:34:16,931 DEBUG   HandlerThread:9262 [system_info.py:_save_conda():86] Saving conda packages done
+2023-04-18 05:34:16,932 INFO    HandlerThread:9262 [system_monitor.py:probe():216] Finished publishing system info
+2023-04-18 05:34:16,939 DEBUG   SenderThread:9262 [sender.py:send():375] send: files
+2023-04-18 05:34:16,939 INFO    SenderThread:9262 [sender.py:_save_file():1378] saving file wandb-metadata.json with policy now
+2023-04-18 05:34:16,945 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:34:16,945 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:34:17,089 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_created():278] file/dir created: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/wandb-metadata.json
+2023-04-18 05:34:17,155 DEBUG   SenderThread:9262 [sender.py:send():375] send: telemetry
+2023-04-18 05:34:17,156 DEBUG   SenderThread:9262 [sender.py:send():375] send: telemetry
+2023-04-18 05:34:17,156 DEBUG   SenderThread:9262 [sender.py:send():375] send: run
+2023-04-18 05:34:17,402 INFO    SenderThread:9262 [sender.py:send_run():1002] updated run: xtr47asj
+2023-04-18 05:34:17,541 INFO    wandb-upload_0:9262 [upload_job.py:push():137] Uploaded file /tmp/tmpj3igchk7wandb/t4rpk7jw-wandb-metadata.json
+2023-04-18 05:34:18,089 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/config.yaml
+2023-04-18 05:34:19,402 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:34:24,404 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:34:26,841 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:34:27,092 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_created():278] file/dir created: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:34:29,093 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:34:29,840 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:34:31,945 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:34:31,946 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:34:35,153 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:34:36,054 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:34:37,095 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:34:41,051 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:34:45,244 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:34:46,243 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:34:46,945 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:34:46,946 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:34:47,099 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/config.yaml
+2023-04-18 05:34:47,099 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:34:52,146 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:34:54,433 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:34:57,102 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:34:57,427 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:35:01,945 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:35:01,946 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:35:03,136 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:35:03,584 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:35:05,105 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:35:08,577 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:35:12,740 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:35:13,731 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:35:14,167 DEBUG   SystemMonitor:9262 [system_monitor.py:_start():159] Starting system metrics aggregation loop
+2023-04-18 05:35:14,169 DEBUG   SenderThread:9262 [sender.py:send():375] send: stats
+2023-04-18 05:35:15,109 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:35:16,945 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:35:16,946 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:35:19,137 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:35:21,903 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:35:23,112 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:35:24,893 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:35:29,894 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:35:31,072 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:35:31,945 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:35:31,946 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:35:33,115 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:35:35,138 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:35:40,139 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:35:40,245 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:35:41,118 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:35:44,169 DEBUG   SenderThread:9262 [sender.py:send():375] send: stats
+2023-04-18 05:35:45,170 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:35:46,946 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:35:46,946 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:35:49,410 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:35:50,396 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:35:51,121 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:35:55,396 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:35:58,576 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:36:00,561 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:36:01,125 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:36:01,946 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:36:01,946 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:36:06,138 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:36:07,745 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:36:09,128 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:36:11,729 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:36:14,170 DEBUG   SenderThread:9262 [sender.py:send():375] send: stats
+2023-04-18 05:36:16,935 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:36:16,947 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:36:16,947 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:36:16,955 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:36:19,131 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:36:22,159 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:36:26,172 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:36:27,134 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:36:28,152 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:36:31,947 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:36:31,947 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:36:34,138 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:36:35,609 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:36:37,138 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:36:39,587 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:36:44,171 DEBUG   SenderThread:9262 [sender.py:send():375] send: stats
+2023-04-18 05:36:44,805 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:36:44,828 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:36:46,947 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:36:46,947 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:36:47,141 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:36:50,151 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:36:54,023 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:36:55,144 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:36:56,000 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:37:01,001 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:37:01,947 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:37:01,947 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:37:03,208 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:37:05,148 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:37:06,183 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:37:11,184 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:37:12,394 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:37:13,151 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:37:14,171 DEBUG   SenderThread:9262 [sender.py:send():375] send: stats
+2023-04-18 05:37:16,947 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:37:16,947 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:37:17,145 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:37:21,629 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:37:22,601 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:37:23,154 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:37:27,601 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:37:30,983 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:37:31,947 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:37:31,948 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:37:33,148 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:37:33,158 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:37:38,148 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:37:40,226 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: partial_history
+2023-04-18 05:37:41,161 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:37:43,196 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:37:44,172 DEBUG   SenderThread:9262 [sender.py:send():375] send: stats
+2023-04-18 05:37:46,953 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 05:37:46,954 DEBUG   SenderThread:9262 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 05:37:47,163 INFO    Thread-12 :9262 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_053413-xtr47asj/files/output.log
+2023-04-18 05:37:49,148 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 05:37:54,148 DEBUG   HandlerThread:9262 [handler.py:handle_request():144] handle_request: status_report

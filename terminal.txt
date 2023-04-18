@@ -5,24 +5,35 @@ $ pip install –r requirements.txt
 $ pip freeze
 
 # 주피터 터미널에서 모델 돌리는 방법 안내 by sh
-예시)
-    # 이미지 경로 & 실험 결과 저장할 폴더명
-    python train.py --data_dir {image경로} --model_dir {실험결과폴더명}
-    python train.py --data_dir ../input/data/train/images --model_dir ./runs
-    
-    ## epochs & patience_limit 추가
-    python train.py --data_dir ../input/data/train/images --model_dir ./model_test --model EfficientNetB4 --epochs 10 --patience_limit 1
+## 마스크 분류기
+python train.py --model_type Mask --dataset MaskDataset --model EfficientNetB3 --criterion label_smoothing --augmentation YoonpyoAugmentation --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./redo_sm  --name mask_redo --exp_name sh_mask_redo --data_dir ../input/data/train/images
 
-    # 실험 결과 저장할 폴더명 & 모델만 지정
-    python train.py --data_dir ../input/data/train/images --model_dir ./model --model_comparison EfficientNetB4 --epochs 1
-    
-python train.py --data_dir ../input/data/train/images --model_dir model_comparison --model EfficientNetB3 --epochs 20 --batch_size 128 --valid_batch_size 128 --name    
+## 성별 분류기
+python train.py --model_type Gender --dataset GenderDataset --model EfficientNetB3 --criterion f1 --augmentation YoonpyoAugmentation --epochs 20 --lr 1e-3 --batch_size 16 --valid_batch_size 16 --model_dir ./redo_sm --name gender_redo --exp_name sh_gender_redo --data_dir ../input/data/train/images
+
+## 나이 분류기
+python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3 --criterion label_smoothing --augmentation YoonpyoAugmentation --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./redo_sm  --name age_redi --exp_name sh_age_redo --data_dir ../input/data/train/images
+
+
+## 3개 연달아서 돌리기
+python train.py --model_type Mask --dataset MaskDataset --model EfficientNetB3 --criterion label_smoothing --augmentation YoonpyoAugmentation --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./redo_sm  --name mask_redo --exp_name sh_mask_redo --data_dir ../input/data/train/images && python train.py --model_type Gender --dataset GenderDataset --model EfficientNetB3 --criterion f1 --augmentation YoonpyoAugmentation --epochs 20 --lr 1e-3 --batch_size 16 --valid_batch_size 16 --model_dir ./redo_sm --name gender_redo --exp_name sh_gender_redo --data_dir ../input/data/train/images && python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3 --criterion label_smoothing --augmentation YoonpyoAugmentation --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./redo_sm  --name age_redi --exp_name sh_age_redo --data_dir ../input/data/train/images
+
+
+## 터미널 명령어 연속으로 돌리기 안내 ##
+; - 앞의 명령어가 실패해도 다음 명령어가 실행
+&& - 앞의 명령어가 성공했을 때 다음 명령어가 실행
+& - 앞의 명령어를 백그라운드로 돌리고 동시에 뒤의 명령어를 실행
+|| - 앞에 명령어가 성공하면 뒤의 명령어를 실행하지 않음 .. !
+
+## criterion 선택지 안내 ##
+'cross_entropy': nn.CrossEntropyLoss,
+'focal': FocalLoss,
+'focal_ce': FocalLoss_ce,
+'label_smoothing': LabelSmoothingLoss,
+'f1': F1Loss,
+'cross_labelsmooth': CrossEntropyLossWithLabelSmoothing,
 
 
 ## inference 작동코드 : model_dir - best.pth 위치, output_dir : output.csv 저장위치
 python inference.py --model ResNet34_init --data_dir ../input/data/eval --model_dir ./model/focal1 --output_dir ./model/focal1 --batch_size 64
 python inference.py --model ResNet34_init --data_dir ../input/data/eval --model_dir ./model/focal2 --output_dir ./model/focal1 --batch_size 64
-
-## 마스크 분류기
-python train.py --data_dir ../input/data/train/images --model_dir ./mask_test --epochs 1  --name mask_test --exp_name mask_test
-

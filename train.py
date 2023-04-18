@@ -382,8 +382,7 @@ if __name__ == '__main__':
 #     parser.add_argument('--freeze', type=bool, default=False, help='model freeze (default: False)')
     parser.add_argument('--patience_limit', type=int, default=3, help='early stopping patience_limit (default: 3)')
     parser.add_argument('--exp_name', type=str, default='exp', help='wandb exp name (default: exp)')
-    parser.add_argument('--inference_make', type=bool, default=False, help='inference make info (default : False)')
-    
+    parser.add_argument('--inference_make', type=bool, default=True, help='inference make info (default : False)')
     args = parser.parse_args()
     print(args)
 

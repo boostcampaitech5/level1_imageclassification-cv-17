@@ -27,7 +27,7 @@ def submission(model, save_dir):
         ToTensor(),
         Normalize(mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2)),
     ])
-    dataset = TestDataset(image_paths, transform)
+    dataset = TestDataset(image_paths)
 
     loader = DataLoader(
         dataset,
@@ -41,8 +41,8 @@ def submission(model, save_dir):
 
     # 모델이 테스트 데이터셋을 예측하고 결과를 저장합니다.
     all_predictions = []
-    for images in loader:
-        with torch.no_grad():
+    with torch.no_grad():
+        for images in loader:
             images = images.to(device)
             pred = model(images)
             pred = pred.argmax(dim=-1)

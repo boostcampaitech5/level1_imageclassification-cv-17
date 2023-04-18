@@ -66,7 +66,7 @@ class LabelSmoothingLoss(nn.Module):
                이후 true_dist와 pred의 원소별 곱의 합을 평균하여 반환합니다.
 
     '''
-    def __init__(self, classes=3, smoothing=0.0, dim=-1):
+    def __init__(self, classes=18, smoothing=0.01, dim=-1):
         super(LabelSmoothingLoss, self).__init__()
         self.confidence = 1.0 - smoothing
         self.smoothing = smoothing
@@ -125,12 +125,26 @@ class F1Loss(nn.Module):
         f1 = f1.clamp(min=self.epsilon, max=1 - self.epsilon)
         return 1 - f1.mean()
 
+class CrossEntropyLossWithLabelSmoothing(nn.Module):
+    def __init__(self, smoothing=0.1):
+        super().__init__()
+        self.smoothing = smoothing
+        
+    def forward(self, input, target):
+        log_prob = F.log_softmax(input, dim=-1)
+        nll_loss = -log_prob.gather(dim=-1, index=target.unsqueeze(1))
+        nll_loss = nll_loss.squeeze(1)
+        smooth_loss = -log_prob.mean(dim=-1)
+        loss = (1 - self.smoothing) * nll_loss + self.smoothing * smooth_loss
+        return loss.mean()
+    
 
 _criterion_entrypoints = {
     'cross_entropy': nn.CrossEntropyLoss,
     'focal': FocalLoss,
     'focal_ce': FocalLoss_ce,
     'label_smoothing': LabelSmoothingLoss,
+    'cross_labelsmooth': CrossEntropyLossWithLabelSmoothing,
     'f1': F1Loss
 }
 

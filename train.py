@@ -7,12 +7,12 @@ import random
 import re
 from importlib import import_module
 from pathlib import Path
-
+import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import torch
-from torch.optim.lr_scheduler import StepLR
+from torch.optim.lr_scheduler import StepLR, CosineAnnealingWarmRestarts
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from torchvision import transforms
@@ -218,9 +218,12 @@ def train(data_dir, model_dir, args):
 #         filter(lambda p: p.requires_grad, model.parameters()),
         model.parameters(),
         lr=args.lr,
-#         weight_decay=5e-4
+        weight_decay=5e-4,
+        betas=(0.9,0.999), 
+        eps=1e-08
     )
     scheduler = StepLR(optimizer, args.lr_decay_step, gamma=0.5)
+#     scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=2, T_mult=2, eta_min=0.00001)
     
     
     logger = SummaryWriter(log_dir=save_dir)
@@ -273,7 +276,7 @@ def train(data_dir, model_dir, args):
                 loss_value = 0
                 matches = 0
 
-#         scheduler.step()
+        scheduler.step()
 
         # val loop
         with torch.no_grad():
@@ -303,17 +306,7 @@ def train(data_dir, model_dir, args):
 #                     inputs_np = torch.clone(inputs).detach().cpu().permute(0, 2, 3, 1).numpy()
 #                     inputs_np = dataset_module.denormalize_image(inputs_np, dataset.mean, dataset.std)
 #                     figure = grid_image(
-#                         inputs_np, labels, preds, n=16, shuffle=args.dataset != "MaskSplitByProfileDataset"
-            
-            # early stop
-            if val_loss > best_loss: # loss가 개선되지 않은 경우
-                patience_check += 1
-                if patience_check >= patience_limit:
-                    print("Early stopping")
-                    break
-            else: # loss가 개선된 경우 계속 진행
-                best_loss = val_loss
-                patience_check = 0
+#                         inputs_np, labels, preds, n=16, shuffle=args.dataset != "MaskSplitByProfileDataset"           
                 
             ## 최고 val acc 모델 갱신
             if val_acc > best_val_acc:
@@ -338,9 +331,11 @@ def train(data_dir, model_dir, args):
             else: # loss가 개선된 경우 계속 진행
                 best_loss = val_loss
                 patience_check = 0
+                best_cm=valid_f1_score.get_cm
             print('early stopping patience', patience_check)
             print()
-    
+    print(best_cm)
+    wandb.finish()
     # ---- making submission ----
     submission(model, save_dir=save_dir)
 
@@ -353,12 +348,12 @@ if __name__ == '__main__':
     parser.add_argument('--epochs', type=int, default=20, help='number of epochs to train (default: 10)')
     parser.add_argument('--dataset', type=str, default='MaskBaseDataset', help='dataset augmentation type (default: MaskBaseDataset)')
     parser.add_argument('--augmentation', type=str, default='BaseAugmentation', help='data augmentation type (default: BaseAugmentation)')
-    parser.add_argument("--resize", nargs="+", type=list, default=(512,384), help='resize size for image when training')
-    parser.add_argument('--batch_size', type=int, default=64, help='input batch size for training (default: 64)')
-    parser.add_argument('--valid_batch_size', type=int, default=64, help='input batch size for validing (default: 64)')
+    parser.add_argument("--resize", nargs="+", type=tuple, default=(512,384), help='resize size for image when training')
+    parser.add_argument('--batch_size', type=int, default=32, help='input batch size for training (default: 64)')
+    parser.add_argument('--valid_batch_size', type=int, default=32, help='input batch size for validing (default: 64)')
     parser.add_argument('--model', type=str, default='BaseModel', help='model type (default: BaseModel)')
     parser.add_argument('--optimizer', type=str, default='Adam', help='optimizer type (default: Adam)')
-    parser.add_argument('--lr', type=float, default=1e-3, help='learning rate (default: 1e-3)')
+    parser.add_argument('--lr', type=float, default=1e-5, help='learning rate (default: 1e-3)')
     parser.add_argument('--val_ratio', type=float, default=0.2, help='ratio for validaton (default: 0.2)')
     parser.add_argument('--criterion', type=str, default='focal_ce', help='criterion type (default: focal loss)')
     parser.add_argument('--lr_decay_step', type=int, default=20, help='learning rate scheduler deacy step (default: 20)')

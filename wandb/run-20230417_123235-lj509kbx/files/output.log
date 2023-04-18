@@ -1,0 +1,30 @@
+Traceback (most recent call last):
+  File "train.py", line 466, in <module>
+    train(data_dir, model_dir, args)
+  File "train.py", line 318, in train
+    for idx, (inputs,labels) in enumerate(train_loader):
+  File "/opt/conda/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 435, in __next__
+    data = self._next_data()
+  File "/opt/conda/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1085, in _next_data
+    return self._process_data(data)
+  File "/opt/conda/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1111, in _process_data
+    data.reraise()
+  File "/opt/conda/lib/python3.8/site-packages/torch/_utils.py", line 428, in reraise
+    raise self.exc_type(msg)
+FileNotFoundError: Caught FileNotFoundError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/opt/conda/lib/python3.8/site-packages/torch/utils/data/_utils/worker.py", line 198, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/opt/conda/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/opt/conda/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/opt/conda/lib/python3.8/site-packages/torch/utils/data/dataset.py", line 272, in __getitem__
+    return self.dataset[self.indices[idx]]
+  File "/opt/ml/level1_imageclassification-cv-17/dataset.py", line 328, in __getitem__
+    image = self.read_image(index)
+  File "/opt/ml/level1_imageclassification-cv-17/dataset.py", line 363, in read_image
+    return Image.open(image_path)
+  File "/opt/conda/lib/python3.8/site-packages/PIL/Image.py", line 3236, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: '../input/au_data/train/images/001926_female_Asian_50/mask3.jpg'

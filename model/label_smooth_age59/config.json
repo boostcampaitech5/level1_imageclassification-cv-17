@@ -1,0 +1,26 @@
+{
+    "seed": 42,
+    "epochs": 20,
+    "dataset": "MaskBaseDataset",
+    "augmentation": "YoonpyoAugmentation",
+    "delplus": 0,
+    "resize": [
+        512,
+        384
+    ],
+    "batch_size": 34,
+    "valid_batch_size": 34,
+    "model": "EfficientNetB3",
+    "optimizer": "Adam",
+    "lr": 1e-05,
+    "val_ratio": 0.2,
+    "criterion": "focal_ce",
+    "lr_decay_step": 20,
+    "log_interval": 20,
+    "name": "label_smooth_age59",
+    "data_dir": "../input/data/train/images",
+    "model_dir": "./model",
+    "patience_limit": 3,
+    "exp_name": "label smooth_age59",
+    "inference_make": false
+}

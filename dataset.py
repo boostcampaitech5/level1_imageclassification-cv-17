@@ -461,7 +461,26 @@ class MaskPreprocessDataset(Dataset):
         n_train = len(self) - n_val
         train_set, val_set = random_split(self, [n_train, n_val])
         return train_set, val_set
+    
+class DatasetSplitter(Dataset):
+    def __init__(dataset,cls_name,transform = None):
+        self.dataset = dataset
+        self.cls_name = cls_name
+        self.transform = transform
 
+    def __getitem__(self,index):
+        img = self.dataset.image_paths[idx]
+        
+        if self.cls_name == 'mask':
+             label = self.mask_labels[idx]
+        elif self.cls_name == 'gender':
+            label = self.gender_labels[idx]
+        else:
+            label = self.age_labels[idx]
+        if self.transform:
+            img = self.tramsform(img)
+            
+        return img,label
 
 class MaskSplitByProfileDataset(MaskBaseDataset):
     """

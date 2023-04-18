@@ -40,3 +40,8 @@ level1_imageclassification-cv-17/inference_test/test4/output.csv
 python train.py --data_dir ../input/data/train/images --model_dir ./confusion_test --model ResNet34_init  --epochs 1 --augmentation 'YoonpyoAugmentation' --criterion f1 --name 'confusion_test' --inference_make False
 
 python inference.py --model ResNet34_init --data_dir ../input/data/eval --model_dir ./model/focal1 --output_dir .inference_test/test4/ --batch_size 64
+
+
+
+python train.py --data_dir ../input/data/train/images --model_dir ./mask_test --epochs 1  --name mask_test --exp_name mask_test
+

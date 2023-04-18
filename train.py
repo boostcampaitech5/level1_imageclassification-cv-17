@@ -20,7 +20,7 @@ from torchvision.transforms import Resize, ToTensor, Normalize
 from PIL import Image
 import seaborn as sns
 
-from dataset import MaskBaseDataset # dataset.py
+from dataset import MaskBaseDataset, MaskPreprocessDataset, DatasetSplitter # dataset.py
 from dataset import TestDataset
 from loss import create_criterion # loss.py
 from f1score import get_F1_Score # f1score.py
@@ -164,12 +164,13 @@ def train(data_dir, model_dir, args):
     device = torch.device("cuda" if use_cuda else "cpu")
 
     # -- dataset
-    dataset_module = getattr(import_module("dataset"), args.dataset)  # default: MaskBaseDataset
+    dataset_module = getattr(import_module("dataset"), args.dataset)  # default: MaskPreprocessDataset
     dataset = dataset_module(
         data_dir=data_dir,
         outlier_remove=args.outlier_remove
     )
-    num_classes = dataset.num_classes  # 18
+    dataset = DatasetSplitter(dataset, 'mask')
+    num_classes = 3#dataset.num_classes  # 3
 
     # -- augmentation
     transform_module = getattr(import_module("dataset"), args.augmentation)  # default: BaseAugmentation
@@ -215,7 +216,7 @@ def train(data_dir, model_dir, args):
 
     # -- loss & metric
     criterion = create_criterion(args.criterion)  # default: cross_entropy
-    opt_module = getattr(import_module("torch.optim"), args.optimizer)  # default: SGD
+    opt_module = getattr(import_module("torch.optim"), args.optimizer)  # default: Adam
     optimizer = opt_module(
 #         filter(lambda p: p.requires_grad, model.parameters()),
         model.parameters(),
@@ -361,28 +362,28 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # Data and model checkpoints directories
-    parser.add_argument('--seed', type=int, default=42, help='random seed (default: 42)')
-    parser.add_argument('--epochs', type=int, default=20, help='number of epochs to train (default: 10)')
-    parser.add_argument('--dataset', type=str, default='MaskBaseDataset', help='dataset augmentation type (default: MaskBaseDataset)')
-    parser.add_argument('--augmentation', type=str, default='BaseAugmentation', help='data augmentation type (default: BaseAugmentation)')
+    parser.add_argument('--seed', type=int, default=111, help='random seed (default: 111)')
+    parser.add_argument('--epochs', type=int, default=20, help='number of epochs to train (default: 20)')
+    parser.add_argument('--dataset', type=str, default='MaskPreprocessDataset', help='dataset augmentation type (default: MaskPreprocessDataset)')
+    parser.add_argument('--augmentation', type=str, default='YoonpyoAugmentation', help='data augmentation type (default: YoonpyoAugmentation)')
     parser.add_argument("--resize", nargs="+", type=tuple, default=(512,384), help='resize size for image when training')
-    parser.add_argument('--batch_size', type=int, default=32, help='input batch size for training (default: 64)')
-    parser.add_argument('--valid_batch_size', type=int, default=32, help='input batch size for validing (default: 64)')
-    parser.add_argument('--model', type=str, default='BaseModel', help='model type (default: BaseModel)')
-    parser.add_argument('--optimizer', type=str, default='Adam', help='optimizer type (default: Adam)')
-    parser.add_argument('--lr', type=float, default=1e-3, help='learning rate (default: 1e-3)')
+    parser.add_argument('--batch_size', type=int, default=32, help='input batch size for training (default: 32)')
+    parser.add_argument('--valid_batch_size', type=int, default=32, help='input batch size for validing (default: 32)')
+    parser.add_argument('--model', type=str, default='EfficientNetB3', help='model type (default: EfficientNetB3)')
+    parser.add_argument('--optimizer', type=str, default='AdamW', help='optimizer type (default: AdamW)')
+    parser.add_argument('--lr', type=float, default=1e-5, help='learning rate (default: 1e-5)')
     parser.add_argument('--val_ratio', type=float, default=0.2, help='ratio for validaton (default: 0.2)')
-    parser.add_argument('--criterion', type=str, default='focal_ce', help='criterion type (default: focal loss)')
+    parser.add_argument('--criterion', type=str, default='focal_ce', help='criterion type (default: focal_ce)')
     parser.add_argument('--lr_decay_step', type=int, default=20, help='learning rate scheduler deacy step (default: 20)')
     parser.add_argument('--log_interval', type=int, default=20, help='how many batches to wait before logging training status')
-    parser.add_argument('--name', default='exp', help='model save at {SM_MODEL_DIR}/{name}')
+    parser.add_argument('--name', default='exp_mask', help='model save at {SM_MODEL_DIR}/{name}')
 
     # Container environment
     parser.add_argument('--data_dir', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/train/images'))
     parser.add_argument('--model_dir', type=str, default=os.environ.get('SM_MODEL_DIR', './model'))
 #     parser.add_argument('--freeze', type=bool, default=False, help='model freeze (default: False)')
     parser.add_argument('--patience_limit', type=int, default=3, help='early stopping patience_limit (default: 3)')
-    parser.add_argument('--exp_name', type=str, default='exp', help='wandb exp name (default: exp)')
+    parser.add_argument('--exp_name', type=str, default='mask', help='wandb exp name (default: exp)')
     parser.add_argument('--inference_make', type=bool, default=True, help='inference make info (default : False)')
     parser.add_argument('--outlier_remove', type=bool, default=False, help='remove outlier (default : False)')
     args = parser.parse_args()

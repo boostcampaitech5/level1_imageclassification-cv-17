@@ -3,10 +3,10 @@ import random
 from collections import defaultdict
 from enum import Enum
 from typing import Tuple, List
-
 import numpy as np
 import torch
 from PIL import Image
+from PIL import ImageEnhance
 from torch.utils.data import Dataset, Subset, random_split
 from torchvision.transforms import * #Resize, ToTensor, Normalize, Compose, CenterCrop, ColorJitter
 from torch.optim.lr_scheduler import StepLR
@@ -810,6 +810,7 @@ class AgeDataset(Dataset):
         n_train = len(self) - n_val
         train_set, val_set = random_split(self, [n_train, n_val])
         return train_set, val_set
+    
 class MaskBaseDataset(Dataset):
     num_classes = 3 * 2
 
@@ -1280,7 +1281,7 @@ class MaskPreprocessDataset(Dataset):
     
     
 class MaskGenderDataset(Dataset):
-    num_classes = 3 * 2
+    num_classes = 18
 
     _file_names = {
         "mask1": MaskLabels.MASK,
@@ -1347,8 +1348,9 @@ class MaskGenderDataset(Dataset):
                 self.mask_labels.append(mask_label)
                 self.gender_labels.append(gender_label)
 #                 self.age_labels.append(age_label)
-                idx = MaskBaseDataset.encode_multi_class(mask_label, gender_label)
-                self.label_paths[idx].append(img_path)
+
+#                 idx = MaskBaseDataset.encode_multi_class(mask_label, gender_label)
+#                 self.label_paths[idx].append(img_path)
 
     def calc_statistics(self):
         has_statistics = self.mean is not None and self.std is not None

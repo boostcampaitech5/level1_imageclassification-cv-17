@@ -105,12 +105,12 @@ class bestAugmentation:
     def __call__(self, image):
         return self.transform(image)
     
-class realAugmentation:# 주름개선
+class realAugmentation:
     def __init__(self, resize, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), **args):
         self.transform = Compose([
             CenterCrop((380,380)),
             RandomApply([transforms.ColorJitter(brightness=0.2, contrast=0.3, saturation=0.2, hue=0.1)], p=1),
-            RandomSharpness(1.0, p=1.0, always_apply=True),
+            Lambda(lambda img: ImageEnhance.Sharpness(img).enhance(4.0)),
             RandomApply([transforms.RandomHorizontalFlip(p=0.5)], p=1),
             ToTensor(),
             Normalize(mean=mean, std=std)
@@ -1309,7 +1309,7 @@ class MaskGenderDataset(Dataset):
 #         self.age_labels = []
         self.outlier_remove = outlier_remove
 
-        self.label_paths = {i: [] for i in range(18)}
+        self.label_paths = {i: [] for i in range(6)}
 
         self.transform = None
         self.setup()
@@ -1407,7 +1407,7 @@ class MaskGenderDataset(Dataset):
         return Image.open(image_path)
 
     @staticmethod
-    def encode_multi_class(mask_label, gender_label, age_label) -> int:
+    def encode_multi_class(mask_label, gender_label) -> int:
         '''
         다중 클래스 분류를 위해 세 개의 라벨을 하나의 숫자로 인코딩
         '''

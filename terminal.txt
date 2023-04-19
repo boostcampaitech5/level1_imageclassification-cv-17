@@ -69,29 +69,47 @@ python train.py --model_type Mask --dataset MaskDataset --model EfficientNetB3_i
 
 
 
-## 
-다현 기본 실험 조건 eff3, focal_ce, lr e5 - 좋은 데이터셋
-
-Eff3 - Adam - CE - BA 
-python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3 --criterion cross_entropy --augmentation bestAugmentation --optimizer Adam --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Age  --name sh_age_eff3_ce_ba --exp_name sh_age_eff3_ce_ba --data_dir ../input/data/train/images
-
-
-Eff3 - Adam - CE - RA
-python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3 --criterion cross_entropy --augmentation realAugmentation --optimizer Adam --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Age  --name sh_age_eff_ce_ra --exp_name sh_age_eff3_ce_ra --data_dir ../input/data/train/images
+## bestAugmentation
+sh_eff3init_LS_best -> 베스트로 예상
+sh_eff3init_cross_best
+sh_res34init_cross_best
+da_eff3init_LS_best
+da_res34init_LS_best
 
 
-Eff3 - AdamW - CE - RA or BA
-python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3 --criterion cross_entropy --augmentation realAugmentation --optimizer Adam --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Age  --name sh_age_eff_ce_ra --exp_name sh_age_eff3_ce_ra --data_dir ../input/data/train/images
-
-RES34_init - Adam -CE - RA or BA
-python train.py --model_type Age --dataset AgeDataset --model ResNet34_init --criterion cross_entropy --augmentation realAugmentation --optimizer Adam --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Age  --name sh_age_res34_ce_ra --exp_name sh_age_res34_ce_ra --data_dir ../input/data/train/images
-
-RES34_init - AdamW -CE - RA or BA
-python train.py --model_type Age --dataset AgeDataset --model ResNet34_init --criterion cross_entropy --augmentation realAugmentation --optimizer Adam --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Age  --name sh_age_res34_ce_ra --exp_name sh_age_res34_ce_ra --data_dir ../input/data/train/images
+# 승희
+sh_eff3init_LS_best
+python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3_init --criterion label_smoothing --augmentation bestAugmentation --optimizer AdamW --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Age_new  --name sh_eff3init_LS_best --exp_name sh_eff3init_LS_best --data_dir ../input/data/train/images
 
 
+sh_eff3init_cross_best
+python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3_init --criterion cross_entropy --augmentation bestAugmentation --optimizer AdamW --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Age_new  --name sh_eff3init_cross_best --exp_name sh_eff3init_cross_best --data_dir ../input/data/train/images
 
 
-python inference.py --model_type Age --model EfficientNetB3 --data_dir ../input/data/eval --model_dir ./Age/sh_age_cendercrop_ce_ba --output_dir ./Age/sh_age_cendercrop_ce_ba --batch_size 64
+sh_res34init_cross_best
+python train.py --model_type Age --dataset AgeDataset --model ResNet34_init --criterion cross_entropy --augmentation bestAugmentation --optimizer AdamW --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Age_new  --name sh_res34init_cross_best --exp_name sh_res34init_cross_best --data_dir ../input/data/train/images
 
-level1_imageclassification-cv-17/Age/sh_age_cendercrop_ce_ba/best.pth
+
+da_eff3init_LS_best
+python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3_init --criterion label_smoothing --augmentation bestAugmentation --optimizer AdamW --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Age_new  --name da_eff3init_LS_best --exp_name da_eff3init_LS_best --data_dir ../input/data/train/images
+
+da_res34init_LS_best
+python train.py --model_type Age --dataset AgeDataset --model ResNet34_init --criterion label_smoothing --augmentation bestAugmentation --optimizer AdamW --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Age_new  --name da_res34init_LS_best --exp_name da_res34init_LS_best --data_dir ../input/data/train/images
+
+## realAugmentation 테스트
+sh_eff3init_cross_real
+sh_res34init_cross_real
+da_eff3init_LS_real
+da_res34init_LS_real
+
+sh_eff3init_cross_real
+python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3_init --criterion cross_entropy --augmentation realAugmentation --optimizer AdamW --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Age_new  --name sh_eff3init_cross_real --exp_name sh_eff3init_cross_real --data_dir ../input/data/train/images
+
+sh_res34init_cross_real
+python train.py --model_type Age --dataset AgeDataset --model ResNet34_init --criterion cross_entropy --augmentation realAugmentation --optimizer AdamW --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Age_new  --name sh_res34init_cross_real --exp_name sh_res34init_cross_real --data_dir ../input/data/train/images
+
+da_eff3init_LS_real
+python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3_init --criterion label_smoothing --augmentation realAugmentation --optimizer AdamW --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Age_new  --name da_eff3init_LS_real --exp_name da_eff3init_LS_real --data_dir ../input/data/train/images
+
+da_res34init_LS_real
+python train.py --model_type Age --dataset AgeDataset --model ResNet34_init --criterion label_smoothing --augmentation realAugmentation --optimizer AdamW --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Age_new  --name da_res34init_LS_real --exp_name da_res34init_LS_real --data_dir ../input/data/train/images

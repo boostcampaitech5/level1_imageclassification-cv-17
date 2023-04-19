@@ -401,7 +401,7 @@ if __name__ == '__main__':
     parser.add_argument('--batch_size', type=int, default=32, help='input batch size for training (default: 32)')
     parser.add_argument('--valid_batch_size', type=int, default=32, help='input batch size for validing (default: 32)')
     parser.add_argument('--model', type=str, default='EfficientNetB3', help='model type (default: EfficientNetB3)')
-    parser.add_argument('--optimizer', type=str, default='AdamW', help='optimizer type (default: AdamW)')
+    parser.add_argument('--optimizer', type=str, default='Adam', help='optimizer type (default: Adam)')
     parser.add_argument('--lr', type=float, default=1e-5, help='learning rate (default: 1e-5)')
     parser.add_argument('--val_ratio', type=float, default=0.2, help='ratio for validaton (default: 0.2)')
     parser.add_argument('--criterion', type=str, default='cross_entropy', help='criterion type (default: cross_entropy)')

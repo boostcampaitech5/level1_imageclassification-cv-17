@@ -207,12 +207,41 @@ class DenseNet121(nn.Module):
         x = self.model(x)
         return x
     
+class DenseNet121_init(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(DenseNet121_init, self).__init__()
+        self.model = densenet121(pretrained=True)
+        self.num_ftrs = self.model.classifier.in_features
+        self.model.classifier = nn.Linear(self.num_ftrs, num_classes) # 18
+        initialize_weights(self.model.classifier)
+        
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
 class DenseNet161(nn.Module):
     '''
     생성자 : 박승희
     '''
     def __init__(self, num_classes):
         super(densenet161, self).__init__()
+        self.model = densenet161(pretrained=True)
+        self.num_ftrs = self.model.classifier.in_features
+        self.model.classifier = nn.Linear(self.num_ftrs, num_classes) # 18
+        
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class DenseNet161_init(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(DenseNet161_init, self).__init__()
         self.model = densenet161(pretrained=True)
         self.num_ftrs = self.model.classifier.in_features
         self.model.classifier = nn.Linear(self.num_ftrs, num_classes) # 18

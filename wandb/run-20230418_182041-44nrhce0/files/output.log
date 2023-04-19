@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "train.py", line 427, in <module>
+    train(data_dir, model_dir, args)
+  File "train.py", line 269, in train
+    loss = criterion(outs, labels)
+  File "/opt/conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/opt/ml/level1_imageclassification-cv-17/loss.py", line 131, in forward
+    y_pred = F.softmax(y_pred, dim=1)
+  File "/opt/conda/lib/python3.8/site-packages/torch/nn/functional.py", line 1512, in softmax
+    ret = input.softmax(dim)
+IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 1)

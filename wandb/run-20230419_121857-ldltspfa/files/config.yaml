@@ -1,0 +1,82 @@
+wandb_version: 1
+
+seed:
+  desc: null
+  value: 111
+epochs:
+  desc: null
+  value: 1
+dataset:
+  desc: null
+  value: MaskGenderDataset
+augmentation:
+  desc: null
+  value: YoonpyoAugmentation
+resize:
+  desc: null
+  value:
+  - 512
+  - 384
+batch_size:
+  desc: null
+  value: 32
+valid_batch_size:
+  desc: null
+  value: 32
+model:
+  desc: null
+  value: EfficientNetB3
+optimizer:
+  desc: null
+  value: Adam
+lr:
+  desc: null
+  value: 1.0e-05
+val_ratio:
+  desc: null
+  value: 0.2
+criterion:
+  desc: null
+  value: label_smoothing
+lr_decay_step:
+  desc: null
+  value: 20
+log_interval:
+  desc: null
+  value: 20
+name:
+  desc: null
+  value: test
+model_dir:
+  desc: null
+  value: ./test
+patience_limit:
+  desc: null
+  value: 3
+_wandb:
+  desc: null
+  value:
+    python_version: 3.8.5
+    cli_version: 0.14.2
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1681906737.725007
+    t:
+      1:
+      - 1
+      - 2
+      - 3
+      - 5
+      - 41
+      - 49
+      - 53
+      - 55
+      - 63
+      3:
+      - 16
+      - 23
+      4: 3.8.5
+      5: 0.14.2
+      8:
+      - 5

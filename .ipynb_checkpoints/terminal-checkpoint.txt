@@ -5,24 +5,70 @@ $ pip install –r requirements.txt
 $ pip freeze
 
 # 주피터 터미널에서 모델 돌리는 방법 안내 by sh
-예시)
-    # 이미지 경로 & 실험 결과 저장할 폴더명
-    python train.py --data_dir {image경로} --model_dir {실험결과폴더명}
-    python train.py --data_dir ../input/data/train/images --model_dir ./runs
-    
-    ## epochs & patience_limit 추가
-    python train.py --data_dir ../input/data/train/images --model_dir ./model_test --model EfficientNetB4 --epochs 10 --patience_limit 1
-
-    # 실험 결과 저장할 폴더명 & 모델만 지정
-    python train.py --data_dir ../input/data/train/images --model_dir ./model --model_comparison EfficientNetB4 --epochs 1
-    
-python train.py --data_dir ../input/data/train/images --model_dir model_comparison --model EfficientNetB3 --epochs 20 --batch_size 128 --valid_batch_size 128 --name    
-
-
-## inference 작동코드 : model_dir - best.pth 위치, output_dir : output.csv 저장위치
-python inference.py --model ResNet34_init --data_dir ../input/data/eval --model_dir ./model/focal1 --output_dir ./model/focal1 --batch_size 64
-python inference.py --model ResNet34_init --data_dir ../input/data/eval --model_dir ./model/focal2 --output_dir ./model/focal1 --batch_size 64
+## 18개 분류기 코드
+python train.py --model_type MaskBase --dataset MaskBaseDataset --model EfficientNetB3 --criterion cross_entropy --augmentation YoonpyoAugmentation --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Base  --name all --exp_name sh_all --data_dir ../input/data/train/images
 
 ## 마스크 분류기
-python train.py --data_dir ../input/data/train/images --model_dir ./mask_test --epochs 1  --name mask_test --exp_name mask_test
+python train.py --model_type Mask --dataset MaskDataset --model EfficientNetB3 --criterion label_smoothing --augmentation YoonpyoAugmentation --optimizer Adam --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./redo_sm  --name mask_redo --exp_name sh_mask_redo --data_dir ../input/data/train/images 
 
+## 성별 분류기
+python train.py --model_type Gender --dataset GenderDataset --model EfficientNetB3 --criterion f1 --augmentation YoonpyoAugmentation --optimizer Adam --epochs 20 --lr 1e-3 --batch_size 16 --valid_batch_size 16 --model_dir ./redo_sm --name gender_redo --exp_name sh_gender_redo --data_dir ../input/data/train/images
+
+## 나이 분류기
+python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3 --criterion label_smoothing --augmentation YoonpyoAugmentation --optimizer Adam --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./redo_sm  --name age_redi --exp_name sh_age_redo --data_dir ../input/data/train/images
+
+
+## 3개 연달아서 돌리기
+python train.py --model_type Mask --dataset MaskDataset --model EfficientNetB3 --criterion cross_entropy --augmentation CustomAugmentation --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./triple_1  --name mask_CA_CE --exp_name sh_mask_ca_ct --data_dir ../input/data/train/images && python train.py --model_type Gender --dataset GenderDataset --model EfficientNetB3 --criterion cross_entropy --augmentation YoonpyoAugmentation --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./triple_1 --name gender_CA_YA --exp_name sh_gender_ca_ya --data_dir ../input/data/train/images && python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3 --criterion cross_entropy --augmentation YoonpyoAugmentation --epochs 20 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./triple_1  --name age_CA_YA --exp_name sh_age_ca_ya --data_dir ../input/data/train/images
+
+
+## 터미널 명령어 연속으로 돌리기 안내 ##
+; - 앞의 명령어가 실패해도 다음 명령어가 실행
+&& - 앞의 명령어가 성공했을 때 다음 명령어가 실행
+& - 앞의 명령어를 백그라운드로 돌리고 동시에 뒤의 명령어를 실행
+|| - 앞에 명령어가 성공하면 뒤의 명령어를 실행하지 않음 .. !
+
+## criterion 선택지 안내 ##
+'cross_entropy': nn.CrossEntropyLoss,
+'focal': FocalLoss,
+'focal_ce': FocalLoss_ce,
+'label_smoothing': LabelSmoothingLoss,
+'f1': F1Loss,
+'cross_labelsmooth': CrossEntropyLossWithLabelSmoothing,
+
+## model_type & dataset 선택지 안내 ##
+MaskBase - MaskBaseDataset
+Mask     - MaskDataset
+Gender   - GenderDataset
+Age      - AgeDataset
+
+## inference 작동코드 : model_dir - best.pth 위치, output_dir : output.csv 저장위치
+> model_type 필수 지정
+## 18개 분류기
+python inference.py --model_type MaskBase --model ResNet34_init --data_dir ../input/data/eval --model_dir ./model/focal1 --output_dir ./model/focal1 --batch_size 64
+
+## 마스크 분류기
+python inference.py --model_type Mask --model ResNet34_init --data_dir ../input/data/eval --model_dir ./model/focal1 --output_dir ./model/mask --batch_size 64'sh_mask_eff
+
+## 성별 분류기
+python inference.py --model_type Gender --model ResNet34_init --data_dir ../input/data/eval --model_dir ./model/focal2 --output_dir ./model/focal1 --batch_size 64
+
+## 나이 분류기
+python inference.py --model_type Age --model ResNet34_init --data_dir ../input/data/eval --model_dir ./model/focal2 --output_dir ./model/focal1 --batch_size 64
+
+## datapreprocess 작동코드 ##
+python datapreprocess.py --aug_dir_name /opt/ml/input/augmentation_delete_data
+
+## 4.19 - 윤표 1위 작업물에서 batchsize 증량
+python train.py --data_dir ../input/data/train/images --model_dir ./model --model EfficientNetB3_init  --epochs 30 --augmentation 'bestAugmentation'  --patience_limit 3 --lr 1e-5 --criterion 'cross_entropy' --name 'sh_yn_change_transform_batch60' --exp_name 'yoon_change_transform_b60_sh' --batch_size 60 --valid_batch_size 60
+
+
+## 마스크 실험
+python train.py --model_type Mask --dataset MaskDataset --model EfficientNetB3_init --criterion cross_entropy --augmentation bestAugmentation --optimizer Adam --epochs 30 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Mask  --name EfficientNetB3_init --exp_name sh_mask_eff_init_e5 --data_dir ../input/data/train/images && python train.py --model_type Mask --dataset MaskDataset --model ResNet34_init --criterion cross_entropy --augmentation bestAugmentation --optimizer Adam --epochs 30 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Mask  --name ResNet34_init --exp_name sh_mask_res_init_e5 --data_dir ../input/data/train/images && python train.py --model_type Mask --dataset MaskDataset --model DenseNet121_init --criterion cross_entropy --augmentation bestAugmentation --optimizer Adam --epochs 30 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Mask  --name DenseNet121_init --exp_name sh_mask_den_init_e5 --data_dir ../input/data/train/images
+
+
+
+
+## 
+다현 eff3, focal_ce, lr e5
+python train.py --model_type Mask --dataset MaskDataset --model EfficientNetB3_init --criterion cross_entropy --augmentation bestAugmentation --optimizer Adam --epochs 30 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Mask  --name EfficientNetB3_init --exp_name sh_mask_eff_init_e5 --data_dir ../input/data/train/images && python train.py --model_type Mask --dataset MaskDataset --model ResNet34_init --criterion cross_entropy --augmentation bestAugmentation --optimizer Adam --epochs 30 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Mask  --name ResNet34_init --exp_name sh_mask_res_init_e5 --data_dir ../input/data/train/images && python train.py --model_type Mask --dataset MaskDataset --model DenseNet121_init --criterion cross_entropy --augmentation bestAugmentation --optimizer Adam --epochs 30 --lr 1e-5 --batch_size 32 --valid_batch_size 32 --model_dir ./Mask  --name DenseNet121_init --exp_name sh_mask_den_init_e5 --data_dir ../input/data/train/images

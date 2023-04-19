@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "train.py", line 427, in <module>
+    train(data_dir, model_dir, args)
+  File "train.py", line 264, in train
+    outs = model(inputs) # batch_size, label
+  File "/opt/conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/opt/conda/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 159, in forward
+    return self.module(*inputs[0], **kwargs[0])
+  File "/opt/conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/opt/ml/level1_imageclassification-cv-17/model.py", line 265, in forward
+    x = self.model(x)
+  File "/opt/conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/opt/conda/lib/python3.8/site-packages/efficientnet_pytorch/model.py", line 314, in forward
+    x = self.extract_features(inputs)
+  File "/opt/conda/lib/python3.8/site-packages/efficientnet_pytorch/model.py", line 296, in extract_features
+    x = block(x, drop_connect_rate=drop_connect_rate)
+  File "/opt/conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/opt/conda/lib/python3.8/site-packages/efficientnet_pytorch/model.py", line 122, in forward
+    x = self._project_conv(x)
+  File "/opt/conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/opt/conda/lib/python3.8/site-packages/efficientnet_pytorch/utils.py", line 275, in forward
+    x = F.conv2d(x, self.weight, self.bias, self.stride, self.padding, self.dilation, self.groups)
+RuntimeError: CUDA out of memory. Tried to allocate 14.00 MiB (GPU 0; 31.75 GiB total capacity; 30.24 GiB already allocated; 9.50 MiB free; 30.40 GiB reserved in total by PyTorch)

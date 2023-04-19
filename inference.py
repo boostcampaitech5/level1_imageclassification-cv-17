@@ -241,38 +241,77 @@ def age_inference(data_dir, model_dir, output_dir, args):
     save_path = os.path.join(output_dir, f'output.csv')
     info.to_csv(save_path, index=False)
     print(f"Age Inference Done! Age Inference result saved at {save_path}")
-
     
-def combine_inference(data_dir, output_dir):
-    data_dir = '../input/data/eval'
-    info_path = pd.read_csv(os.path.join(data_dir, 'info.csv'))
+def maskgender_inference(data_dir, model_dir, output_dir, args):
+    use_cuda = torch.cuda.is_available()
+    device = torch.device("cuda" if use_cuda else "cpu")
+
+    num_classes = MaskGenderDataset.num_classes  # 6
+    import_model = args.model
+    model = load_model(model_dir, num_classes, device, import_model).to(device) # load_model(saved_model, num_classes, device)
+    model.eval()
+
+    img_root = os.path.join(data_dir, 'images')
+    info_path = os.path.join(data_dir, 'info.csv')
     info = pd.read_csv(info_path)
 
-    # 비교할 두 개의 csv 파일 경로 설정
-    csv_file1 = '' #비교할 csv
-    csv_file2 = '' 
-    csv_file2 = ''
+    img_paths = [os.path.join(img_root, img_id) for img_id in info.ImageID]
+    dataset = TestDataset(img_paths, args.resize)
+    loader = torch.utils.data.DataLoader(
+        dataset,
+        batch_size=args.batch_size,
+#         num_workers=multiprocessing.cpu_count() // 2,
+        shuffle=False,
+        pin_memory=use_cuda,
+        drop_last=False,
+    )
 
-    ans=0
-    all_predictions=[]
-    with open(csv_file1, 'r') as file1, open(csv_file2, 'r') as file2, open(csv_file3, 'r') as file3:
-        reader1 = csv.reader(file1)
-        reader2 = csv.reader(file2)
-        reader3 = csv.reader(file3)
+    print("Calculating inference results..")
+    preds = []
+    with torch.no_grad():
+        for idx, images in enumerate(loader):
+            images = images.to(device)
+            pred = model(images)
+            pred = pred.argmax(dim=-1)
+            preds.extend(pred.cpu().numpy())
 
-        for row1, row2,row3 in zip(reader1, reader2,reader3):
-            if row1[1]!='ans' and row2[1]!='ans' and row3[1]!='ans':
-                ans=6*int(row1[1])+3*int(row2[1])+int(row3[1])
-                all_predictions.append(ans)
+    info['ans'] = preds
+    save_path = os.path.join(output_dir, f'output.csv')
+    info.to_csv(save_path, index=False)
+    print(f"Mask&Gender Inference Done! Mask Inference result saved at {save_path}")
 
-    info['ans'] = all_predictions
-    info.to_csv(os.path.join(output_dir, 'multi_output.csv'), index=False)
-    print('test munti inference is done!')
+
+    
+# def combine_inference(data_dir, output_dir):
+#     data_dir = '../input/data/eval'
+#     info_path = pd.read_csv(os.path.join(data_dir, 'info.csv'))
+#     info = pd.read_csv(info_path)
+
+#     # 비교할 두 개의 csv 파일 경로 설정
+#     csv_file1 = '' #비교할 csv
+#     csv_file2 = '' 
+#     csv_file2 = ''
+
+#     ans=0
+#     all_predictions=[]
+#     with open(csv_file1, 'r') as file1, open(csv_file2, 'r') as file2, open(csv_file3, 'r') as file3:
+#         reader1 = csv.reader(file1)
+#         reader2 = csv.reader(file2)
+#         reader3 = csv.reader(file3)
+
+#         for row1, row2,row3 in zip(reader1, reader2,reader3):
+#             if row1[1]!='ans' and row2[1]!='ans' and row3[1]!='ans':
+#                 ans=6*int(row1[1])+3*int(row2[1])+int(row3[1])
+#                 all_predictions.append(ans)
+
+#     info['ans'] = all_predictions
+#     info.to_csv(os.path.join(output_dir, 'multi_output.csv'), index=False)
+#     print('test munti inference is done!')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    # Data and model checkpoints directories
+    # Data and model checkpoints directories 
     parser.add_argument('--batch_size', type=int, default=1000, help='input batch size for validing (default: 1000)')
     parser.add_argument('--resize', nargs="+", type=tuple, default=(512, 384), help='resize size for image when you trained (default: (512, 384))')
     parser.add_argument('--model', type=str, default='BaseModel', help='model type (default: BaseModel)')
@@ -300,5 +339,8 @@ if __name__ == '__main__':
         gender_inference(data_dir, model_dir, output_dir, args) # model_dir -> load_model(saved_model 
     elif model_type == 'Age':
         age_inference(data_dir, model_dir, output_dir, args) # model_dir -> load_model(saved_model 
+    elif model_type == 'MaskGender':
+        maskgender_inference(data_dir, model_dir, output_dir, args) # model_dir -> load_model(saved_model 
+
     else:
         print('inference 파일 생성 에러')

@@ -1,0 +1,86 @@
+2023-04-19 12:18:57,726 INFO    StreamThr :7901 [internal.py:wandb_internal():86] W&B internal server running at pid: 7901, started at: 2023-04-19 12:18:57.725818
+2023-04-19 12:18:57,729 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: status
+2023-04-19 12:18:57,730 INFO    WriterThread:7901 [datastore.py:open_for_write():85] open: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230419_121857-ldltspfa/run-ldltspfa.wandb
+2023-04-19 12:18:57,730 DEBUG   SenderThread:7901 [sender.py:send():375] send: header
+2023-04-19 12:18:57,793 DEBUG   SenderThread:7901 [sender.py:send():375] send: run
+2023-04-19 12:19:02,795 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: keepalive
+2023-04-19 12:19:07,796 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: keepalive
+2023-04-19 12:19:12,798 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: keepalive
+2023-04-19 12:19:17,799 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: keepalive
+2023-04-19 12:19:22,800 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: keepalive
+2023-04-19 12:19:27,802 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: keepalive
+2023-04-19 12:19:32,803 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: keepalive
+2023-04-19 12:19:37,804 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: keepalive
+2023-04-19 12:19:39,248 INFO    SenderThread:7901 [retry.py:__call__():172] Retry attempt failed:
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.8/site-packages/urllib3/connectionpool.py", line 426, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "/opt/conda/lib/python3.8/site-packages/urllib3/connectionpool.py", line 421, in _make_request
+    httplib_response = conn.getresponse()
+  File "/opt/conda/lib/python3.8/http/client.py", line 1347, in getresponse
+    response.begin()
+  File "/opt/conda/lib/python3.8/http/client.py", line 307, in begin
+    version, status, reason = self._read_status()
+  File "/opt/conda/lib/python3.8/http/client.py", line 268, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/opt/conda/lib/python3.8/socket.py", line 669, in readinto
+    return self._sock.recv_into(b)
+  File "/opt/conda/lib/python3.8/ssl.py", line 1241, in recv_into
+    return self.read(nbytes, buffer)
+  File "/opt/conda/lib/python3.8/ssl.py", line 1099, in read
+    return self._sslobj.read(len, buffer)
+socket.timeout: The read operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+  File "/opt/conda/lib/python3.8/site-packages/urllib3/connectionpool.py", line 726, in urlopen
+    retries = retries.increment(
+  File "/opt/conda/lib/python3.8/site-packages/urllib3/util/retry.py", line 410, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/opt/conda/lib/python3.8/site-packages/urllib3/packages/six.py", line 735, in reraise
+    raise value
+  File "/opt/conda/lib/python3.8/site-packages/urllib3/connectionpool.py", line 670, in urlopen
+    httplib_response = self._make_request(
+  File "/opt/conda/lib/python3.8/site-packages/urllib3/connectionpool.py", line 428, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "/opt/conda/lib/python3.8/site-packages/urllib3/connectionpool.py", line 335, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Read timed out. (read timeout=10)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.8/site-packages/wandb/sdk/lib/retry.py", line 131, in __call__
+    result = self._call_fn(*args, **kwargs)
+  File "/opt/conda/lib/python3.8/site-packages/wandb/sdk/internal/internal_api.py", line 285, in execute
+    return self.client.execute(*args, **kwargs)  # type: ignore
+  File "/opt/conda/lib/python3.8/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/client.py", line 52, in execute
+    result = self._get_result(document, *args, **kwargs)
+  File "/opt/conda/lib/python3.8/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/client.py", line 60, in _get_result
+    return self.transport.execute(document, *args, **kwargs)
+  File "/opt/conda/lib/python3.8/site-packages/wandb/sdk/lib/gql_request.py", line 55, in execute
+    request = self.session.post(self.url, **post_args)
+  File "/opt/conda/lib/python3.8/site-packages/requests/sessions.py", line 578, in post
+    return self.request('POST', url, data=data, json=json, **kwargs)
+  File "/opt/conda/lib/python3.8/site-packages/requests/sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/conda/lib/python3.8/site-packages/requests/sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/conda/lib/python3.8/site-packages/requests/adapters.py", line 529, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='api.wandb.ai', port=443): Read timed out. (read timeout=10)
+2023-04-19 12:19:42,806 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: keepalive
+2023-04-19 12:19:47,807 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: keepalive
+2023-04-19 12:19:52,808 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: keepalive
+2023-04-19 12:19:57,810 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: cancel
+2023-04-19 12:19:57,810 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: cancel
+2023-04-19 12:19:57,811 DEBUG   SenderThread:7901 [sender.py:send():384] Record cancelled: run
+2023-04-19 12:19:57,811 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: status_report
+2023-04-19 12:19:58,280 DEBUG   HandlerThread:7901 [handler.py:handle_request():144] handle_request: shutdown
+2023-04-19 12:19:58,281 INFO    HandlerThread:7901 [handler.py:finish():845] shutting down handler
+2023-04-19 12:19:58,811 INFO    SenderThread:7901 [sender.py:finish():1550] shutting down sender
+2023-04-19 12:19:58,811 INFO    WriterThread:7901 [datastore.py:close():298] close: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230419_121857-ldltspfa/run-ldltspfa.wandb

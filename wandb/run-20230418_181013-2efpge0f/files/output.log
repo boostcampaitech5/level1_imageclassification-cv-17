@@ -1,0 +1,12 @@
+
+torch.Size([16, 2]) torch.Size([16])
+Traceback (most recent call last):
+  File "train.py", line 425, in <module>
+    train(data_dir, model_dir, args)
+  File "train.py", line 267, in train
+    loss = criterion(outs, labels)
+  File "/opt/conda/lib/python3.8/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/opt/ml/level1_imageclassification-cv-17/loss.py", line 131, in forward
+    tp = (y_true * y_pred).sum(dim=0).to(torch.float32)
+RuntimeError: The size of tensor a (18) must match the size of tensor b (2) at non-singleton dimension 1

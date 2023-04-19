@@ -1,0 +1,32 @@
+2023-04-18 19:12:30,182 INFO    MainThread:427 [wandb_setup.py:_flush():76] Configure stats pid to 427
+2023-04-18 19:12:30,182 INFO    MainThread:427 [wandb_setup.py:_flush():76] Loading settings from /opt/ml/.config/wandb/settings
+2023-04-18 19:12:30,182 INFO    MainThread:427 [wandb_setup.py:_flush():76] Loading settings from /opt/ml/level1_imageclassification-cv-17/wandb/settings
+2023-04-18 19:12:30,182 INFO    MainThread:427 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2023-04-18 19:12:30,182 INFO    MainThread:427 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2023-04-18 19:12:30,182 INFO    MainThread:427 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'train.py', 'program': 'train.py'}
+2023-04-18 19:12:30,183 INFO    MainThread:427 [wandb_init.py:_log_setup():507] Logging user logs to /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_191230-ff2tiqcm/logs/debug.log
+2023-04-18 19:12:30,183 INFO    MainThread:427 [wandb_init.py:_log_setup():508] Logging internal logs to /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_191230-ff2tiqcm/logs/debug-internal.log
+2023-04-18 19:12:30,183 INFO    MainThread:427 [wandb_init.py:init():547] calling init triggers
+2023-04-18 19:12:30,183 INFO    MainThread:427 [wandb_init.py:init():554] wandb.init called with sweep_config: {}
+config: {'seed': 111, 'epochs': 20, 'dataset': 'GenderDataset', 'augmentation': 'YoonpyoAugmentation', 'resize': (512, 384), 'batch_size': 16, 'valid_batch_size': 16, 'model': 'EfficientNetB3', 'optimizer': 'AdamW', 'lr': 0.001, 'val_ratio': 0.2, 'criterion': 'f1', 'lr_decay_step': 20, 'log_interval': 20, 'name': 'gender_redo', 'model_dir': './redo_sm', 'patience_limit': 3}
+2023-04-18 19:12:30,183 INFO    MainThread:427 [wandb_init.py:init():595] starting backend
+2023-04-18 19:12:30,183 INFO    MainThread:427 [wandb_init.py:init():599] setting up manager
+2023-04-18 19:12:30,185 INFO    MainThread:427 [backend.py:_multiprocessing_setup():106] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2023-04-18 19:12:30,187 INFO    MainThread:427 [wandb_init.py:init():605] backend started and connected
+2023-04-18 19:12:30,190 INFO    MainThread:427 [wandb_init.py:init():695] updated telemetry
+2023-04-18 19:12:30,250 INFO    MainThread:427 [wandb_init.py:init():732] communicating run to backend with 60.0 second timeout
+2023-04-18 19:12:30,718 INFO    MainThread:427 [wandb_run.py:_on_init():2176] communicating current version
+2023-04-18 19:12:30,757 INFO    MainThread:427 [wandb_run.py:_on_init():2185] got version response 
+2023-04-18 19:12:30,757 INFO    MainThread:427 [wandb_init.py:init():782] starting run threads in backend
+2023-04-18 19:12:33,560 INFO    MainThread:427 [wandb_run.py:_console_start():2157] atexit reg
+2023-04-18 19:12:33,561 INFO    MainThread:427 [wandb_run.py:_redirect():2012] redirect: SettingsConsole.WRAP_RAW
+2023-04-18 19:12:33,561 INFO    MainThread:427 [wandb_run.py:_redirect():2077] Wrapping output streams.
+2023-04-18 19:12:33,561 INFO    MainThread:427 [wandb_run.py:_redirect():2102] Redirects installed.
+2023-04-18 19:12:33,562 INFO    MainThread:427 [wandb_init.py:init():824] run started, returning control to user process
+2023-04-18 19:27:19,245 INFO    MainThread:427 [wandb_run.py:_finish():1892] finishing run cv17_nextlevel/Mask_Classification/ff2tiqcm
+2023-04-18 19:27:19,245 INFO    MainThread:427 [wandb_run.py:_atexit_cleanup():2126] got exitcode: 0
+2023-04-18 19:27:19,245 INFO    MainThread:427 [wandb_run.py:_restore():2109] restore
+2023-04-18 19:27:19,245 INFO    MainThread:427 [wandb_run.py:_restore():2115] restore done
+2023-04-18 19:27:26,933 INFO    MainThread:427 [wandb_run.py:_footer_history_summary_info():3476] rendering history
+2023-04-18 19:27:26,933 INFO    MainThread:427 [wandb_run.py:_footer_history_summary_info():3508] rendering summary
+2023-04-18 19:27:26,936 INFO    MainThread:427 [wandb_run.py:_footer_sync_info():3434] logging synced files

@@ -1,0 +1,110 @@
+{
+    "os": "Linux-4.4.0-59-generic-x86_64-with-glibc2.10",
+    "python": "3.8.5",
+    "heartbeatAt": "2023-04-19T06:59:11.094774",
+    "startedAt": "2023-04-19T06:59:09.789361",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--data_dir",
+        "../input/data/train/images",
+        "--model_dir",
+        "./model",
+        "--model",
+        "EfficientNetB3",
+        "--epochs",
+        "30",
+        "--augmentation",
+        "bestAugmentation",
+        "--patience_limit",
+        "3",
+        "--lr",
+        "1e-5",
+        "--criterion",
+        "cross_entropy",
+        "--name",
+        "sh_yn_change_transform_batch64",
+        "--exp_name",
+        "yoon_change_transform_b64_sh",
+        "--batch_size",
+        "64",
+        "--valid_batch_size",
+        "64"
+    ],
+    "state": "running",
+    "program": "train.py",
+    "codePath": "train.py",
+    "git": {
+        "remote": "https://github.com/boostcampaitech5/level1_imageclassification-cv-17.git",
+        "commit": "03face7982f4c9f03f70e72fca80cb7df633e808"
+    },
+    "email": "shee6185@gmail.com",
+    "root": "/opt/ml/level1_imageclassification-cv-17",
+    "host": "13cffd2f4208",
+    "username": "root",
+    "executable": "/opt/conda/bin/python",
+    "cpu_count": 8,
+    "cpu_count_logical": 8,
+    "cpu_freq": {
+        "current": 2200.052,
+        "min": 0.0,
+        "max": 0.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2200.052,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2200.052,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2200.052,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2200.052,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2200.052,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2200.052,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2200.052,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2200.052,
+            "min": 0.0,
+            "max": 0.0
+        }
+    ],
+    "disk": {
+        "total": 98.30496215820312,
+        "used": 62.30031204223633
+    },
+    "gpu": "Tesla V100-PCIE-32GB",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "Tesla V100-PCIE-32GB",
+            "memory_total": 34089730048
+        }
+    ],
+    "memory": {
+        "total": 88.50595092773438
+    }
+}

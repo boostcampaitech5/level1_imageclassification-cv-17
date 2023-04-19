@@ -1,0 +1,27 @@
+{
+    "seed": 111,
+    "epochs": 30,
+    "dataset": "MaskDataset",
+    "augmentation": "bestAugmentation",
+    "resize": [
+        512,
+        384
+    ],
+    "batch_size": 32,
+    "valid_batch_size": 32,
+    "model": "DenseNet121_init",
+    "optimizer": "Adam",
+    "lr": 1e-05,
+    "val_ratio": 0.2,
+    "criterion": "cross_entropy",
+    "lr_decay_step": 20,
+    "log_interval": 20,
+    "name": "DenseNet121_init",
+    "data_dir": "../input/data/train/images",
+    "model_dir": "./Mask",
+    "patience_limit": 3,
+    "exp_name": "sh_mask_den_init_e5",
+    "inference_make": true,
+    "outlier_remove": false,
+    "model_type": "Mask"
+}

@@ -1,0 +1,27 @@
+{
+    "seed": 111,
+    "epochs": 30,
+    "dataset": "MaskBaseDataset",
+    "augmentation": "bestAugmentation",
+    "resize": [
+        512,
+        384
+    ],
+    "batch_size": 64,
+    "valid_batch_size": 64,
+    "model": "EfficientNetB3",
+    "optimizer": "Adam",
+    "lr": 1e-05,
+    "val_ratio": 0.2,
+    "criterion": "cross_entropy",
+    "lr_decay_step": 20,
+    "log_interval": 20,
+    "name": "sh_yn_change_transform_batch64",
+    "data_dir": "../input/data/train/images",
+    "model_dir": "./model",
+    "patience_limit": 3,
+    "exp_name": "yoon_change_transform_b64_sh",
+    "inference_make": true,
+    "outlier_remove": false,
+    "model_type": "MaskBase"
+}

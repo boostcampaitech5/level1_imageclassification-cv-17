@@ -1,0 +1,180 @@
+2023-04-18 18:11:22,330 INFO    StreamThr :32050 [internal.py:wandb_internal():86] W&B internal server running at pid: 32050, started at: 2023-04-18 18:11:22.329869
+2023-04-18 18:11:22,333 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: status
+2023-04-18 18:11:22,334 INFO    WriterThread:32050 [datastore.py:open_for_write():85] open: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/run-1e8dnsye.wandb
+2023-04-18 18:11:22,335 DEBUG   SenderThread:32050 [sender.py:send():375] send: header
+2023-04-18 18:11:22,388 DEBUG   SenderThread:32050 [sender.py:send():375] send: run
+2023-04-18 18:11:22,876 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: check_version
+2023-04-18 18:11:22,878 INFO    SenderThread:32050 [dir_watcher.py:__init__():219] watching files in: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files
+2023-04-18 18:11:22,878 INFO    SenderThread:32050 [sender.py:_start_run_threads():1124] run started: 1e8dnsye with start time 1681841482.328761
+2023-04-18 18:11:22,878 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: summary_record
+2023-04-18 18:11:22,879 INFO    SenderThread:32050 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2023-04-18 18:11:22,879 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: check_version
+2023-04-18 18:11:22,921 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: run_start
+2023-04-18 18:11:22,924 DEBUG   HandlerThread:32050 [system_info.py:__init__():31] System info init
+2023-04-18 18:11:22,924 DEBUG   HandlerThread:32050 [system_info.py:__init__():46] System info init done
+2023-04-18 18:11:22,924 INFO    HandlerThread:32050 [system_monitor.py:start():181] Starting system monitor
+2023-04-18 18:11:22,924 INFO    SystemMonitor:32050 [system_monitor.py:_start():145] Starting system asset monitoring threads
+2023-04-18 18:11:22,924 INFO    HandlerThread:32050 [system_monitor.py:probe():201] Collecting system info
+2023-04-18 18:11:22,925 INFO    SystemMonitor:32050 [interfaces.py:start():190] Started cpu monitoring
+2023-04-18 18:11:22,927 INFO    SystemMonitor:32050 [interfaces.py:start():190] Started disk monitoring
+2023-04-18 18:11:22,928 INFO    SystemMonitor:32050 [interfaces.py:start():190] Started gpu monitoring
+2023-04-18 18:11:22,929 INFO    SystemMonitor:32050 [interfaces.py:start():190] Started memory monitoring
+2023-04-18 18:11:22,930 INFO    SystemMonitor:32050 [interfaces.py:start():190] Started network monitoring
+2023-04-18 18:11:22,937 DEBUG   HandlerThread:32050 [system_info.py:probe():195] Probing system
+2023-04-18 18:11:22,943 DEBUG   HandlerThread:32050 [system_info.py:_probe_git():180] Probing git
+2023-04-18 18:11:22,955 DEBUG   HandlerThread:32050 [system_info.py:_probe_git():188] Probing git done
+2023-04-18 18:11:22,955 DEBUG   HandlerThread:32050 [system_info.py:probe():240] Probing system done
+2023-04-18 18:11:22,955 DEBUG   HandlerThread:32050 [system_monitor.py:probe():210] {'os': 'Linux-4.4.0-59-generic-x86_64-with-glibc2.10', 'python': '3.8.5', 'heartbeatAt': '2023-04-18T18:11:22.937306', 'startedAt': '2023-04-18T18:11:22.322145', 'docker': None, 'cuda': None, 'args': ('--model_type', 'Gender', '--dataset', 'GenderDataset', '--model', 'EfficientNetB3', '--criterion', 'f1', '--augmentation', 'YoonpyoAugmentation', '--epochs', '2', '--lr', '1e-3', '--batch_size', '16', '--valid_batch_size', '16', '--model_dir', './gender_test', '--name', 'gender_test', '--exp_name', 'gender_test', '--data_dir', '../input/data/train/images'), 'state': 'running', 'program': 'train.py', 'codePath': 'train.py', 'git': {'remote': 'https://github.com/boostcampaitech5/level1_imageclassification-cv-17.git', 'commit': '61ff327053ec6cfc3ad1e00756bed9b3f982c4e8'}, 'email': 'shee6185@gmail.com', 'root': '/opt/ml/level1_imageclassification-cv-17', 'host': '13cffd2f4208', 'username': 'root', 'executable': '/opt/conda/bin/python', 'cpu_count': 8, 'cpu_count_logical': 8, 'cpu_freq': {'current': 2200.052, 'min': 0.0, 'max': 0.0}, 'cpu_freq_per_core': [{'current': 2200.052, 'min': 0.0, 'max': 0.0}, {'current': 2200.052, 'min': 0.0, 'max': 0.0}, {'current': 2200.052, 'min': 0.0, 'max': 0.0}, {'current': 2200.052, 'min': 0.0, 'max': 0.0}, {'current': 2200.052, 'min': 0.0, 'max': 0.0}, {'current': 2200.052, 'min': 0.0, 'max': 0.0}, {'current': 2200.052, 'min': 0.0, 'max': 0.0}, {'current': 2200.052, 'min': 0.0, 'max': 0.0}], 'disk': {'total': 98.30496215820312, 'used': 52.12232971191406}, 'gpu': 'Tesla V100-PCIE-32GB', 'gpu_count': 1, 'gpu_devices': [{'name': 'Tesla V100-PCIE-32GB', 'memory_total': 34089730048}], 'memory': {'total': 88.50595092773438}}
+2023-04-18 18:11:22,955 INFO    HandlerThread:32050 [system_monitor.py:probe():211] Finished collecting system info
+2023-04-18 18:11:22,955 INFO    HandlerThread:32050 [system_monitor.py:probe():214] Publishing system info
+2023-04-18 18:11:22,955 DEBUG   HandlerThread:32050 [system_info.py:_save_pip():51] Saving list of pip packages installed into the current environment
+2023-04-18 18:11:22,956 DEBUG   HandlerThread:32050 [system_info.py:_save_pip():67] Saving pip packages done
+2023-04-18 18:11:22,956 DEBUG   HandlerThread:32050 [system_info.py:_save_conda():74] Saving list of conda packages installed into the current environment
+2023-04-18 18:11:23,880 INFO    Thread-12 :32050 [dir_watcher.py:_on_file_created():278] file/dir created: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/conda-environment.yaml
+2023-04-18 18:11:23,880 INFO    Thread-12 :32050 [dir_watcher.py:_on_file_created():278] file/dir created: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/requirements.txt
+2023-04-18 18:11:23,881 INFO    Thread-12 :32050 [dir_watcher.py:_on_file_created():278] file/dir created: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/wandb-summary.json
+2023-04-18 18:11:25,674 DEBUG   HandlerThread:32050 [system_info.py:_save_conda():86] Saving conda packages done
+2023-04-18 18:11:25,678 INFO    HandlerThread:32050 [system_monitor.py:probe():216] Finished publishing system info
+2023-04-18 18:11:25,684 DEBUG   SenderThread:32050 [sender.py:send():375] send: files
+2023-04-18 18:11:25,684 INFO    SenderThread:32050 [sender.py:_save_file():1378] saving file wandb-metadata.json with policy now
+2023-04-18 18:11:25,692 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: stop_status
+2023-04-18 18:11:25,692 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: stop_status
+2023-04-18 18:11:25,879 INFO    Thread-12 :32050 [dir_watcher.py:_on_file_created():278] file/dir created: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/wandb-metadata.json
+2023-04-18 18:11:25,907 DEBUG   SenderThread:32050 [sender.py:send():375] send: telemetry
+2023-04-18 18:11:25,907 DEBUG   SenderThread:32050 [sender.py:send():375] send: telemetry
+2023-04-18 18:11:25,907 DEBUG   SenderThread:32050 [sender.py:send():375] send: run
+2023-04-18 18:11:26,147 INFO    SenderThread:32050 [sender.py:send_run():1002] updated run: 1e8dnsye
+2023-04-18 18:11:26,356 INFO    wandb-upload_0:32050 [upload_job.py:push():137] Uploaded file /tmp/tmpqca5ducvwandb/o9svt384-wandb-metadata.json
+2023-04-18 18:11:26,880 INFO    Thread-12 :32050 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/config.yaml
+2023-04-18 18:11:27,560 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 18:11:27,648 DEBUG   SenderThread:32050 [sender.py:send():375] send: exit
+2023-04-18 18:11:27,648 INFO    SenderThread:32050 [sender.py:send_exit():598] handling exit code: 1
+2023-04-18 18:11:27,648 INFO    SenderThread:32050 [sender.py:send_exit():600] handling runtime: 4
+2023-04-18 18:11:27,650 INFO    SenderThread:32050 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2023-04-18 18:11:27,650 INFO    SenderThread:32050 [sender.py:send_exit():606] send defer
+2023-04-18 18:11:27,651 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:27,651 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 0
+2023-04-18 18:11:27,651 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:27,651 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 0
+2023-04-18 18:11:27,651 INFO    SenderThread:32050 [sender.py:transition_state():626] send defer: 1
+2023-04-18 18:11:27,651 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:27,652 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 1
+2023-04-18 18:11:27,652 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:27,652 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 1
+2023-04-18 18:11:27,652 INFO    SenderThread:32050 [sender.py:transition_state():626] send defer: 2
+2023-04-18 18:11:27,652 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:27,652 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 2
+2023-04-18 18:11:27,652 INFO    HandlerThread:32050 [system_monitor.py:finish():190] Stopping system monitor
+2023-04-18 18:11:27,653 INFO    HandlerThread:32050 [interfaces.py:finish():202] Joined cpu monitor
+2023-04-18 18:11:27,653 INFO    HandlerThread:32050 [interfaces.py:finish():202] Joined disk monitor
+2023-04-18 18:11:27,653 DEBUG   SystemMonitor:32050 [system_monitor.py:_start():159] Starting system metrics aggregation loop
+2023-04-18 18:11:27,653 DEBUG   SystemMonitor:32050 [system_monitor.py:_start():166] Finished system metrics aggregation loop
+2023-04-18 18:11:27,653 DEBUG   SystemMonitor:32050 [system_monitor.py:_start():170] Publishing last batch of metrics
+2023-04-18 18:11:27,660 INFO    HandlerThread:32050 [interfaces.py:finish():202] Joined gpu monitor
+2023-04-18 18:11:27,661 INFO    HandlerThread:32050 [interfaces.py:finish():202] Joined memory monitor
+2023-04-18 18:11:27,661 INFO    HandlerThread:32050 [interfaces.py:finish():202] Joined network monitor
+2023-04-18 18:11:27,661 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:27,661 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 2
+2023-04-18 18:11:27,661 INFO    SenderThread:32050 [sender.py:transition_state():626] send defer: 3
+2023-04-18 18:11:27,661 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:27,662 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 3
+2023-04-18 18:11:27,662 DEBUG   SenderThread:32050 [sender.py:send():375] send: stats
+2023-04-18 18:11:27,662 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:27,662 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 3
+2023-04-18 18:11:27,662 INFO    SenderThread:32050 [sender.py:transition_state():626] send defer: 4
+2023-04-18 18:11:27,662 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:27,662 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 4
+2023-04-18 18:11:27,663 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:27,663 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 4
+2023-04-18 18:11:27,663 INFO    SenderThread:32050 [sender.py:transition_state():626] send defer: 5
+2023-04-18 18:11:27,663 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:27,663 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 5
+2023-04-18 18:11:27,663 DEBUG   SenderThread:32050 [sender.py:send():375] send: summary
+2023-04-18 18:11:27,664 INFO    SenderThread:32050 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2023-04-18 18:11:27,664 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:27,664 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 5
+2023-04-18 18:11:27,664 INFO    SenderThread:32050 [sender.py:transition_state():626] send defer: 6
+2023-04-18 18:11:27,664 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:27,664 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 6
+2023-04-18 18:11:27,664 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:27,664 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 6
+2023-04-18 18:11:27,670 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: status_report
+2023-04-18 18:11:27,880 INFO    Thread-12 :32050 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/wandb-summary.json
+2023-04-18 18:11:27,881 INFO    Thread-12 :32050 [dir_watcher.py:_on_file_created():278] file/dir created: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/output.log
+2023-04-18 18:11:27,923 INFO    SenderThread:32050 [sender.py:transition_state():626] send defer: 7
+2023-04-18 18:11:27,923 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:27,923 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 7
+2023-04-18 18:11:27,924 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:27,924 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 7
+2023-04-18 18:11:28,648 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: poll_exit
+2023-04-18 18:11:28,881 INFO    Thread-12 :32050 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/config.yaml
+2023-04-18 18:11:29,655 INFO    SenderThread:32050 [sender.py:transition_state():626] send defer: 8
+2023-04-18 18:11:29,656 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: poll_exit
+2023-04-18 18:11:29,656 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:29,656 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 8
+2023-04-18 18:11:29,656 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:29,657 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 8
+2023-04-18 18:11:29,663 INFO    SenderThread:32050 [sender.py:transition_state():626] send defer: 9
+2023-04-18 18:11:29,663 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:29,663 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 9
+2023-04-18 18:11:29,663 DEBUG   SenderThread:32050 [sender.py:send():375] send: artifact
+2023-04-18 18:11:29,881 INFO    Thread-12 :32050 [dir_watcher.py:_on_file_modified():295] file/dir modified: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/output.log
+2023-04-18 18:11:30,861 INFO    SenderThread:32050 [sender.py:send_artifact():1474] sent artifact job-https___github.com_boostcampaitech5_level1_imageclassification-cv-17.git_train.py - {'id': 'QXJ0aWZhY3Q6NDI3NTMyNTcw', 'digest': 'daf3daa633932ce616c28dfd108cb52f', 'state': 'COMMITTED', 'aliases': [{'artifactCollectionName': 'job-https___github.com_boostcampaitech5_level1_imageclassification-cv-17.git_train.py', 'alias': 'latest'}, {'artifactCollectionName': 'job-https___github.com_boostcampaitech5_level1_imageclassification-cv-17.git_train.py', 'alias': 'v38'}], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjYyNjc5MjE1', 'latestArtifact': {'id': 'QXJ0aWZhY3Q6NDI3NTMyNTcw', 'versionIndex': 38}}, 'version': 'v38'}
+2023-04-18 18:11:30,861 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:30,861 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 9
+2023-04-18 18:11:30,861 INFO    SenderThread:32050 [dir_watcher.py:finish():365] shutting down directory watcher
+2023-04-18 18:11:30,882 INFO    SenderThread:32050 [dir_watcher.py:finish():395] scan: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files
+2023-04-18 18:11:30,882 INFO    SenderThread:32050 [dir_watcher.py:finish():409] scan save: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/conda-environment.yaml conda-environment.yaml
+2023-04-18 18:11:30,882 INFO    SenderThread:32050 [dir_watcher.py:finish():409] scan save: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/output.log output.log
+2023-04-18 18:11:30,882 INFO    SenderThread:32050 [dir_watcher.py:finish():409] scan save: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/wandb-metadata.json wandb-metadata.json
+2023-04-18 18:11:30,882 INFO    SenderThread:32050 [dir_watcher.py:finish():409] scan save: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/wandb-summary.json wandb-summary.json
+2023-04-18 18:11:30,885 INFO    SenderThread:32050 [dir_watcher.py:finish():409] scan save: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/config.yaml config.yaml
+2023-04-18 18:11:30,885 INFO    SenderThread:32050 [dir_watcher.py:finish():409] scan save: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/requirements.txt requirements.txt
+2023-04-18 18:11:30,886 INFO    SenderThread:32050 [sender.py:transition_state():626] send defer: 10
+2023-04-18 18:11:30,892 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:30,893 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 10
+2023-04-18 18:11:30,895 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:30,895 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 10
+2023-04-18 18:11:30,895 INFO    SenderThread:32050 [file_pusher.py:finish():168] shutting down file pusher
+2023-04-18 18:11:31,576 INFO    wandb-upload_3:32050 [upload_job.py:push():137] Uploaded file /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/requirements.txt
+2023-04-18 18:11:31,601 INFO    wandb-upload_1:32050 [upload_job.py:push():137] Uploaded file /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/wandb-summary.json
+2023-04-18 18:11:31,677 INFO    wandb-upload_0:32050 [upload_job.py:push():137] Uploaded file /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/output.log
+2023-04-18 18:11:31,703 INFO    wandb-upload_2:32050 [upload_job.py:push():137] Uploaded file /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/files/config.yaml
+2023-04-18 18:11:31,904 INFO    Thread-11 :32050 [sender.py:transition_state():626] send defer: 11
+2023-04-18 18:11:31,904 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:31,905 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 11
+2023-04-18 18:11:31,905 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:31,905 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 11
+2023-04-18 18:11:31,905 INFO    SenderThread:32050 [file_pusher.py:join():173] waiting for file pusher
+2023-04-18 18:11:31,905 INFO    SenderThread:32050 [sender.py:transition_state():626] send defer: 12
+2023-04-18 18:11:31,905 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:31,905 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 12
+2023-04-18 18:11:31,906 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:31,906 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 12
+2023-04-18 18:11:32,127 INFO    SenderThread:32050 [sender.py:transition_state():626] send defer: 13
+2023-04-18 18:11:32,127 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:32,128 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 13
+2023-04-18 18:11:32,128 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:32,128 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 13
+2023-04-18 18:11:32,128 INFO    SenderThread:32050 [sender.py:transition_state():626] send defer: 14
+2023-04-18 18:11:32,128 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: defer
+2023-04-18 18:11:32,128 INFO    HandlerThread:32050 [handler.py:handle_request_defer():170] handle defer: 14
+2023-04-18 18:11:32,129 DEBUG   SenderThread:32050 [sender.py:send():375] send: final
+2023-04-18 18:11:32,129 DEBUG   SenderThread:32050 [sender.py:send():375] send: footer
+2023-04-18 18:11:32,129 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: defer
+2023-04-18 18:11:32,129 INFO    SenderThread:32050 [sender.py:send_request_defer():622] handle sender defer: 14
+2023-04-18 18:11:32,130 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: poll_exit
+2023-04-18 18:11:32,130 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: poll_exit
+2023-04-18 18:11:32,130 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: server_info
+2023-04-18 18:11:32,131 DEBUG   SenderThread:32050 [sender.py:send_request():402] send_request: server_info
+2023-04-18 18:11:32,133 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: get_summary
+2023-04-18 18:11:32,134 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: sampled_history
+2023-04-18 18:11:32,320 INFO    MainThread:32050 [wandb_run.py:_footer_history_summary_info():3476] rendering history
+2023-04-18 18:11:32,320 INFO    MainThread:32050 [wandb_run.py:_footer_history_summary_info():3508] rendering summary
+2023-04-18 18:11:32,320 INFO    MainThread:32050 [wandb_run.py:_footer_sync_info():3434] logging synced files
+2023-04-18 18:11:32,321 DEBUG   HandlerThread:32050 [handler.py:handle_request():144] handle_request: shutdown
+2023-04-18 18:11:32,321 INFO    HandlerThread:32050 [handler.py:finish():845] shutting down handler
+2023-04-18 18:11:33,131 INFO    WriterThread:32050 [datastore.py:close():298] close: /opt/ml/level1_imageclassification-cv-17/wandb/run-20230418_181122-1e8dnsye/run-1e8dnsye.wandb
+2023-04-18 18:11:33,320 INFO    SenderThread:32050 [sender.py:finish():1550] shutting down sender
+2023-04-18 18:11:33,320 INFO    SenderThread:32050 [file_pusher.py:finish():168] shutting down file pusher
+2023-04-18 18:11:33,320 INFO    SenderThread:32050 [file_pusher.py:join():173] waiting for file pusher

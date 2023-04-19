@@ -1,0 +1,8 @@
+
+Epoch[1/20](20/472) || training loss 1.115 || training accuracy 29.06% || train_f1_score 0.42 || lr 1e-05
+Epoch[1/20](40/472) || training loss 1.043 || training accuracy 48.59% || train_f1_score 0.56 || lr 1e-05
+Epoch[1/20](60/472) || training loss 0.9643 || training accuracy 70.47% || train_f1_score 0.63 || lr 1e-05
+Epoch[1/20](80/472) || training loss 0.8901 || training accuracy 82.66% || train_f1_score 0.69 || lr 1e-05
+Epoch[1/20](100/472) || training loss 0.8084 || training accuracy 88.28% || train_f1_score 0.73 || lr 1e-05
+Epoch[1/20](120/472) || training loss 0.7281 || training accuracy 89.69% || train_f1_score 0.76 || lr 1e-05
+Epoch[1/20](140/472) || training loss 0.6386 || training accuracy 93.59% || train_f1_score 0.78 || lr 1e-05

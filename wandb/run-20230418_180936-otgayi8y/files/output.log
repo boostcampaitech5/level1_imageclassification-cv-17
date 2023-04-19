@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "train.py", line 425, in <module>
+    train(data_dir, model_dir, args)
+  File "train.py", line 265, in train
+    print(outs.size(), labels,size())
+NameError: name 'size' is not defined

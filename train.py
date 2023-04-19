@@ -22,12 +22,12 @@ import seaborn as sns
 import time
 import datetime
 
-from dataset import MaskBaseDataset, MaskDataset, GenderDataset, AgeDataset # dataset.py
+from dataset import MaskBaseDataset, MaskDataset, GenderDataset, AgeDataset, MaskGenderDataset # dataset.py
 from dataset import TestDataset
 from loss import create_criterion # loss.py
 from f1score import get_F1_Score # f1score.py
 from submission import submission # submission.py
-from inference import inference, mask_inference, gender_inference, age_inference # inference.py
+from inference import inference, mask_inference, gender_inference, age_inference, maskgender_inference # inference.py
 import wandb
 
 
@@ -219,12 +219,32 @@ def train(data_dir, model_dir, args):
     # -- loss & metric
     criterion = create_criterion(args.criterion)  # default: cross_entropy
     opt_module = getattr(import_module("torch.optim"), args.optimizer)  # default: Adam
-    optimizer = opt_module(
+    if args.optimizer == 'Adam':
+        optimizer = opt_module(
+            model.parameters(),
+            lr=args.lr,
+            weight_decay=5e-4, #adam: 5e-4
+            betas=(0.9,0.999), 
+            eps=1e-08  
+
+        )
+    elif args.optimizer == 'Adamw':
+        optimizer = opt_module(
+            model.parameters(),
+            lr=args.lr,
+            weight_decay=0.01, #adam: 5e-4
+            betas=(0.9,0.999), 
+            eps=1e-08  
+
+        )
+    else:
+        optimizer = opt_module(
 #         filter(lambda p: p.requires_grad, model.parameters()),
         model.parameters(),
         lr=args.lr,
 #         weight_decay=5e-4
     )
+        
     scheduler = StepLR(optimizer, args.lr_decay_step, gamma=0.5)
     
     
@@ -319,15 +339,6 @@ def train(data_dir, model_dir, args):
 #                     figure = grid_image(
 #                         inputs_np, labels, preds, n=16, shuffle=args.dataset != "MaskSplitByProfileDataset"
             
-            # early stop
-            if val_loss > best_loss: # loss가 개선되지 않은 경우
-                patience_check += 1
-                if patience_check >= patience_limit:
-                    print("Early stopping")
-                    break
-            else: # loss가 개선된 경우 계속 진행
-                best_loss = val_loss
-                patience_check = 0
                 
             ## 최고 val acc 모델 갱신
             if val_acc > best_val_acc:
@@ -382,6 +393,9 @@ def train(data_dir, model_dir, args):
             gender_inference(test_dir, save_dir, save_dir, args) # model_dir -> load_model(saved_model 
         elif model_type == 'Age':
             age_inference(test_dir, save_dir, save_dir, args) # model_dir -> load_model(saved_model 
+        elif model_type == 'MaskGender':
+            maskgender_inference(data_dir, model_dir, output_dir, args) # model_dir -> load_model(saved_model 
+
         else:
             print('inference 파일 생성 에러')
         

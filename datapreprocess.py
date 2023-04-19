@@ -101,6 +101,10 @@ if __name__ == '__main__':
     parser.add_argument('--dataset', type=str, default='MaskPreprocessDataset', help='dataset augmentation type (default: MaskBaseDataset)')
 #     parser.add_argument('--delplus', type=int, default=0,choices=[1, 0], help = 'want? (y : 1 enter ,n : 0 enter 1를 입력하면 지정 텍스트 파일을 읽어 실행됨)') # 무조건 실행되므로 필요없음
     parser.add_argument('--aug_dir_name', type=str, default='/opt/ml/input/data/augmentation_delete_data', help = 'create preprocess dataset folder')
+    
+    if os.path.exists('/opt/ml/input/augmentation_delete_data'):
+        print('augmentation_delete_data is already exists')
+        exit()
 
     args = parser.parse_args()
     print(args)
@@ -124,6 +128,7 @@ if __name__ == '__main__':
     dataset_module = getattr(import_module("dataset"), args.dataset)  # default: MaskPreprocessDataset
     dataset = dataset_module(
         data_dir=aug_dir_name,
+        outlier_remove=False
     )
     
     # -- delplus 다현 추가 부분

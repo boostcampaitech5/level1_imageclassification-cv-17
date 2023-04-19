@@ -91,6 +91,19 @@ class YoonpyoAugmentation_resize:
 
     def __call__(self, image):
         return self.transform(image)
+    
+class bestAugmentation:
+    def __init__(self, resize, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), **args):
+        self.transform = Compose([
+            CenterCrop((380,380)),
+            RandomApply([transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2)], p=1),
+            RandomApply([transforms.RandomHorizontalFlip(p=0.5)], p=1),
+            ToTensor(),
+            Normalize(mean=mean, std=std)
+        ])
+
+    def __call__(self, image):
+        return self.transform(image)
 
 
 class MaskLabels(int, Enum):

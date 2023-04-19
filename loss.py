@@ -145,6 +145,7 @@ class F1Loss(nn.Module):
 
 _criterion_entrypoints = {
     'cross_entropy': nn.CrossEntropyLoss,
+    'binaryCE': nn.BCELoss(),
     'focal': FocalLoss,
     'focal_ce': FocalLoss_ce,
     'label_smoothing': LabelSmoothingLoss,

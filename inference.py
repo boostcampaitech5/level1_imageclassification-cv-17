@@ -8,6 +8,7 @@ import datetime
 import pandas as pd
 import torch
 from torch.utils.data import DataLoader
+import csv
 
 from dataset import TestDataset, MaskBaseDataset, MaskDataset, GenderDataset, AgeDataset
 
@@ -242,6 +243,32 @@ def age_inference(data_dir, model_dir, output_dir, args):
     print(f"Age Inference Done! Age Inference result saved at {save_path}")
 
     
+def combine_inference(data_dir, output_dir):
+    data_dir = '../input/data/eval'
+    info_path = pd.read_csv(os.path.join(data_dir, 'info.csv'))
+    info = pd.read_csv(info_path)
+
+    # 비교할 두 개의 csv 파일 경로 설정
+    csv_file1 = '' #비교할 csv
+    csv_file2 = '' 
+    csv_file2 = ''
+
+    ans=0
+    all_predictions=[]
+    with open(csv_file1, 'r') as file1, open(csv_file2, 'r') as file2, open(csv_file3, 'r') as file3:
+        reader1 = csv.reader(file1)
+        reader2 = csv.reader(file2)
+        reader3 = csv.reader(file3)
+
+        for row1, row2,row3 in zip(reader1, reader2,reader3):
+            if row1[1]!='ans' and row2[1]!='ans' and row3[1]!='ans':
+                ans=6*int(row1[1])+3*int(row2[1])+int(row3[1])
+                all_predictions.append(ans)
+
+    info['ans'] = all_predictions
+    info.to_csv(os.path.join(output_dir, 'multi_output.csv'), index=False)
+    print('test munti inference is done!')
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 

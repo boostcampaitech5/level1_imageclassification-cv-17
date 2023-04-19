@@ -6,7 +6,6 @@ import torch.nn.init as init
 from torchvision.models import vgg16, vgg16_bn, vgg19, vgg19_bn
 from torchvision.models import resnet34, resnet50, resnet101, resnet152, resnext50_32x4d, resnext101_32x8d, wide_resnet50_2, wide_resnet101_2
 from torchvision.models import densenet121, densenet169, densenet161, densenet201
-
 from efficientnet_pytorch import EfficientNet
 import timm
 

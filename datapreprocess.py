@@ -67,15 +67,17 @@ def random_transform(image):
 
 
 def AddAugmentation(label_paths, idx, aug_size, aug_dir_name):
+    aug_dir_name = aug_dir_name+'/train/images'
     idx2label = ['mask']*6+['incorrect']*6+['normal']*6
     os.makedirs(aug_dir_name, exist_ok = True)
     idx = int(idx)
     aug_size = int(aug_size)
     data_size = len(label_paths[idx])
     repeat = aug_size - data_size
-    print(aug_size, data_size, repeat)
-    print("up", repeat)
+
+    print("입력 : ", aug_size,  "실제 데이터 :", data_size, "차이 : ",repeat)
     if repeat < 0: #마이너스면 삭제 처리해줌 
+        print("삭제진행")
         for _ in tqdm(range(-repeat)):        
             if len(label_paths[idx]) <= 0:  # 이미지 경로가 남아있지 않으면 중지
                 break
@@ -83,16 +85,17 @@ def AddAugmentation(label_paths, idx, aug_size, aug_dir_name):
             img_path = label_paths[idx][random_int]
             os.remove(img_path)
             label_paths[idx].remove(img_path)
-
+        print("삭제완료")
 
     else : #플러스면 증강 처리해줌
+        print("증강진행")
         for _ in tqdm(range(repeat)):
             random_int = random.randint(0,data_size-1)
             img_id = label_paths[idx][random_int].split('/')[-2]
-    #         print(random_int)
             img = Image.open(label_paths[idx][random_int])
             img = random_transform(img)
-            img.save(os.path.join(aug_dir_name+'/train/images', img_id, idx2label[idx]+str(_+10)+'.jpg'))
+            img.save(os.path.join(aug_dir_name, img_id, idx2label[idx]+str(_+10)+'.jpg'))
+        print("증강완료")
             
 
 if __name__ == '__main__':
@@ -111,9 +114,9 @@ if __name__ == '__main__':
     
     # 원본 데이터
     src_dir = '/opt/ml/input/data' 
-
+    aug_dir_name = args.aug_dir_name+'/train/images'
     # 증강 및 삭제할 데이터
-    dst_dir = args.aug_dir_name
+    dst_dir = aug_dir_name
 
     def copy_data(src, dst):
         
@@ -123,8 +126,6 @@ if __name__ == '__main__':
     copy_data(src,dst)
     
 #     delplus = args.delplus
-    aug_dir_name = args.aug_dir_name
-
     dataset_module = getattr(import_module("dataset"), args.dataset)  # default: MaskPreprocessDataset
     dataset = dataset_module(
         data_dir=aug_dir_name,
@@ -138,4 +139,4 @@ if __name__ == '__main__':
             AddAugmentation(dataset.label_paths, idx, size, aug_dir_name)
     print('datapreprocess is done! if you want to use preprocessed data, put data_dir parser --data_dir /opt/ml/input/augmentation_delete_data')
             
-# python datapreprocess.py --aug_dir_name /opt/ml/input/augmentation_delete_data/train/images
+# python datapreprocess.py --aug_dir_name /opt/ml/input/augmentation_delete_data

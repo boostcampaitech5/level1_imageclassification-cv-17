@@ -267,9 +267,6 @@ class EfficientNetB3_init(nn.Module):
         return x
     
 class EfficientNetB3_xavier(nn.Module):
-    '''
-    생성자 : 박승희
-    '''
     def __init__(self, num_classes):
         super(EfficientNetB3_xavier, self).__init__()
         self.model = EfficientNet.from_pretrained('efficientnet-b3')

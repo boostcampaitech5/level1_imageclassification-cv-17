@@ -22,14 +22,52 @@ python train.py --data_dir input/data/train/images --model_dir model_comparison 
 ## inference 작동코드 : model_dir - best.pth 위치, output_dir : output.csv 저장위치
 python inference.py --model ResNet34_init --data_dir ../input/data/eval --model_dir ./model/focal1 --output_dir ./model/focal1 --batch_size 64
 python inference.py --model ResNet34_init --data_dir ../input/data/eval --model_dir ./model/focal2 --output_dir ./model/focal1 --batch_size 64
-
+python inference.py --model EfficientNetB3 --data_dir ../input/data/eval --model_dir ./model/label_smooth --output_dir ./model/label_smooth --batch_size 32
+python inference.py --model EfficientNetB3 --data_dir ../input/data/eval --model_dir ./model/label_smooth2 --output_dir ./model/label_smooth2 --batch_size 32
+python inference.py --model EfficientNetB3 --data_dir ../input/data/eval --model_dir ./model/label_smooth_age59 --output_dir ./model/label_smooth_age59 --batch_size 32
+python inference.py --model EfficientNetB3 --data_dir ../input/data/eval --model_dir ./model/label_smooth_lr0.001 --output_dir ./model/label_smooth_lr0.001 --batch_size 32
+python inference.py --model EfficientNetB3 --data_dir ../input/data/eval --model_dir ./model/label_smooth_lr0.001 --output_dir ./model/label_smooth_lr0.001 --batch_size 32
+python inference.py --model EfficientNetB3 --data_dir ../input/data/eval --model_dir ./model/label_smooth_focalce --output_dir ./model/label_smooth_focalce --batch_size 32
+python inference.py --model EfficientNetB3 --data_dir ../input/data/eval --model_dir ./model/cross_entropy --output_dir ./model/cross_entropy --batch_size 32
+python inference.py --model EfficientNetB3 --data_dir ../input/data/eval --model_dir ./model/change_transform --output_dir ./model/change_transform --batch_size 32
+python inference.py --model EfficientNetB3 --data_dir ../input/data/eval --model_dir ./model/change_transform --output_dir ./model/change_transform --batch_size 32
+python inference.py --model EfficientNetB3_xavier --data_dir ../input/data/eval --model_dir ./model/AdamW --output_dir ./model/AdamW --batch_size 32
 
 
 ## 윤표
 <focal1>
 python train.py --data_dir ../input/data/train/images --model_dir ./model --model ResNet34_init  --epochs 20 --augmentation 'YoonpyoAugmentation' --lr 1e-3 --patience_limit 3 --name 'focal1'
-<focal2>
+
+<focal2> (더 높음)
 python train.py --data_dir ../input/data/train/images --model_dir ./model --model ResNet34_init  --epochs 20 --augmentation 'YoonpyoAugmentation' --lr 1e-3 --patience_limit 3 --criterion focal2 --name 'focal2'
 
 <바꿘 testdataset>
 python train.py --data_dir ../input/data/train/images --model_dir ./model --model ResNet34_init  --epochs 20 --augmentation 'YoonpyoAugmentation' --lr 1e-3 --patience_limit 3 --name 'change_testfunc'
+
+<labeling smooth1,2 loss>
+python train.py --data_dir ../input/data/train/images --model_dir ./model --model EfficientNetB3  --epochs 20 --augmentation 'YoonpyoAugmentation' --lr 1e-5 --patience_limit 3 --name 'label_smooth2' --exp_name 'label smooth 0.01'
+
+<focal + age59>
+python train.py --data_dir ../input/data/train/images --model_dir ./model --model EfficientNetB3_init --epochs 20 --augmentation 'YoonpyoAugmentation' --lr 1e-5 --patience_limit 3 --name 'label_smooth_age59' --exp_name 'label smooth_age59'
+
+<focal+ age59 + lr=1e-4>
+python train.py --data_dir ../input/data/train/images --model_dir ./model --model EfficientNetB3_init  --epochs 20 --augmentation 'YoonpyoAugmentation'  --patience_limit 3 --lr 1e-4 --name 'label_smooth_lr0.001' --exp_name 'label smooth_lr0.001'
+
+<focal_ce+ age59>
+python train.py --data_dir ../input/data/train/images --model_dir ./model --model EfficientNetB3_init  --epochs 20 --augmentation 'YoonpyoAugmentation'  --patience_limit 3 --lr 1e-5 --criterion focal_ce --name 'label_smooth_focalce' --exp_name 'label smooth_focalce'
+
+<cross entropy>
+python train.py --data_dir ../input/data/train/images --model_dir ./model --model EfficientNetB3_init  --epochs 30 --augmentation 'YoonpyoAugmentation'  --patience_limit 3 --lr 1e-5 --criterion 'cross_entropy' --name 'cross_entropy' --exp_name 'cross_entropy_1e-5'
+
+<change_transform> (1등)
+python train.py --data_dir ../input/data/train/images --model_dir ./model --model EfficientNetB3_init  --epochs 30 --augmentation 'YoonpyoAugmentation'  --patience_limit 3 --lr 1e-5 --criterion 'cross_entropy' --name 'change_transform' --exp_name 'yoon_change_transform'
+ 
+
+<AdamW>
+python train.py --data_dir ../input/data/train/images --model_dir ./model --model EfficientNetB3_xavier  --epochs 30 --augmentation 'bestAugmentation'  --patience_limit 3 --lr 1e-5 --criterion 'cross_entropy' --optimizer AdamW --name 'AdamW' --exp_name 'yoon_AdamW' 
+
+<AdamW lr=0.00005>
+python train.py --data_dir ../input/data/train/images --model_dir ./model --model EfficientNetB3_xavier --epochs 30 --augmentation 'bestAugmentation'  --patience_limit 3 --lr 0.00005 --criterion 'cross_entropy' --optimizer AdamW --name 'AdamW_lrchange' --exp_name 'yoon_AdamW_lrchange'
+
+<RealAugmentation> (주름 강조)
+python train.py --data_dir ../input/data/train/images --model_dir ./model --model EfficientNetB3_xavier --epochs 30 --augmentation 'realAugmentation'  --patience_limit 3 --lr 1e-5 --criterion 'cross_entropy' --optimizer AdamW --name 'AdamW_realaug' --exp_name 'yoon_realaug'

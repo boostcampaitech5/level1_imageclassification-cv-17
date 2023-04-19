@@ -10,7 +10,7 @@ from torch.utils.data import DataLoader
 from dataset import TestDataset, MaskBaseDataset
 
 
-def load_model(saved_model, num_classes, device):
+def load_model(saved_model, num_classes, device, import_model):
     '''
     저장된 모델 파일을 로드하여 PyTorch 모델 객체를 반환하는 함수인 load_model()입니다.
     load_model() :  세 개의 매개변수 saved_model, num_classes, device를 받습니다.
@@ -24,7 +24,7 @@ def load_model(saved_model, num_classes, device):
                    이후 torch.load 함수를 사용하여 모델 파일을 읽어들이고, map_location 매개변수를 사용하여 모델이 실행될 디바이스를 설정합니다. 
                    마지막으로, 함수는 로드된 모델 객체를 반환합니다.
     '''
-    model_cls = getattr(import_module("model"), args.model)
+    model_cls = getattr(import_module("model"), import_model)
     model = model_cls(
         num_classes=num_classes
     )
@@ -75,7 +75,8 @@ def inference(data_dir, model_dir, output_dir, args):
     device = torch.device("cuda" if use_cuda else "cpu")
 
     num_classes = MaskBaseDataset.num_classes  # 18
-    model = load_model(model_dir, num_classes, device).to(device)
+    import_model = args.model
+    model = load_model(model_dir, num_classes, device, import_model).to(device) # load_model(saved_model, num_classes, device)
     model.eval()
 
     img_root = os.path.join(data_dir, 'images')

@@ -139,13 +139,31 @@ class CrossEntropyLossWithLabelSmoothing(nn.Module):
         return loss.mean()
     
 
+# class WeightedCrossEntropy(nn.Module):
+#     def __init__(self, weight=None):
+#         """
+#         - weight (torch.Tensor 또는 None): 클래스별 가중치를 지정하는 1D Tensor. 만약 None이면 가중치를 일정하게 적용합니다.
+#         - reduction (str): 손실 함수의 감소 방식을 지정하는 문자열입니다. 'mean' (기본값)이면 평균을 구하고, 'sum'이면 합을 구합니다.
+#         """
+#         super().__init__()
+#         weight = torch.ones(18)
+#         weight[[14, 8, 2, 7]] += 1
+#         self.weight = torch.FloatTensor(weight).cuda()
+
+#     def forward(self, input, target):
+        
+#         loss=nn.CrossEntropyLoss(weight=self.weight)
+
+#         return loss
+
+
 _criterion_entrypoints = {
     'cross_entropy': nn.CrossEntropyLoss,
     'focal': FocalLoss,
     'focal_ce': FocalLoss_ce,
     'label_smoothing': LabelSmoothingLoss,
     'cross_labelsmooth': CrossEntropyLossWithLabelSmoothing,
-    'f1': F1Loss
+    'f1': F1Loss    
 }
 
 

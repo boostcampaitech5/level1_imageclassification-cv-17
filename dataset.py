@@ -8,7 +8,7 @@ import numpy as np
 import torch
 from PIL import Image
 from torch.utils.data import Dataset, Subset, random_split
-from torchvision.transforms import Resize, ToTensor, Normalize, Compose, CenterCrop, ColorJitter
+from torchvision.transforms import *
 from torch.optim.lr_scheduler import StepLR
 
 IMG_EXTENSIONS = [
@@ -61,24 +61,38 @@ class CustomAugmentation:
             ColorJitter(0.1, 0.1, 0.1, 0.1),
             ToTensor(),
             Normalize(mean=mean, std=std),
-            AddGaussianNoise()
+            AddGaussianNoise() #이거 넣으면 별로임
         ])
 
     def __call__(self, image):
         return self.transform(image)
 
-class YoonpyoAugmentation:
+class bestAugmentation:
     def __init__(self, resize, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), **args):
         self.transform = Compose([
-            Resize(resize),
             CenterCrop((380,380)),
+            RandomApply([transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2)], p=1),
+            RandomApply([transforms.RandomHorizontalFlip(p=0.5)], p=1),
             ToTensor(),
             Normalize(mean=mean, std=std)
         ])
 
     def __call__(self, image):
         return self.transform(image)
+    
+class realAugmentation:
+    def __init__(self, resize, mean=(0.548, 0.504, 0.479), std=(0.237, 0.247, 0.246), **args):
+        self.transform = Compose([
+            CenterCrop((380,380)),
+            RandomApply([transforms.ColorJitter(brightness=0.2, contrast=0.3, saturation=0.2, hue=0.1)], p=1),
+            RandomSharpness(1.0, p=1.0, always_apply=True)
+            RandomApply([transforms.RandomHorizontalFlip(p=0.5)], p=1),
+            ToTensor(),
+            Normalize(mean=mean, std=std)
+        ])
 
+    def __call__(self, image):
+        return self.transform(image)
 
 class MaskLabels(int, Enum):
     MASK = 0

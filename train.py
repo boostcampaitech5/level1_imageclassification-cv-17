@@ -7,23 +7,25 @@ import random
 import re
 from importlib import import_module
 from pathlib import Path
-import seaborn as sns
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import torch
-from torch.optim.lr_scheduler import StepLR, CosineAnnealingWarmRestarts
+from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from torchvision import transforms
-from torchvision.transforms import Resize, ToTensor, Normalize
+from torchvision.transforms import *
 from PIL import Image
+import seaborn as sns
 
 from dataset import MaskBaseDataset # dataset.py
 from dataset import TestDataset
 from loss import create_criterion # loss.py
 from f1score import get_F1_Score # f1score.py
-from submission import submission
+from submission import submission # submission.py
+from inference import inference # inference.py
 import wandb
 
 
@@ -92,11 +94,9 @@ def grid_image(np_images, gts, preds, n=16, shuffle=False):
 
 def increment_path(path, exist_ok=False):
     """ Automatically increment path, i.e. runs/exp --> runs/exp0, runs/exp1 etc.
-
     Args:
         path (str or pathlib.Path): f"{model_dir}/{args.name}".
         exist_ok (bool): whether increment path (increment if False).
-
     경로명을 자동으로 증가시켜주는 함수입니다.
     입력받은 경로가 "runs/exp"이라면 이미 존재하는 경우(즉, exist_ok=True) 그대로 반환하고,
     없는 경우에는 바로 해당 경로를 반환합니다. 
@@ -129,7 +129,6 @@ def wandb_config(args):
                     'log_interval'     : args.log_interval,
                     'name'             : args.name,
                     'model_dir'        : args.model_dir,
-                    'freeze'           : args.freeze,
                     'patience_limit'   : args.patience_limit}
     return config_dict
 
@@ -138,7 +137,6 @@ def train(data_dir, model_dir, args):
     data_dir : 데이터 경로
     model_dir : 모델 경로
     args : 인자
-
     seed_everything(args.seed) 함수를 호출하여 학습시 고정된 시드를 사용하도록 설정
     save_dir : increment_path 함수를 사용하여 모델이 저장될 경로를 생성
     dataset_module : args.dataset이라는 인자를 통해 사용할 데이터셋을 설정하고 불러옴
@@ -151,8 +149,6 @@ def train(data_dir, model_dir, args):
     scheduler : StepLR은 일정한 스텝(step)마다 학습률을 감소시키는 스케줄러
                 args.lr_decay_step은 학습률 감소 스텝의 크기를 나타내며,
                 gamma는 감소 비율을 나타냄
-
-
     '''
     seed_everything(args.seed)
 
@@ -215,15 +211,15 @@ def train(data_dir, model_dir, args):
     criterion = create_criterion(args.criterion)  # default: cross_entropy
     opt_module = getattr(import_module("torch.optim"), args.optimizer)  # default: SGD
     optimizer = opt_module(
-#         filter(lambda p: p.requires_grad, model.parameters()),
+#       AdamW
         model.parameters(),
         lr=args.lr,
-        weight_decay=5e-4,
+        weight_decay=0.01, #adam: 5e-4
         betas=(0.9,0.999), 
-        eps=1e-08
+        eps=1e-08  
+        
     )
     scheduler = StepLR(optimizer, args.lr_decay_step, gamma=0.5)
-#     scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=2, T_mult=2, eta_min=0.00001)
     
     
     logger = SummaryWriter(log_dir=save_dir)
@@ -248,6 +244,7 @@ def train(data_dir, model_dir, args):
         loss_value = 0
         matches = 0
         valid_f1_score = get_F1_Score()
+        train_f1_score = get_F1_Score()
         
         for idx, (inputs,labels) in enumerate(train_loader):
             inputs, labels = inputs.cuda(),labels.cuda()
@@ -267,16 +264,17 @@ def train(data_dir, model_dir, args):
             if (idx + 1) % args.log_interval == 0:
                 train_loss = loss_value / args.log_interval
                 train_acc = matches / args.batch_size / args.log_interval
+                train_f1_score.update(preds, labels)
                 current_lr = get_lr(optimizer)
                 print(
                     f"Epoch[{epoch+1}/{args.epochs}]({idx + 1}/{len(train_loader)}) || "
-                    f"training loss {train_loss:4.4} || training accuracy {train_acc:4.2%} || lr {current_lr}"
+                    f"training loss {train_loss:4.4} || training accuracy {train_acc:4.2%} || train_f1_score {train_f1_score.get_score :4.2} || lr {current_lr}"
                 )
-                wandb.log({"train acc": train_acc, "train loss": train_loss}, step = epoch)
+                wandb.log({"train acc": train_acc, "train loss": train_loss, 'train_f1_score' : train_f1_score.get_score}, step = epoch)
                 loss_value = 0
                 matches = 0
 
-        scheduler.step()
+#         scheduler.step()
 
         # val loop
         with torch.no_grad():
@@ -306,7 +304,17 @@ def train(data_dir, model_dir, args):
 #                     inputs_np = torch.clone(inputs).detach().cpu().permute(0, 2, 3, 1).numpy()
 #                     inputs_np = dataset_module.denormalize_image(inputs_np, dataset.mean, dataset.std)
 #                     figure = grid_image(
-#                         inputs_np, labels, preds, n=16, shuffle=args.dataset != "MaskSplitByProfileDataset"           
+#                         inputs_np, labels, preds, n=16, shuffle=args.dataset != "MaskSplitByProfileDataset"
+            
+            # early stop
+            if val_loss > best_loss: # loss가 개선되지 않은 경우
+                patience_check += 1
+                if patience_check >= patience_limit:
+                    print("Early stopping")
+                    break
+            else: # loss가 개선된 경우 계속 진행
+                best_loss = val_loss
+                patience_check = 0
                 
             ## 최고 val acc 모델 갱신
             if val_acc > best_val_acc:
@@ -336,8 +344,14 @@ def train(data_dir, model_dir, args):
             print()
     print(best_cm)
     wandb.finish()
-    # ---- making submission ----
-    submission(model, save_dir=save_dir)
+    
+    # ---- making submission or inference ----
+    if args.inference_make:
+        test_dir = '/opt/ml/input/data/eval'
+        inference(test_dir, save_dir, save_dir, args)
+        
+#     if args.submission_make:
+#         submission(model, save_dir=save_dir)
 
 
 if __name__ == '__main__':
@@ -363,10 +377,10 @@ if __name__ == '__main__':
     # Container environment
     parser.add_argument('--data_dir', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/train/images'))
     parser.add_argument('--model_dir', type=str, default=os.environ.get('SM_MODEL_DIR', './model'))
-    parser.add_argument('--freeze', type=bool, default=False, help='model freeze (default: False)')
+#     parser.add_argument('--freeze', type=bool, default=False, help='model freeze (default: False)')
     parser.add_argument('--patience_limit', type=int, default=3, help='early stopping patience_limit (default: 3)')
     parser.add_argument('--exp_name', type=str, default='exp', help='wandb exp name (default: exp)')
-
+    parser.add_argument('--inference_make', type=bool, default=True, help='inference make info (default : False)')
     args = parser.parse_args()
     print(args)
 

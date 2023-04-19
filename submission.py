@@ -10,8 +10,6 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 from torchvision.transforms import Resize, ToTensor, Normalize
 
-from dataset import TestDataset
-
 def submission(model, save_dir):
     print("test inference started!")
     # 테스트 데이터셋 폴더 경로를 지정해주세요.
@@ -27,7 +25,7 @@ def submission(model, save_dir):
         ToTensor(),
         Normalize(mean=(0.5, 0.5, 0.5), std=(0.2, 0.2, 0.2)),
     ])
-    dataset = TestDataset(image_paths)
+    dataset = SM_TestDataset(image_paths, transform)
 
     loader = DataLoader(
         dataset,

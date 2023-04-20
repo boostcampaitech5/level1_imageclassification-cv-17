@@ -246,7 +246,7 @@ def maskgender_inference(data_dir, model_dir, output_dir, args):
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
 
-    num_classes = MaskGenderDataset.num_classes  # 6
+    num_classes = MaskGenderDataset.num_classes  # 18
     import_model = args.model
     model = load_model(model_dir, num_classes, device, import_model).to(device) # load_model(saved_model, num_classes, device)
     model.eval()
@@ -279,7 +279,6 @@ def maskgender_inference(data_dir, model_dir, output_dir, args):
     save_path = os.path.join(output_dir, f'output.csv')
     info.to_csv(save_path, index=False)
     print(f"Mask&Gender Inference Done! Mask Inference result saved at {save_path}")
-
 
     
 # def combine_inference(data_dir, output_dir):

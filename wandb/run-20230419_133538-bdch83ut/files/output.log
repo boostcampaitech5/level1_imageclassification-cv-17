@@ -1,0 +1,542 @@
+
+Epoch[1/20](20/472) || training loss 1.069 || training accuracy 40.94% || train_f1_score 0.45 || lr 1e-05
+Epoch[1/20](40/472) || training loss 1.027 || training accuracy 54.37% || train_f1_score 0.48 || lr 1e-05
+Epoch[1/20](60/472) || training loss 0.9914 || training accuracy 60.16% || train_f1_score 0.57 || lr 1e-05
+Epoch[1/20](80/472) || training loss 0.9519 || training accuracy 69.22% || train_f1_score 0.58 || lr 1e-05
+Epoch[1/20](100/472) || training loss 0.9037 || training accuracy 73.44% || train_f1_score 0.63 || lr 1e-05
+Epoch[1/20](120/472) || training loss 0.8711 || training accuracy 76.56% || train_f1_score 0.67 || lr 1e-05
+Epoch[1/20](140/472) || training loss 0.8354 || training accuracy 78.91% || train_f1_score 0.69 || lr 1e-05
+Epoch[1/20](160/472) || training loss 0.7984 || training accuracy 77.81% || train_f1_score 0.69 || lr 1e-05
+Epoch[1/20](180/472) || training loss 0.7421 || training accuracy 81.41% || train_f1_score  0.7 || lr 1e-05
+Epoch[1/20](200/472) || training loss 0.7098 || training accuracy 79.69% || train_f1_score 0.71 || lr 1e-05
+Epoch[1/20](220/472) || training loss 0.6506 || training accuracy 82.34% || train_f1_score 0.72 || lr 1e-05
+Epoch[1/20](240/472) || training loss 0.6368 || training accuracy 81.09% || train_f1_score 0.72 || lr 1e-05
+Epoch[1/20](260/472) || training loss 0.6023 || training accuracy 79.22% || train_f1_score 0.72 || lr 1e-05
+Epoch[1/20](280/472) || training loss 0.552 || training accuracy 82.50% || train_f1_score 0.72 || lr 1e-05
+Epoch[1/20](300/472) || training loss 0.5154 || training accuracy 84.53% || train_f1_score 0.72 || lr 1e-05
+Epoch[1/20](320/472) || training loss 0.4641 || training accuracy 85.94% || train_f1_score 0.73 || lr 1e-05
+Epoch[1/20](340/472) || training loss 0.4848 || training accuracy 83.12% || train_f1_score 0.74 || lr 1e-05
+Epoch[1/20](360/472) || training loss 0.4427 || training accuracy 86.09% || train_f1_score 0.74 || lr 1e-05
+Epoch[1/20](380/472) || training loss 0.4359 || training accuracy 85.62% || train_f1_score 0.74 || lr 1e-05
+Epoch[1/20](400/472) || training loss 0.4167 || training accuracy 85.00% || train_f1_score 0.75 || lr 1e-05
+Epoch[1/20](420/472) || training loss 0.4027 || training accuracy 85.94% || train_f1_score 0.75 || lr 1e-05
+Epoch[1/20](440/472) || training loss 0.3905 || training accuracy 85.47% || train_f1_score 0.76 || lr 1e-05
+Epoch[1/20](460/472) || training loss 0.3902 || training accuracy 85.00% || train_f1_score 0.76 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 86.53%! saving the best model..
+[Val] acc : 86.53%, loss: 0.32 || best acc : 86.53%, best loss: 0.32 || f1 score : 0.84 || epoch time 0:03:47
+early stopping patience 0
+Epoch[2/20](20/472) || training loss 0.3498 || training accuracy 87.81% || train_f1_score 0.81 || lr 1e-05
+Epoch[2/20](40/472) || training loss 0.3374 || training accuracy 87.03% || train_f1_score 0.81 || lr 1e-05
+Epoch[2/20](60/472) || training loss 0.3454 || training accuracy 86.41% || train_f1_score 0.85 || lr 1e-05
+Epoch[2/20](80/472) || training loss 0.327 || training accuracy 86.56% || train_f1_score 0.85 || lr 1e-05
+Epoch[2/20](100/472) || training loss 0.3405 || training accuracy 89.06% || train_f1_score 0.85 || lr 1e-05
+Epoch[2/20](120/472) || training loss 0.3173 || training accuracy 87.34% || train_f1_score 0.83 || lr 1e-05
+Epoch[2/20](140/472) || training loss 0.3331 || training accuracy 87.81% || train_f1_score 0.82 || lr 1e-05
+Epoch[2/20](160/472) || training loss 0.315 || training accuracy 88.59% || train_f1_score 0.83 || lr 1e-05
+Epoch[2/20](180/472) || training loss 0.3178 || training accuracy 88.44% || train_f1_score 0.83 || lr 1e-05
+Epoch[2/20](200/472) || training loss 0.3376 || training accuracy 87.19% || train_f1_score 0.82 || lr 1e-05
+Epoch[2/20](220/472) || training loss 0.344 || training accuracy 87.19% || train_f1_score 0.81 || lr 1e-05
+Epoch[2/20](240/472) || training loss 0.3152 || training accuracy 89.38% || train_f1_score 0.82 || lr 1e-05
+Epoch[2/20](260/472) || training loss 0.3204 || training accuracy 88.91% || train_f1_score 0.83 || lr 1e-05
+Epoch[2/20](280/472) || training loss 0.3105 || training accuracy 89.69% || train_f1_score 0.83 || lr 1e-05
+Epoch[2/20](300/472) || training loss 0.302 || training accuracy 89.06% || train_f1_score 0.84 || lr 1e-05
+Epoch[2/20](320/472) || training loss 0.3233 || training accuracy 86.72% || train_f1_score 0.84 || lr 1e-05
+Epoch[2/20](340/472) || training loss 0.2758 || training accuracy 88.91% || train_f1_score 0.83 || lr 1e-05
+Epoch[2/20](360/472) || training loss 0.3024 || training accuracy 88.12% || train_f1_score 0.83 || lr 1e-05
+Epoch[2/20](380/472) || training loss 0.3295 || training accuracy 87.34% || train_f1_score 0.83 || lr 1e-05
+Epoch[2/20](400/472) || training loss 0.2756 || training accuracy 89.84% || train_f1_score 0.83 || lr 1e-05
+Epoch[2/20](420/472) || training loss 0.3129 || training accuracy 87.66% || train_f1_score 0.83 || lr 1e-05
+Epoch[2/20](440/472) || training loss 0.3378 || training accuracy 88.59% || train_f1_score 0.84 || lr 1e-05
+Epoch[2/20](460/472) || training loss 0.2742 || training accuracy 89.38% || train_f1_score 0.84 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 90.61%! saving the best model..
+[Val] acc : 90.61%, loss: 0.25 || best acc : 90.61%, best loss: 0.25 || f1 score :  0.9 || epoch time 0:03:45
+early stopping patience 0
+Epoch[3/20](20/472) || training loss 0.2557 || training accuracy 91.09% || train_f1_score 0.93 || lr 1e-05
+Epoch[3/20](40/472) || training loss 0.2637 || training accuracy 89.84% || train_f1_score 0.93 || lr 1e-05
+Epoch[3/20](60/472) || training loss 0.2843 || training accuracy 89.06% || train_f1_score 0.94 || lr 1e-05
+Epoch[3/20](80/472) || training loss 0.2287 || training accuracy 92.03% || train_f1_score 0.93 || lr 1e-05
+Epoch[3/20](100/472) || training loss 0.231 || training accuracy 92.50% || train_f1_score 0.91 || lr 1e-05
+Epoch[3/20](120/472) || training loss 0.2409 || training accuracy 90.31% || train_f1_score 0.91 || lr 1e-05
+Epoch[3/20](140/472) || training loss 0.2552 || training accuracy 89.84% || train_f1_score  0.9 || lr 1e-05
+Epoch[3/20](160/472) || training loss 0.2456 || training accuracy 91.72% || train_f1_score 0.91 || lr 1e-05
+Epoch[3/20](180/472) || training loss 0.2869 || training accuracy 88.59% || train_f1_score 0.91 || lr 1e-05
+Epoch[3/20](200/472) || training loss 0.2632 || training accuracy 90.94% || train_f1_score 0.92 || lr 1e-05
+Epoch[3/20](220/472) || training loss 0.2361 || training accuracy 91.09% || train_f1_score 0.92 || lr 1e-05
+Epoch[3/20](240/472) || training loss 0.2873 || training accuracy 89.38% || train_f1_score 0.91 || lr 1e-05
+Epoch[3/20](260/472) || training loss 0.2573 || training accuracy 90.47% || train_f1_score  0.9 || lr 1e-05
+Epoch[3/20](280/472) || training loss 0.2415 || training accuracy 91.88% || train_f1_score  0.9 || lr 1e-05
+Epoch[3/20](300/472) || training loss 0.2299 || training accuracy 91.25% || train_f1_score 0.91 || lr 1e-05
+Epoch[3/20](320/472) || training loss 0.2418 || training accuracy 89.53% || train_f1_score 0.91 || lr 1e-05
+Epoch[3/20](340/472) || training loss 0.2247 || training accuracy 91.56% || train_f1_score  0.9 || lr 1e-05
+Epoch[3/20](360/472) || training loss 0.2468 || training accuracy 90.31% || train_f1_score 0.91 || lr 1e-05
+Epoch[3/20](380/472) || training loss 0.2718 || training accuracy 88.59% || train_f1_score 0.91 || lr 1e-05
+Epoch[3/20](400/472) || training loss 0.2333 || training accuracy 91.41% || train_f1_score 0.91 || lr 1e-05
+Epoch[3/20](420/472) || training loss 0.2558 || training accuracy 90.94% || train_f1_score 0.91 || lr 1e-05
+Epoch[3/20](440/472) || training loss 0.2079 || training accuracy 93.44% || train_f1_score 0.91 || lr 1e-05
+Epoch[3/20](460/472) || training loss 0.2361 || training accuracy 91.25% || train_f1_score 0.91 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 91.43%! saving the best model..
+[Val] acc : 91.43%, loss: 0.21 || best acc : 91.43%, best loss: 0.21 || f1 score : 0.91 || epoch time 0:03:45
+early stopping patience 0
+Epoch[4/20](20/472) || training loss 0.2428 || training accuracy 90.47% || train_f1_score 0.68 || lr 1e-05
+Epoch[4/20](40/472) || training loss 0.2471 || training accuracy 90.94% || train_f1_score 0.78 || lr 1e-05
+Epoch[4/20](60/472) || training loss 0.2345 || training accuracy 91.41% || train_f1_score 0.84 || lr 1e-05
+Epoch[4/20](80/472) || training loss 0.2514 || training accuracy 88.75% || train_f1_score 0.85 || lr 1e-05
+Epoch[4/20](100/472) || training loss 0.2421 || training accuracy 91.72% || train_f1_score 0.85 || lr 1e-05
+Epoch[4/20](120/472) || training loss 0.2072 || training accuracy 93.59% || train_f1_score 0.88 || lr 1e-05
+Epoch[4/20](140/472) || training loss 0.215 || training accuracy 91.09% || train_f1_score 0.88 || lr 1e-05
+Epoch[4/20](160/472) || training loss 0.2255 || training accuracy 90.62% || train_f1_score 0.89 || lr 1e-05
+Epoch[4/20](180/472) || training loss 0.2328 || training accuracy 89.69% || train_f1_score 0.88 || lr 1e-05
+Epoch[4/20](200/472) || training loss 0.1797 || training accuracy 93.44% || train_f1_score 0.89 || lr 1e-05
+Epoch[4/20](220/472) || training loss 0.2089 || training accuracy 92.34% || train_f1_score 0.89 || lr 1e-05
+Epoch[4/20](240/472) || training loss 0.2313 || training accuracy 91.56% || train_f1_score  0.9 || lr 1e-05
+Epoch[4/20](260/472) || training loss 0.2291 || training accuracy 91.56% || train_f1_score  0.9 || lr 1e-05
+Epoch[4/20](280/472) || training loss 0.2119 || training accuracy 91.88% || train_f1_score 0.89 || lr 1e-05
+Epoch[4/20](300/472) || training loss 0.194 || training accuracy 92.97% || train_f1_score 0.89 || lr 1e-05
+Epoch[4/20](320/472) || training loss 0.2153 || training accuracy 92.03% || train_f1_score  0.9 || lr 1e-05
+Epoch[4/20](340/472) || training loss 0.2114 || training accuracy 90.94% || train_f1_score  0.9 || lr 1e-05
+Epoch[4/20](360/472) || training loss 0.2297 || training accuracy 89.69% || train_f1_score  0.9 || lr 1e-05
+Epoch[4/20](380/472) || training loss 0.1701 || training accuracy 93.28% || train_f1_score  0.9 || lr 1e-05
+Epoch[4/20](400/472) || training loss 0.1942 || training accuracy 92.50% || train_f1_score  0.9 || lr 1e-05
+Epoch[4/20](420/472) || training loss 0.1924 || training accuracy 92.66% || train_f1_score 0.91 || lr 1e-05
+Epoch[4/20](440/472) || training loss 0.2229 || training accuracy 90.78% || train_f1_score 0.91 || lr 1e-05
+Epoch[4/20](460/472) || training loss 0.1772 || training accuracy 93.28% || train_f1_score 0.91 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 92.99%! saving the best model..
+[Val] acc : 92.99%, loss: 0.18 || best acc : 92.99%, best loss: 0.18 || f1 score : 0.93 || epoch time 0:03:46
+early stopping patience 0
+Epoch[5/20](20/472) || training loss 0.171 || training accuracy 93.59% || train_f1_score  1.0 || lr 1e-05
+Epoch[5/20](40/472) || training loss 0.1677 || training accuracy 94.69% || train_f1_score 0.98 || lr 1e-05
+Epoch[5/20](60/472) || training loss 0.1812 || training accuracy 92.81% || train_f1_score 0.98 || lr 1e-05
+Epoch[5/20](80/472) || training loss 0.1821 || training accuracy 93.75% || train_f1_score 0.97 || lr 1e-05
+Epoch[5/20](100/472) || training loss 0.2214 || training accuracy 92.66% || train_f1_score 0.96 || lr 1e-05
+Epoch[5/20](120/472) || training loss 0.188 || training accuracy 93.28% || train_f1_score 0.96 || lr 1e-05
+Epoch[5/20](140/472) || training loss 0.1786 || training accuracy 91.72% || train_f1_score 0.94 || lr 1e-05
+Epoch[5/20](160/472) || training loss 0.1831 || training accuracy 92.66% || train_f1_score 0.94 || lr 1e-05
+Epoch[5/20](180/472) || training loss 0.1764 || training accuracy 92.81% || train_f1_score 0.94 || lr 1e-05
+Epoch[5/20](200/472) || training loss 0.1984 || training accuracy 93.28% || train_f1_score 0.95 || lr 1e-05
+Epoch[5/20](220/472) || training loss 0.1638 || training accuracy 94.06% || train_f1_score 0.94 || lr 1e-05
+Epoch[5/20](240/472) || training loss 0.1707 || training accuracy 94.53% || train_f1_score 0.94 || lr 1e-05
+Epoch[5/20](260/472) || training loss 0.2012 || training accuracy 92.03% || train_f1_score 0.94 || lr 1e-05
+Epoch[5/20](280/472) || training loss 0.177 || training accuracy 92.03% || train_f1_score 0.94 || lr 1e-05
+Epoch[5/20](300/472) || training loss 0.164 || training accuracy 95.00% || train_f1_score 0.94 || lr 1e-05
+Epoch[5/20](320/472) || training loss 0.1525 || training accuracy 93.75% || train_f1_score 0.93 || lr 1e-05
+Epoch[5/20](340/472) || training loss 0.1936 || training accuracy 91.88% || train_f1_score 0.93 || lr 1e-05
+Epoch[5/20](360/472) || training loss 0.1982 || training accuracy 92.66% || train_f1_score 0.92 || lr 1e-05
+Epoch[5/20](380/472) || training loss 0.16 || training accuracy 94.22% || train_f1_score 0.92 || lr 1e-05
+Epoch[5/20](400/472) || training loss 0.1915 || training accuracy 92.50% || train_f1_score 0.92 || lr 1e-05
+Epoch[5/20](420/472) || training loss 0.167 || training accuracy 94.22% || train_f1_score 0.92 || lr 1e-05
+Epoch[5/20](440/472) || training loss 0.1838 || training accuracy 92.97% || train_f1_score 0.92 || lr 1e-05
+Epoch[5/20](460/472) || training loss 0.1436 || training accuracy 95.78% || train_f1_score 0.92 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 94.52%! saving the best model..
+[Val] acc : 94.52%, loss: 0.14 || best acc : 94.52%, best loss: 0.14 || f1 score : 0.95 || epoch time 0:03:46
+early stopping patience 0
+Epoch[6/20](20/472) || training loss 0.1478 || training accuracy 95.16% || train_f1_score 0.94 || lr 1e-05
+Epoch[6/20](40/472) || training loss 0.1307 || training accuracy 95.62% || train_f1_score 0.94 || lr 1e-05
+Epoch[6/20](60/472) || training loss 0.1723 || training accuracy 93.44% || train_f1_score 0.92 || lr 1e-05
+Epoch[6/20](80/472) || training loss 0.1675 || training accuracy 92.66% || train_f1_score  0.9 || lr 1e-05
+Epoch[6/20](100/472) || training loss 0.1288 || training accuracy 95.94% || train_f1_score 0.91 || lr 1e-05
+Epoch[6/20](120/472) || training loss 0.1483 || training accuracy 95.16% || train_f1_score 0.91 || lr 1e-05
+Epoch[6/20](140/472) || training loss 0.1389 || training accuracy 94.53% || train_f1_score 0.91 || lr 1e-05
+Epoch[6/20](160/472) || training loss 0.148 || training accuracy 95.47% || train_f1_score 0.92 || lr 1e-05
+Epoch[6/20](180/472) || training loss 0.1442 || training accuracy 94.38% || train_f1_score 0.93 || lr 1e-05
+Epoch[6/20](200/472) || training loss 0.1388 || training accuracy 94.69% || train_f1_score 0.93 || lr 1e-05
+Epoch[6/20](220/472) || training loss 0.1537 || training accuracy 93.12% || train_f1_score 0.92 || lr 1e-05
+Epoch[6/20](240/472) || training loss 0.1876 || training accuracy 92.34% || train_f1_score 0.93 || lr 1e-05
+Epoch[6/20](260/472) || training loss 0.1228 || training accuracy 95.78% || train_f1_score 0.93 || lr 1e-05
+Epoch[6/20](280/472) || training loss 0.138 || training accuracy 95.47% || train_f1_score 0.93 || lr 1e-05
+Epoch[6/20](300/472) || training loss 0.1153 || training accuracy 96.41% || train_f1_score 0.94 || lr 1e-05
+Epoch[6/20](320/472) || training loss 0.1552 || training accuracy 93.75% || train_f1_score 0.94 || lr 1e-05
+Epoch[6/20](340/472) || training loss 0.1429 || training accuracy 94.06% || train_f1_score 0.94 || lr 1e-05
+Epoch[6/20](360/472) || training loss 0.1578 || training accuracy 94.22% || train_f1_score 0.94 || lr 1e-05
+Epoch[6/20](380/472) || training loss 0.1583 || training accuracy 95.16% || train_f1_score 0.94 || lr 1e-05
+Epoch[6/20](400/472) || training loss 0.1143 || training accuracy 95.16% || train_f1_score 0.94 || lr 1e-05
+Epoch[6/20](420/472) || training loss 0.1226 || training accuracy 96.25% || train_f1_score 0.94 || lr 1e-05
+Epoch[6/20](440/472) || training loss 0.1269 || training accuracy 95.78% || train_f1_score 0.94 || lr 1e-05
+Epoch[6/20](460/472) || training loss 0.1545 || training accuracy 94.38% || train_f1_score 0.95 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 95.56%! saving the best model..
+[Val] acc : 95.56%, loss: 0.12 || best acc : 95.56%, best loss: 0.12 || f1 score : 0.96 || epoch time 0:03:46
+early stopping patience 0
+Epoch[7/20](20/472) || training loss 0.1356 || training accuracy 94.38% || train_f1_score 0.93 || lr 1e-05
+Epoch[7/20](40/472) || training loss 0.1451 || training accuracy 94.22% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](60/472) || training loss 0.1208 || training accuracy 96.72% || train_f1_score 0.96 || lr 1e-05
+Epoch[7/20](80/472) || training loss 0.1173 || training accuracy 96.09% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](100/472) || training loss 0.1218 || training accuracy 95.62% || train_f1_score 0.94 || lr 1e-05
+Epoch[7/20](120/472) || training loss 0.1212 || training accuracy 96.09% || train_f1_score 0.94 || lr 1e-05
+Epoch[7/20](140/472) || training loss 0.09741 || training accuracy 97.03% || train_f1_score 0.94 || lr 1e-05
+Epoch[7/20](160/472) || training loss 0.1671 || training accuracy 92.81% || train_f1_score 0.94 || lr 1e-05
+Epoch[7/20](180/472) || training loss 0.1444 || training accuracy 94.84% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](200/472) || training loss 0.161 || training accuracy 93.12% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](220/472) || training loss 0.1311 || training accuracy 94.69% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](240/472) || training loss 0.113 || training accuracy 95.94% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](260/472) || training loss 0.1164 || training accuracy 95.47% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](280/472) || training loss 0.1178 || training accuracy 96.09% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](300/472) || training loss 0.1106 || training accuracy 95.78% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](320/472) || training loss 0.1033 || training accuracy 96.25% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](340/472) || training loss 0.1044 || training accuracy 95.94% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](360/472) || training loss 0.1336 || training accuracy 95.94% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](380/472) || training loss 0.1632 || training accuracy 93.59% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](400/472) || training loss 0.1053 || training accuracy 96.25% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](420/472) || training loss 0.1373 || training accuracy 95.62% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](440/472) || training loss 0.1312 || training accuracy 94.84% || train_f1_score 0.95 || lr 1e-05
+Epoch[7/20](460/472) || training loss 0.1116 || training accuracy 96.09% || train_f1_score 0.95 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 96.77%! saving the best model..
+[Val] acc : 96.77%, loss: 0.095 || best acc : 96.77%, best loss: 0.095 || f1 score : 0.97 || epoch time 0:03:47
+early stopping patience 0
+Epoch[8/20](20/472) || training loss 0.104 || training accuracy 95.94% || train_f1_score  1.0 || lr 1e-05
+Epoch[8/20](40/472) || training loss 0.1001 || training accuracy 96.56% || train_f1_score  1.0 || lr 1e-05
+Epoch[8/20](60/472) || training loss 0.106 || training accuracy 96.88% || train_f1_score  1.0 || lr 1e-05
+Epoch[8/20](80/472) || training loss 0.1002 || training accuracy 97.03% || train_f1_score 0.98 || lr 1e-05
+Epoch[8/20](100/472) || training loss 0.1071 || training accuracy 96.25% || train_f1_score 0.97 || lr 1e-05
+Epoch[8/20](120/472) || training loss 0.1015 || training accuracy 96.25% || train_f1_score 0.97 || lr 1e-05
+Epoch[8/20](140/472) || training loss 0.1051 || training accuracy 96.41% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](160/472) || training loss 0.1071 || training accuracy 96.41% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](180/472) || training loss 0.1126 || training accuracy 95.78% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](200/472) || training loss 0.09059 || training accuracy 96.41% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](220/472) || training loss 0.09686 || training accuracy 96.72% || train_f1_score 0.97 || lr 1e-05
+Epoch[8/20](240/472) || training loss 0.0869 || training accuracy 97.34% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](260/472) || training loss 0.1047 || training accuracy 96.56% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](280/472) || training loss 0.1227 || training accuracy 95.94% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](300/472) || training loss 0.07483 || training accuracy 97.81% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](320/472) || training loss 0.1063 || training accuracy 96.56% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](340/472) || training loss 0.1019 || training accuracy 96.72% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](360/472) || training loss 0.1034 || training accuracy 95.31% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](380/472) || training loss 0.09963 || training accuracy 96.25% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](400/472) || training loss 0.08843 || training accuracy 97.19% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](420/472) || training loss 0.0812 || training accuracy 97.34% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](440/472) || training loss 0.1027 || training accuracy 96.09% || train_f1_score 0.96 || lr 1e-05
+Epoch[8/20](460/472) || training loss 0.08721 || training accuracy 97.03% || train_f1_score 0.96 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 97.12%! saving the best model..
+[Val] acc : 97.12%, loss: 0.083 || best acc : 97.12%, best loss: 0.083 || f1 score : 0.97 || epoch time 0:03:46
+early stopping patience 0
+Epoch[9/20](20/472) || training loss 0.1056 || training accuracy 95.78% || train_f1_score 0.97 || lr 1e-05
+Epoch[9/20](40/472) || training loss 0.06416 || training accuracy 98.12% || train_f1_score 0.97 || lr 1e-05
+Epoch[9/20](60/472) || training loss 0.09252 || training accuracy 97.03% || train_f1_score 0.98 || lr 1e-05
+Epoch[9/20](80/472) || training loss 0.08374 || training accuracy 97.50% || train_f1_score 0.98 || lr 1e-05
+Epoch[9/20](100/472) || training loss 0.07068 || training accuracy 96.88% || train_f1_score 0.98 || lr 1e-05
+Epoch[9/20](120/472) || training loss 0.09328 || training accuracy 97.03% || train_f1_score 0.98 || lr 1e-05
+Epoch[9/20](140/472) || training loss 0.07216 || training accuracy 97.50% || train_f1_score 0.98 || lr 1e-05
+Epoch[9/20](160/472) || training loss 0.07966 || training accuracy 97.66% || train_f1_score 0.98 || lr 1e-05
+Epoch[9/20](180/472) || training loss 0.07754 || training accuracy 97.66% || train_f1_score 0.97 || lr 1e-05
+Epoch[9/20](200/472) || training loss 0.06978 || training accuracy 97.81% || train_f1_score 0.97 || lr 1e-05
+Epoch[9/20](220/472) || training loss 0.08727 || training accuracy 97.03% || train_f1_score 0.97 || lr 1e-05
+Epoch[9/20](240/472) || training loss 0.06702 || training accuracy 97.50% || train_f1_score 0.97 || lr 1e-05
+Epoch[9/20](260/472) || training loss 0.0913 || training accuracy 96.72% || train_f1_score 0.98 || lr 1e-05
+Epoch[9/20](280/472) || training loss 0.08605 || training accuracy 97.19% || train_f1_score 0.98 || lr 1e-05
+Epoch[9/20](300/472) || training loss 0.05998 || training accuracy 98.44% || train_f1_score 0.98 || lr 1e-05
+Epoch[9/20](320/472) || training loss 0.07697 || training accuracy 97.50% || train_f1_score 0.97 || lr 1e-05
+Epoch[9/20](340/472) || training loss 0.06679 || training accuracy 98.59% || train_f1_score 0.97 || lr 1e-05
+Epoch[9/20](360/472) || training loss 0.07277 || training accuracy 97.66% || train_f1_score 0.97 || lr 1e-05
+Epoch[9/20](380/472) || training loss 0.06734 || training accuracy 97.66% || train_f1_score 0.98 || lr 1e-05
+Epoch[9/20](400/472) || training loss 0.06047 || training accuracy 98.12% || train_f1_score 0.98 || lr 1e-05
+Epoch[9/20](420/472) || training loss 0.0719 || training accuracy 98.12% || train_f1_score 0.98 || lr 1e-05
+Epoch[9/20](440/472) || training loss 0.0853 || training accuracy 97.19% || train_f1_score 0.98 || lr 1e-05
+Epoch[9/20](460/472) || training loss 0.08552 || training accuracy 96.88% || train_f1_score 0.98 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 97.33%! saving the best model..
+[Val] acc : 97.33%, loss: 0.068 || best acc : 97.33%, best loss: 0.068 || f1 score : 0.97 || epoch time 0:03:48
+early stopping patience 0
+Epoch[10/20](20/472) || training loss 0.04553 || training accuracy 98.91% || train_f1_score  1.0 || lr 1e-05
+Epoch[10/20](40/472) || training loss 0.06389 || training accuracy 97.66% || train_f1_score  1.0 || lr 1e-05
+Epoch[10/20](60/472) || training loss 0.06034 || training accuracy 98.12% || train_f1_score  1.0 || lr 1e-05
+Epoch[10/20](80/472) || training loss 0.0562 || training accuracy 98.28% || train_f1_score  1.0 || lr 1e-05
+Epoch[10/20](100/472) || training loss 0.04979 || training accuracy 98.59% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](120/472) || training loss 0.09805 || training accuracy 96.25% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](140/472) || training loss 0.06389 || training accuracy 97.50% || train_f1_score  1.0 || lr 1e-05
+Epoch[10/20](160/472) || training loss 0.08077 || training accuracy 96.72% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](180/472) || training loss 0.05697 || training accuracy 98.12% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](200/472) || training loss 0.06914 || training accuracy 97.50% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](220/472) || training loss 0.05981 || training accuracy 98.91% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](240/472) || training loss 0.06301 || training accuracy 97.66% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](260/472) || training loss 0.06425 || training accuracy 97.66% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](280/472) || training loss 0.06278 || training accuracy 97.97% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](300/472) || training loss 0.04915 || training accuracy 98.91% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](320/472) || training loss 0.06136 || training accuracy 97.50% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](340/472) || training loss 0.06897 || training accuracy 97.50% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](360/472) || training loss 0.0634 || training accuracy 98.44% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](380/472) || training loss 0.06338 || training accuracy 97.97% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](400/472) || training loss 0.07292 || training accuracy 97.66% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](420/472) || training loss 0.06503 || training accuracy 97.97% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](440/472) || training loss 0.07308 || training accuracy 97.34% || train_f1_score 0.99 || lr 1e-05
+Epoch[10/20](460/472) || training loss 0.07056 || training accuracy 97.66% || train_f1_score 0.99 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 98.31%! saving the best model..
+[Val] acc : 98.31%, loss: 0.053 || best acc : 98.31%, best loss: 0.053 || f1 score : 0.98 || epoch time 0:03:47
+early stopping patience 0
+Epoch[11/20](20/472) || training loss 0.04893 || training accuracy 98.59% || train_f1_score  1.0 || lr 1e-05
+Epoch[11/20](40/472) || training loss 0.05456 || training accuracy 98.44% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](60/472) || training loss 0.06564 || training accuracy 97.81% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](80/472) || training loss 0.04638 || training accuracy 98.59% || train_f1_score 0.96 || lr 1e-05
+Epoch[11/20](100/472) || training loss 0.05888 || training accuracy 97.97% || train_f1_score 0.96 || lr 1e-05
+Epoch[11/20](120/472) || training loss 0.07524 || training accuracy 97.50% || train_f1_score 0.97 || lr 1e-05
+Epoch[11/20](140/472) || training loss 0.06301 || training accuracy 97.81% || train_f1_score 0.97 || lr 1e-05
+Epoch[11/20](160/472) || training loss 0.06437 || training accuracy 97.66% || train_f1_score 0.97 || lr 1e-05
+Epoch[11/20](180/472) || training loss 0.05464 || training accuracy 98.59% || train_f1_score 0.97 || lr 1e-05
+Epoch[11/20](200/472) || training loss 0.04989 || training accuracy 98.28% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](220/472) || training loss 0.05415 || training accuracy 98.28% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](240/472) || training loss 0.04649 || training accuracy 98.59% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](260/472) || training loss 0.0686 || training accuracy 97.19% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](280/472) || training loss 0.04531 || training accuracy 98.75% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](300/472) || training loss 0.06062 || training accuracy 97.66% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](320/472) || training loss 0.05297 || training accuracy 98.59% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](340/472) || training loss 0.0476 || training accuracy 98.44% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](360/472) || training loss 0.05308 || training accuracy 98.59% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](380/472) || training loss 0.0472 || training accuracy 98.28% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](400/472) || training loss 0.06697 || training accuracy 98.28% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](420/472) || training loss 0.05741 || training accuracy 97.66% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](440/472) || training loss 0.03917 || training accuracy 98.59% || train_f1_score 0.98 || lr 1e-05
+Epoch[11/20](460/472) || training loss 0.05214 || training accuracy 98.28% || train_f1_score 0.98 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 98.39%! saving the best model..
+[Val] acc : 98.39%, loss: 0.047 || best acc : 98.39%, best loss: 0.047 || f1 score : 0.98 || epoch time 0:03:46
+early stopping patience 0
+Epoch[12/20](20/472) || training loss 0.05223 || training accuracy 98.75% || train_f1_score  1.0 || lr 1e-05
+Epoch[12/20](40/472) || training loss 0.05495 || training accuracy 97.97% || train_f1_score  1.0 || lr 1e-05
+Epoch[12/20](60/472) || training loss 0.05181 || training accuracy 98.44% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](80/472) || training loss 0.03508 || training accuracy 99.22% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](100/472) || training loss 0.03959 || training accuracy 98.75% || train_f1_score 0.98 || lr 1e-05
+Epoch[12/20](120/472) || training loss 0.06069 || training accuracy 98.44% || train_f1_score 0.98 || lr 1e-05
+Epoch[12/20](140/472) || training loss 0.03971 || training accuracy 98.75% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](160/472) || training loss 0.0394 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](180/472) || training loss 0.05053 || training accuracy 97.66% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](200/472) || training loss 0.04305 || training accuracy 98.28% || train_f1_score 0.98 || lr 1e-05
+Epoch[12/20](220/472) || training loss 0.03765 || training accuracy 99.53% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](240/472) || training loss 0.04086 || training accuracy 98.59% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](260/472) || training loss 0.04627 || training accuracy 98.75% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](280/472) || training loss 0.04408 || training accuracy 98.44% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](300/472) || training loss 0.04363 || training accuracy 98.44% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](320/472) || training loss 0.03875 || training accuracy 98.91% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](340/472) || training loss 0.05094 || training accuracy 97.50% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](360/472) || training loss 0.04746 || training accuracy 98.75% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](380/472) || training loss 0.03243 || training accuracy 98.91% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](400/472) || training loss 0.04926 || training accuracy 98.12% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](420/472) || training loss 0.05878 || training accuracy 98.44% || train_f1_score 0.99 || lr 1e-05
+Epoch[12/20](440/472) || training loss 0.04204 || training accuracy 98.44% || train_f1_score 0.98 || lr 1e-05
+Epoch[12/20](460/472) || training loss 0.03894 || training accuracy 98.91% || train_f1_score 0.99 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 98.47%! saving the best model..
+[Val] acc : 98.47%, loss: 0.044 || best acc : 98.47%, best loss: 0.044 || f1 score : 0.99 || epoch time 0:04:06
+early stopping patience 0
+Epoch[13/20](20/472) || training loss 0.03372 || training accuracy 99.06% || train_f1_score  1.0 || lr 1e-05
+Epoch[13/20](40/472) || training loss 0.04116 || training accuracy 98.59% || train_f1_score  1.0 || lr 1e-05
+Epoch[13/20](60/472) || training loss 0.06341 || training accuracy 97.97% || train_f1_score  1.0 || lr 1e-05
+Epoch[13/20](80/472) || training loss 0.04668 || training accuracy 98.75% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](100/472) || training loss 0.04178 || training accuracy 98.75% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](120/472) || training loss 0.0432 || training accuracy 98.91% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](140/472) || training loss 0.04288 || training accuracy 98.28% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](160/472) || training loss 0.03743 || training accuracy 98.75% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](180/472) || training loss 0.02337 || training accuracy 99.53% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](200/472) || training loss 0.02569 || training accuracy 99.22% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](220/472) || training loss 0.03935 || training accuracy 99.38% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](240/472) || training loss 0.03487 || training accuracy 98.91% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](260/472) || training loss 0.03381 || training accuracy 99.06% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](280/472) || training loss 0.03615 || training accuracy 98.91% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](300/472) || training loss 0.03101 || training accuracy 99.06% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](320/472) || training loss 0.04164 || training accuracy 98.75% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](340/472) || training loss 0.04718 || training accuracy 98.59% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](360/472) || training loss 0.04207 || training accuracy 98.44% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](380/472) || training loss 0.03171 || training accuracy 98.91% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](400/472) || training loss 0.05222 || training accuracy 97.81% || train_f1_score 0.98 || lr 1e-05
+Epoch[13/20](420/472) || training loss 0.02962 || training accuracy 99.38% || train_f1_score 0.99 || lr 1e-05
+Epoch[13/20](440/472) || training loss 0.02504 || training accuracy 99.38% || train_f1_score 0.99 || lr 1e-05
+Epoch[13/20](460/472) || training loss 0.03925 || training accuracy 98.75% || train_f1_score 0.99 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 98.65%! saving the best model..
+[Val] acc : 98.65%, loss: 0.039 || best acc : 98.65%, best loss: 0.039 || f1 score : 0.99 || epoch time 0:04:11
+early stopping patience 0
+Epoch[14/20](20/472) || training loss 0.02778 || training accuracy 99.06% || train_f1_score  1.0 || lr 1e-05
+Epoch[14/20](40/472) || training loss 0.03281 || training accuracy 99.22% || train_f1_score  1.0 || lr 1e-05
+Epoch[14/20](60/472) || training loss 0.03021 || training accuracy 99.38% || train_f1_score  1.0 || lr 1e-05
+Epoch[14/20](80/472) || training loss 0.03395 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[14/20](100/472) || training loss 0.03629 || training accuracy 98.59% || train_f1_score 0.99 || lr 1e-05
+Epoch[14/20](120/472) || training loss 0.04798 || training accuracy 98.44% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](140/472) || training loss 0.04549 || training accuracy 98.28% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](160/472) || training loss 0.04389 || training accuracy 98.12% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](180/472) || training loss 0.04768 || training accuracy 98.59% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](200/472) || training loss 0.0298 || training accuracy 99.06% || train_f1_score 0.97 || lr 1e-05
+Epoch[14/20](220/472) || training loss 0.02917 || training accuracy 99.22% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](240/472) || training loss 0.04607 || training accuracy 99.06% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](260/472) || training loss 0.02051 || training accuracy 99.53% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](280/472) || training loss 0.03275 || training accuracy 99.06% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](300/472) || training loss 0.04077 || training accuracy 98.59% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](320/472) || training loss 0.03597 || training accuracy 99.06% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](340/472) || training loss 0.03589 || training accuracy 98.44% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](360/472) || training loss 0.0385 || training accuracy 98.75% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](380/472) || training loss 0.05254 || training accuracy 98.12% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](400/472) || training loss 0.02596 || training accuracy 99.06% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](420/472) || training loss 0.03338 || training accuracy 98.91% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](440/472) || training loss 0.03749 || training accuracy 98.91% || train_f1_score 0.98 || lr 1e-05
+Epoch[14/20](460/472) || training loss 0.02263 || training accuracy 99.53% || train_f1_score 0.98 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 98.99%! saving the best model..
+[Val] acc : 98.99%, loss: 0.029 || best acc : 98.99%, best loss: 0.029 || f1 score : 0.99 || epoch time 0:04:05
+early stopping patience 0
+Epoch[15/20](20/472) || training loss 0.02207 || training accuracy 99.53% || train_f1_score  1.0 || lr 1e-05
+Epoch[15/20](40/472) || training loss 0.02869 || training accuracy 98.75% || train_f1_score  1.0 || lr 1e-05
+Epoch[15/20](60/472) || training loss 0.03075 || training accuracy 98.75% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](80/472) || training loss 0.02195 || training accuracy 99.38% || train_f1_score 0.98 || lr 1e-05
+Epoch[15/20](100/472) || training loss 0.03 || training accuracy 99.38% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](120/472) || training loss 0.0243 || training accuracy 99.38% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](140/472) || training loss 0.02459 || training accuracy 99.53% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](160/472) || training loss 0.03404 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](180/472) || training loss 0.04331 || training accuracy 98.44% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](200/472) || training loss 0.03102 || training accuracy 99.22% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](220/472) || training loss 0.03331 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](240/472) || training loss 0.03022 || training accuracy 99.22% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](260/472) || training loss 0.03902 || training accuracy 98.75% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](280/472) || training loss 0.02946 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](300/472) || training loss 0.03065 || training accuracy 99.22% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](320/472) || training loss 0.02483 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](340/472) || training loss 0.03589 || training accuracy 98.59% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](360/472) || training loss 0.03141 || training accuracy 98.91% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](380/472) || training loss 0.03023 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](400/472) || training loss 0.04594 || training accuracy 98.75% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](420/472) || training loss 0.03655 || training accuracy 98.91% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](440/472) || training loss 0.02226 || training accuracy 99.53% || train_f1_score 0.99 || lr 1e-05
+Epoch[15/20](460/472) || training loss 0.03588 || training accuracy 98.75% || train_f1_score 0.99 || lr 1e-05
+Calculating validation results...
+[Val] acc : 98.94%, loss: 0.029 || best acc : 98.99%, best loss: 0.029 || f1 score : 0.99 || epoch time 0:03:46
+early stopping patience 0
+Epoch[16/20](20/472) || training loss 0.01836 || training accuracy 99.53% || train_f1_score  1.0 || lr 1e-05
+Epoch[16/20](40/472) || training loss 0.01415 || training accuracy 99.69% || train_f1_score 0.98 || lr 1e-05
+Epoch[16/20](60/472) || training loss 0.03586 || training accuracy 98.91% || train_f1_score 0.98 || lr 1e-05
+Epoch[16/20](80/472) || training loss 0.02881 || training accuracy 99.06% || train_f1_score 0.98 || lr 1e-05
+Epoch[16/20](100/472) || training loss 0.01936 || training accuracy 99.38% || train_f1_score 0.98 || lr 1e-05
+Epoch[16/20](120/472) || training loss 0.02426 || training accuracy 99.53% || train_f1_score 0.98 || lr 1e-05
+Epoch[16/20](140/472) || training loss 0.02157 || training accuracy 99.38% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](160/472) || training loss 0.03179 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](180/472) || training loss 0.01955 || training accuracy 99.22% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](200/472) || training loss 0.03048 || training accuracy 98.91% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](220/472) || training loss 0.02819 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](240/472) || training loss 0.01495 || training accuracy 99.69% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](260/472) || training loss 0.01552 || training accuracy 99.84% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](280/472) || training loss 0.04093 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](300/472) || training loss 0.0346 || training accuracy 98.75% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](320/472) || training loss 0.0328 || training accuracy 98.91% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](340/472) || training loss 0.02856 || training accuracy 99.38% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](360/472) || training loss 0.03607 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](380/472) || training loss 0.02785 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](400/472) || training loss 0.02183 || training accuracy 99.69% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](420/472) || training loss 0.0289 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](440/472) || training loss 0.03131 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[16/20](460/472) || training loss 0.02582 || training accuracy 98.91% || train_f1_score 0.99 || lr 1e-05
+Calculating validation results...
+[Val] acc : 98.99%, loss: 0.027 || best acc : 98.99%, best loss: 0.027 || f1 score : 0.99 || epoch time 0:03:45
+early stopping patience 0
+Epoch[17/20](20/472) || training loss 0.01736 || training accuracy 99.53% || train_f1_score  1.0 || lr 1e-05
+Epoch[17/20](40/472) || training loss 0.01515 || training accuracy 99.84% || train_f1_score  1.0 || lr 1e-05
+Epoch[17/20](60/472) || training loss 0.02075 || training accuracy 99.53% || train_f1_score  1.0 || lr 1e-05
+Epoch[17/20](80/472) || training loss 0.02756 || training accuracy 99.06% || train_f1_score  1.0 || lr 1e-05
+Epoch[17/20](100/472) || training loss 0.03327 || training accuracy 99.06% || train_f1_score  1.0 || lr 1e-05
+Epoch[17/20](120/472) || training loss 0.0227 || training accuracy 99.22% || train_f1_score  1.0 || lr 1e-05
+Epoch[17/20](140/472) || training loss 0.02724 || training accuracy 99.38% || train_f1_score  1.0 || lr 1e-05
+Epoch[17/20](160/472) || training loss 0.01693 || training accuracy 99.84% || train_f1_score  1.0 || lr 1e-05
+Epoch[17/20](180/472) || training loss 0.0215 || training accuracy 99.22% || train_f1_score  1.0 || lr 1e-05
+Epoch[17/20](200/472) || training loss 0.02698 || training accuracy 99.38% || train_f1_score  1.0 || lr 1e-05
+Epoch[17/20](220/472) || training loss 0.01477 || training accuracy 99.84% || train_f1_score  1.0 || lr 1e-05
+Epoch[17/20](240/472) || training loss 0.0259 || training accuracy 99.38% || train_f1_score  1.0 || lr 1e-05
+Epoch[17/20](260/472) || training loss 0.01821 || training accuracy 99.84% || train_f1_score  1.0 || lr 1e-05
+Epoch[17/20](280/472) || training loss 0.01491 || training accuracy 99.53% || train_f1_score  1.0 || lr 1e-05
+Epoch[17/20](300/472) || training loss 0.04356 || training accuracy 98.44% || train_f1_score 0.99 || lr 1e-05
+Epoch[17/20](320/472) || training loss 0.02015 || training accuracy 99.69% || train_f1_score 0.99 || lr 1e-05
+Epoch[17/20](340/472) || training loss 0.02085 || training accuracy 99.69% || train_f1_score 0.99 || lr 1e-05
+Epoch[17/20](360/472) || training loss 0.01937 || training accuracy 99.38% || train_f1_score 0.99 || lr 1e-05
+Epoch[17/20](380/472) || training loss 0.01773 || training accuracy 99.69% || train_f1_score 0.99 || lr 1e-05
+Epoch[17/20](400/472) || training loss 0.01201 || training accuracy 99.84% || train_f1_score 0.99 || lr 1e-05
+Epoch[17/20](420/472) || training loss 0.02402 || training accuracy 98.91% || train_f1_score 0.99 || lr 1e-05
+Epoch[17/20](440/472) || training loss 0.01981 || training accuracy 99.38% || train_f1_score 0.99 || lr 1e-05
+Epoch[17/20](460/472) || training loss 0.0257 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 99.05%! saving the best model..
+[Val] acc : 99.05%, loss: 0.026 || best acc : 99.05%, best loss: 0.026 || f1 score : 0.99 || epoch time 0:03:46
+early stopping patience 0
+Epoch[18/20](20/472) || training loss 0.03051 || training accuracy 99.06% || train_f1_score  1.0 || lr 1e-05
+Epoch[18/20](40/472) || training loss 0.01519 || training accuracy 99.69% || train_f1_score  1.0 || lr 1e-05
+Epoch[18/20](60/472) || training loss 0.02622 || training accuracy 99.22% || train_f1_score  1.0 || lr 1e-05
+Epoch[18/20](80/472) || training loss 0.01499 || training accuracy 99.53% || train_f1_score  1.0 || lr 1e-05
+Epoch[18/20](100/472) || training loss 0.01061 || training accuracy 100.00% || train_f1_score  1.0 || lr 1e-05
+Epoch[18/20](120/472) || training loss 0.01772 || training accuracy 99.53% || train_f1_score  1.0 || lr 1e-05
+Epoch[18/20](140/472) || training loss 0.01669 || training accuracy 99.38% || train_f1_score  1.0 || lr 1e-05
+Epoch[18/20](160/472) || training loss 0.03492 || training accuracy 98.91% || train_f1_score 0.99 || lr 1e-05
+Epoch[18/20](180/472) || training loss 0.01457 || training accuracy 99.53% || train_f1_score 0.99 || lr 1e-05
+Epoch[18/20](200/472) || training loss 0.02749 || training accuracy 99.22% || train_f1_score 0.99 || lr 1e-05
+Epoch[18/20](220/472) || training loss 0.02356 || training accuracy 99.38% || train_f1_score 0.99 || lr 1e-05
+Epoch[18/20](240/472) || training loss 0.01428 || training accuracy 99.53% || train_f1_score 0.99 || lr 1e-05
+Epoch[18/20](260/472) || training loss 0.01556 || training accuracy 99.84% || train_f1_score 0.99 || lr 1e-05
+Epoch[18/20](280/472) || training loss 0.01235 || training accuracy 99.84% || train_f1_score 0.99 || lr 1e-05
+Epoch[18/20](300/472) || training loss 0.01866 || training accuracy 99.69% || train_f1_score 0.99 || lr 1e-05
+Epoch[18/20](320/472) || training loss 0.02038 || training accuracy 99.53% || train_f1_score 0.99 || lr 1e-05
+Epoch[18/20](340/472) || training loss 0.02383 || training accuracy 99.38% || train_f1_score 0.99 || lr 1e-05
+Epoch[18/20](360/472) || training loss 0.01552 || training accuracy 99.84% || train_f1_score 0.99 || lr 1e-05
+Epoch[18/20](380/472) || training loss 0.01048 || training accuracy 99.69% || train_f1_score  1.0 || lr 1e-05
+Epoch[18/20](400/472) || training loss 0.01611 || training accuracy 99.69% || train_f1_score  1.0 || lr 1e-05
+Epoch[18/20](420/472) || training loss 0.02324 || training accuracy 99.53% || train_f1_score  1.0 || lr 1e-05
+Epoch[18/20](440/472) || training loss 0.0355 || training accuracy 98.91% || train_f1_score 0.99 || lr 1e-05
+Epoch[18/20](460/472) || training loss 0.01385 || training accuracy 99.69% || train_f1_score 0.99 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 99.18%! saving the best model..
+[Val] acc : 99.18%, loss: 0.021 || best acc : 99.18%, best loss: 0.021 || f1 score : 0.99 || epoch time 0:03:46
+early stopping patience 0
+Epoch[19/20](20/472) || training loss 0.01539 || training accuracy 99.69% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](40/472) || training loss 0.02593 || training accuracy 99.22% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](60/472) || training loss 0.02024 || training accuracy 99.53% || train_f1_score 0.99 || lr 1e-05
+Epoch[19/20](80/472) || training loss 0.02368 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[19/20](100/472) || training loss 0.02175 || training accuracy 99.06% || train_f1_score 0.99 || lr 1e-05
+Epoch[19/20](120/472) || training loss 0.01717 || training accuracy 99.53% || train_f1_score 0.99 || lr 1e-05
+Epoch[19/20](140/472) || training loss 0.01467 || training accuracy 99.84% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](160/472) || training loss 0.01367 || training accuracy 99.69% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](180/472) || training loss 0.02146 || training accuracy 99.38% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](200/472) || training loss 0.01448 || training accuracy 99.69% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](220/472) || training loss 0.01582 || training accuracy 99.53% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](240/472) || training loss 0.01316 || training accuracy 100.00% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](260/472) || training loss 0.01575 || training accuracy 99.69% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](280/472) || training loss 0.01735 || training accuracy 99.38% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](300/472) || training loss 0.01503 || training accuracy 99.38% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](320/472) || training loss 0.0276 || training accuracy 99.06% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](340/472) || training loss 0.02399 || training accuracy 99.22% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](360/472) || training loss 0.01411 || training accuracy 99.84% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](380/472) || training loss 0.01833 || training accuracy 99.38% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](400/472) || training loss 0.03428 || training accuracy 99.06% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](420/472) || training loss 0.02826 || training accuracy 99.22% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](440/472) || training loss 0.01408 || training accuracy 99.53% || train_f1_score  1.0 || lr 1e-05
+Epoch[19/20](460/472) || training loss 0.01401 || training accuracy 99.69% || train_f1_score  1.0 || lr 1e-05
+Calculating validation results...
+New best model for val accuracy : 99.23%! saving the best model..
+[Val] acc : 99.23%, loss: 0.021 || best acc : 99.23%, best loss: 0.021 || f1 score : 0.99 || epoch time 0:03:46
+early stopping patience 1
+Epoch[20/20](20/472) || training loss 0.01704 || training accuracy 99.22% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](40/472) || training loss 0.01276 || training accuracy 99.84% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](60/472) || training loss 0.0217 || training accuracy 99.38% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](80/472) || training loss 0.0109 || training accuracy 99.69% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](100/472) || training loss 0.02388 || training accuracy 99.22% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](120/472) || training loss 0.02425 || training accuracy 99.22% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](140/472) || training loss 0.02828 || training accuracy 99.53% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](160/472) || training loss 0.009886 || training accuracy 99.84% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](180/472) || training loss 0.01097 || training accuracy 99.84% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](200/472) || training loss 0.008585 || training accuracy 100.00% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](220/472) || training loss 0.01322 || training accuracy 99.69% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](240/472) || training loss 0.02316 || training accuracy 99.22% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](260/472) || training loss 0.01649 || training accuracy 99.38% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](280/472) || training loss 0.01927 || training accuracy 99.53% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](300/472) || training loss 0.01021 || training accuracy 99.84% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](320/472) || training loss 0.02305 || training accuracy 99.22% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](340/472) || training loss 0.0217 || training accuracy 99.22% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](360/472) || training loss 0.008355 || training accuracy 99.84% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](380/472) || training loss 0.009709 || training accuracy 99.84% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](400/472) || training loss 0.02437 || training accuracy 99.38% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](420/472) || training loss 0.01279 || training accuracy 99.69% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](440/472) || training loss 0.008397 || training accuracy 100.00% || train_f1_score  1.0 || lr 1e-05
+Epoch[20/20](460/472) || training loss 0.01523 || training accuracy 99.69% || train_f1_score  1.0 || lr 1e-05
+Calculating validation results...
+[Val] acc : 99.23%, loss: 0.019 || best acc : 99.23%, best loss: 0.019 || f1 score : 0.99 || epoch time 0:03:50
+early stopping patience 0
+Total time : 1:16:52
+[[1775    6    0]
+ [   7 1573    7]
+ [   0    5  403]]

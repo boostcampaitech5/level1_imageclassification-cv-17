@@ -228,7 +228,7 @@ def train(data_dir, model_dir, args):
             eps=1e-08  
 
         )
-    elif args.optimizer == 'Adamw':
+    elif args.optimizer == 'AdamW':
         optimizer = opt_module(
             model.parameters(),
             lr=args.lr,

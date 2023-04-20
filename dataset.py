@@ -3,10 +3,10 @@ import random
 from collections import defaultdict
 from enum import Enum
 from typing import Tuple, List
-
 import numpy as np
 import torch
 from PIL import Image
+from PIL import ImageEnhance
 from torch.utils.data import Dataset, Subset, random_split
 from torchvision.transforms import * #Resize, ToTensor, Normalize, Compose, CenterCrop, ColorJitter
 from torch.optim.lr_scheduler import StepLR

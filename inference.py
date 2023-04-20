@@ -10,7 +10,7 @@ import torch
 from torch.utils.data import DataLoader
 import csv
 
-from dataset import TestDataset, MaskBaseDataset, MaskDataset, GenderDataset, AgeDataset
+from dataset import TestDataset, MaskBaseDataset, MaskDataset, GenderDataset, AgeDataset, MaskGenderDataset
 
 
 def load_model(saved_model, num_classes, device, import_model):
@@ -245,8 +245,7 @@ def age_inference(data_dir, model_dir, output_dir, args):
 def maskgender_inference(data_dir, model_dir, output_dir, args):
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
-
-    num_classes = MaskGenderDataset.num_classes  # 18
+    num_classes = MaskGenderDataset.num_classes  # 6
     import_model = args.model
     model = load_model(model_dir, num_classes, device, import_model).to(device) # load_model(saved_model, num_classes, device)
     model.eval()

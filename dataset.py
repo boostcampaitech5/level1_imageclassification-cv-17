@@ -1281,7 +1281,7 @@ class MaskPreprocessDataset(Dataset):
     
     
 class MaskGenderDataset(Dataset):
-    num_classes = 18
+    num_classes = 6
 
     _file_names = {
         "mask1": MaskLabels.MASK,
@@ -1413,7 +1413,7 @@ class MaskGenderDataset(Dataset):
         '''
         다중 클래스 분류를 위해 세 개의 라벨을 하나의 숫자로 인코딩
         '''
-        return mask_label * 6 + gender_label * 3
+        return mask_label*2 + gender_label #(mask_label * 6 + gender_label * 3 ) 3
 
     @staticmethod
     def decode_multi_class(multi_class_label) -> Tuple[MaskLabels, GenderLabels]:

@@ -228,7 +228,7 @@ def train(data_dir, model_dir, args):
             eps=1e-08  
 
         )
-    elif args.optimizer == 'Adamw':
+    elif args.optimizer == 'AdamW':
         optimizer = opt_module(
             model.parameters(),
             lr=args.lr,
@@ -394,7 +394,7 @@ def train(data_dir, model_dir, args):
         elif model_type == 'Age':
             age_inference(test_dir, save_dir, save_dir, args) # model_dir -> load_model(saved_model 
         elif model_type == 'MaskGender':
-            maskgender_inference(data_dir, save_dir, save_dir, args) # model_dir -> load_model(saved_model 
+            maskgender_inference(test_dir, save_dir, save_dir, args) # model_dir -> load_model(saved_model 
 
         else:
             print('inference 파일 생성 에러')

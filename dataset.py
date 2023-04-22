@@ -1176,7 +1176,7 @@ class MaskPreprocessDataset(Dataset):
                 self.mask_labels.append(mask_label)
                 self.gender_labels.append(gender_label)
                 self.age_labels.append(age_label)
-                idx = MaskBaseDataset.encode_multi_class(mask_label, gender_label, age_label)
+                idx = MaskPreprocessDataset.encode_multi_class(mask_label, gender_label, age_label)
                 self.label_paths[idx].append(img_path)
 
     def calc_statistics(self):

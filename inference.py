@@ -11,7 +11,7 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 import csv
 
-from dataset import TestDataset, MaskBaseDataset, MaskDataset, GenderDataset, AgeDataset
+from dataset import TestDataset, MaskBaseDataset, MaskDataset, GenderDataset, AgeDataset, MaskGenderDataset
 
 
 def load_model(saved_model, num_classes, device, import_model):
@@ -246,7 +246,6 @@ def age_inference(data_dir, model_dir, output_dir, args):
 def maskgender_inference(data_dir, model_dir, output_dir, args):
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
-
     num_classes = MaskGenderDataset.num_classes  # 6
     import_model = args.model
     model = load_model(model_dir, num_classes, device, import_model).to(device) # load_model(saved_model, num_classes, device)
@@ -281,7 +280,6 @@ def maskgender_inference(data_dir, model_dir, output_dir, args):
     info.to_csv(save_path, index=False)
     print(f"Mask&Gender Inference Done! Mask Inference result saved at {save_path}")
 
-
     
 # def combine_inference(data_dir, output_dir):
 #     data_dir = '../input/data/eval'
@@ -308,6 +306,30 @@ def maskgender_inference(data_dir, model_dir, output_dir, args):
 #     info['ans'] = all_predictions
 #     info.to_csv(os.path.join(output_dir, 'multi_output.csv'), index=False)
 #     print('test munti inference is done!')
+
+# def combine_inference_2(data_dir, output_dir):
+#     data_dir = '../input/data/eval'
+#     info_path = pd.read_csv(os.path.join(data_dir, 'info.csv'))
+#     info = pd.read_csv(info_path)
+
+#     # 비교할 두 개의 csv 파일 경로 설정
+#     csv_file1 = '' #MaskGender
+#     csv_file2 = '' 
+
+#     ans=0
+#     all_predictions=[]
+#     with open(csv_file1, 'r') as file1, open(csv_file2, 'r') as file2:
+#         reader1 = csv.reader(file1)
+#         reader2 = csv.reader(file2)
+
+#         for row1, row2 in zip(reader1, reader2):
+#             if row1[1]!='ans' and row2[1]!='ans':
+#                 ans=int(row1[1])+int(row2[1])
+#                 all_predictions.append(ans)
+
+#     info['ans'] = all_predictions
+#     info.to_csv(os.path.join(output_dir, 'multi_output.csv'), index=False)
+#     print('test multi inference is done!')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

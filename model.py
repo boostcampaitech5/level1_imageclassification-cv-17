@@ -293,6 +293,18 @@ class EfficientNetB3(nn.Module):
         x = self.model(x)
         return x
     
+class EfficientNetB3_xavier(nn.Module):
+    def __init__(self, num_classes):
+        super(EfficientNetB3_xavier, self).__init__()
+        self.model = EfficientNet.from_pretrained('efficientnet-b3')
+        self.num_ftrs = self.model._fc.in_features
+        self.model._fc = nn.Linear(self.num_ftrs, num_classes)
+        nn.init.xavier_uniform_(self.model._fc.weight)
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
 class EfficientNetB3_init(nn.Module):
     '''
     생성자 : 박승희
@@ -317,6 +329,21 @@ class EfficientNetB4(nn.Module):
         self.model = EfficientNet.from_pretrained('efficientnet-b4')
         self.num_ftrs = self.model._fc.in_features
         self.model._fc = nn.Linear(self.num_ftrs, num_classes)
+
+    def forward(self, x):
+        x = self.model(x)
+        return x
+    
+class EfficientNetB4_init(nn.Module):
+    '''
+    생성자 : 박승희
+    '''
+    def __init__(self, num_classes):
+        super(EfficientNetB4_init, self).__init__()
+        self.model = EfficientNet.from_pretrained('efficientnet-b4')
+        self.num_ftrs = self.model._fc.in_features
+        self.model._fc = nn.Linear(self.num_ftrs, num_classes)
+        nn.init.xavier_uniform_(self.model._fc.weight)
 
     def forward(self, x):
         x = self.model(x)

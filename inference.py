@@ -78,9 +78,9 @@ def inference(data_dir, model_dir, output_dir, args):
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
 
-    num_classes = MaskBaseDataset.num_classes  # 3
+    num_classes = MaskBaseDataset.num_classes  # 18 or 3 or 2
     import_model = args.model
-    model = load_model(model_dir, num_classes, device, import_model).to(device) # load_model(saved_model, num_classes, device)
+    model = load_model(model_dir, num_classes, device, import_model).to(device)
     model.eval()
 
     img_root = os.path.join(data_dir, 'images')

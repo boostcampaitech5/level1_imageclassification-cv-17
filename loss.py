@@ -69,7 +69,7 @@ class LabelSmoothingLoss(nn.Module):
                이후 true_dist와 pred의 원소별 곱의 합을 평균하여 반환합니다.
 
     '''
-    def __init__(self, classes=3, smoothing=0.01, dim=-1):
+    def __init__(self, classes=18, smoothing=0.01, dim=-1):
         super(LabelSmoothingLoss, self).__init__()
         self.confidence = 1.0 - smoothing
         self.smoothing = smoothing
@@ -142,6 +142,37 @@ class F1Loss(nn.Module):
         f1 = f1.clamp(min=self.epsilon, max=1 - self.epsilon)
         return 1 - f1.mean()
 
+class CrossEntropyLossWithLabelSmoothing(nn.Module):
+    def __init__(self, smoothing=0.1):
+        super().__init__()
+        self.smoothing = smoothing
+        
+    def forward(self, input, target):
+        log_prob = F.log_softmax(input, dim=-1)
+        nll_loss = -log_prob.gather(dim=-1, index=target.unsqueeze(1))
+        nll_loss = nll_loss.squeeze(1)
+        smooth_loss = -log_prob.mean(dim=-1)
+        loss = (1 - self.smoothing) * nll_loss + self.smoothing * smooth_loss
+        return loss.mean()
+    
+
+# class WeightedCrossEntropy(nn.Module):
+#     def __init__(self, weight=None):
+#         """
+#         - weight (torch.Tensor 또는 None): 클래스별 가중치를 지정하는 1D Tensor. 만약 None이면 가중치를 일정하게 적용합니다.
+#         - reduction (str): 손실 함수의 감소 방식을 지정하는 문자열입니다. 'mean' (기본값)이면 평균을 구하고, 'sum'이면 합을 구합니다.
+#         """
+#         super().__init__()
+#         weight = torch.ones(18)
+#         weight[[14, 8, 2, 7]] += 1
+#         self.weight = torch.FloatTensor(weight).cuda()
+
+#     def forward(self, input, target):
+        
+#         loss=nn.CrossEntropyLoss(weight=self.weight)
+
+#         return loss
+
 
 _criterion_entrypoints = {
     'cross_entropy': nn.CrossEntropyLoss,
@@ -149,8 +180,8 @@ _criterion_entrypoints = {
     'focal': FocalLoss,
     'focal_ce': FocalLoss_ce,
     'label_smoothing': LabelSmoothingLoss,
-    'f1': F1Loss,
     'cross_labelsmooth': CrossEntropyLossWithLabelSmoothing,
+    'f1': F1Loss,
 }
 
 

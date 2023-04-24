@@ -16,7 +16,7 @@ from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from torchvision import transforms
-from torchvision.transforms import Resize, ToTensor, Normalize
+from torchvision.transforms import *
 from PIL import Image
 import seaborn as sns
 import time
@@ -96,11 +96,9 @@ def grid_image(np_images, gts, preds, n=16, shuffle=False):
 
 def increment_path(path, exist_ok=False):
     """ Automatically increment path, i.e. runs/exp --> runs/exp0, runs/exp1 etc.
-
     Args:
         path (str or pathlib.Path): f"{model_dir}/{args.name}".
         exist_ok (bool): whether increment path (increment if False).
-
     경로명을 자동으로 증가시켜주는 함수입니다.
     입력받은 경로가 "runs/exp"이라면 이미 존재하는 경우(즉, exist_ok=True) 그대로 반환하고,
     없는 경우에는 바로 해당 경로를 반환합니다. 
@@ -141,7 +139,6 @@ def train(data_dir, model_dir, args):
     data_dir : 데이터 경로
     model_dir : 모델 경로
     args : 인자
-
     seed_everything(args.seed) 함수를 호출하여 학습시 고정된 시드를 사용하도록 설정
     save_dir : increment_path 함수를 사용하여 모델이 저장될 경로를 생성
     dataset_module : args.dataset이라는 인자를 통해 사용할 데이터셋을 설정하고 불러옴
@@ -154,8 +151,6 @@ def train(data_dir, model_dir, args):
     scheduler : StepLR은 일정한 스텝(step)마다 학습률을 감소시키는 스케줄러
                 args.lr_decay_step은 학습률 감소 스텝의 크기를 나타내며,
                 gamma는 감소 비율을 나타냄
-
-
     '''
     seed_everything(args.seed)
 
@@ -218,31 +213,11 @@ def train(data_dir, model_dir, args):
 
     # -- loss & metric
     criterion = create_criterion(args.criterion)  # default: cross_entropy
-    opt_module = getattr(import_module("torch.optim"), args.optimizer)  # default: Adam
-    if args.optimizer == 'Adam':
-        optimizer = opt_module(
-            model.parameters(),
-            lr=args.lr,
-            weight_decay=5e-4, #adam: 5e-4
-            betas=(0.9,0.999), 
-            eps=1e-08  
-
-        )
-    elif args.optimizer == 'AdamW':
-        optimizer = opt_module(
-            model.parameters(),
-            lr=args.lr,
-            weight_decay=0.01, #adam: 5e-4
-            betas=(0.9,0.999), 
-            eps=1e-08  
-
-        )
-    else:
-        optimizer = opt_module(
-#         filter(lambda p: p.requires_grad, model.parameters()),
-        model.parameters(),
+    opt_module = getattr(import_module("torch.optim"), args.optimizer)  # default: SGD
+    optimizer = opt_module(
+        filter(lambda p: p.requires_grad, model.parameters()),
         lr=args.lr,
-#         weight_decay=5e-4
+        weight_decay=5e-4
     )
         
     scheduler = StepLR(optimizer, args.lr_decay_step, gamma=0.5)
@@ -251,10 +226,7 @@ def train(data_dir, model_dir, args):
     logger = SummaryWriter(log_dir=save_dir)
     with open(os.path.join(save_dir, 'config.json'), 'w', encoding='utf-8') as f:
         json.dump(vars(args), f, ensure_ascii=False, indent=4)
-    
-    wandb.init(project = "Mask_Classification", config = wandb_config(args))
-    wandb.run.name = args.exp_name
-    
+
     ## ---- starting train ----
     best_val_acc = 0
     best_val_loss = np.inf
@@ -332,14 +304,7 @@ def train(data_dir, model_dir, args):
             val_loss = np.sum(val_loss_items) / len(val_loader)
             val_acc = np.sum(val_acc_items) / len(val_set)
             best_val_loss = min(best_val_loss, val_loss)
-
-#                 if figure is None:
-#                     inputs_np = torch.clone(inputs).detach().cpu().permute(0, 2, 3, 1).numpy()
-#                     inputs_np = dataset_module.denormalize_image(inputs_np, dataset.mean, dataset.std)
-#                     figure = grid_image(
-#                         inputs_np, labels, preds, n=16, shuffle=args.dataset != "MaskSplitByProfileDataset"
             
-                
             ## 최고 val acc 모델 갱신
             if val_acc > best_val_acc:
                 print(f"New best model for val accuracy : {val_acc:4.2%}! saving the best model..")
@@ -356,8 +321,9 @@ def train(data_dir, model_dir, args):
                 f"best acc : {best_val_acc:4.2%}, best loss: {best_val_loss:4.2} || "
                 f"f1 score : {valid_f1_score.get_score :4.2} || epoch time {short}"
             )
-
-            wandb.log({"valid acc": val_acc, "valid loss": val_loss, 'valid_f1_score' : valid_f1_score.get_score},step = epoch)
+            logger.add_scalar("Val/loss", val_loss, epoch)
+            logger.add_scalar("Val/accuracy", val_acc, epoch)
+            logger.add_figure("results", figure, epoch)
             
             # early stop
             if val_loss > best_loss: # loss가 개선되지 않은 경우
@@ -372,51 +338,24 @@ def train(data_dir, model_dir, args):
                 best_cm=valid_f1_score.get_cm
             print('early stopping patience', patience_check)
             print()
-    # total time
-    sec = time.time()- start_time # 종료 - 시작 (걸린 시간)
-    times = str(datetime.timedelta(seconds=sec)) # 걸린시간 보기좋게 바꾸기
-    short = times.split(".")[0] # 초 단위 까지만
-    print(f'Total time : {short}')
-    print(best_cm)
-    wandb.finish()
     
-    model_type = args.model_type
-    # ---- making submission or inference ----
-    if args.inference_make:
-        test_dir = '/opt/ml/input/data/eval'
-        
-        if model_type == 'MaskBase':
-            inference(test_dir, save_dir, save_dir, args) # model_dir -> load_model(saved_model 
-        elif model_type == 'Mask':
-            mask_inference(test_dir, save_dir, save_dir, args) # model_dir -> load_model(saved_model 
-        elif model_type == 'Gender':
-            gender_inference(test_dir, save_dir, save_dir, args) # model_dir -> load_model(saved_model 
-        elif model_type == 'Age':
-            age_inference(test_dir, save_dir, save_dir, args) # model_dir -> load_model(saved_model 
-        elif model_type == 'MaskGender':
-            maskgender_inference(test_dir, save_dir, save_dir, args) # model_dir -> load_model(saved_model 
-
-        else:
-            print('inference 파일 생성 에러')
-        
-#     if args.submission_make:
-#         submission(model, save_dir=save_dir)
-
+    # ---- making submission ----
+    submission(model, save_dir=save_dir)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # Data and model checkpoints directories
-    parser.add_argument('--seed', type=int, default=111, help='random seed (default: 111)')
+    parser.add_argument('--seed', type=int, default=111, help='random seed (default: 42 or 111)')
     parser.add_argument('--epochs', type=int, default=20, help='number of epochs to train (default: 20)')
-    parser.add_argument('--dataset', type=str, default='MaskBaseDataset', help='dataset augmentation type (default: MaskPreprocessDataset)')
-    parser.add_argument('--augmentation', type=str, default='BaseAugmentation', help='data augmentation type (default: YoonpyoAugmentation)')
+    parser.add_argument('--dataset', type=str, default='MaskBaseDataset', help='dataset augmentation type (default: MaskBaseDataset)')
+    parser.add_argument('--augmentation', type=str, default='BaseAugmentation', help='data augmentation type (default: BaseAugmentation)')
     parser.add_argument("--resize", nargs="+", type=tuple, default=(512,384), help='resize size for image when training')
-    parser.add_argument('--batch_size', type=int, default=32, help='input batch size for training (default: 32)')
-    parser.add_argument('--valid_batch_size', type=int, default=32, help='input batch size for validing (default: 32)')
+    parser.add_argument('--batch_size', type=int, default=32, help='input batch size for training (default: 64)')
+    parser.add_argument('--valid_batch_size', type=int, default=32, help='input batch size for validing (default: 64)')
     parser.add_argument('--model', type=str, default='EfficientNetB3', help='model type (default: EfficientNetB3)')
     parser.add_argument('--optimizer', type=str, default='Adam', help='optimizer type (default: Adam)')
-    parser.add_argument('--lr', type=float, default=1e-5, help='learning rate (default: 1e-5)')
+    parser.add_argument('--lr', type=float, default=1e-5, help='learning rate (default: 1e-3)')
     parser.add_argument('--val_ratio', type=float, default=0.2, help='ratio for validaton (default: 0.2)')
     parser.add_argument('--criterion', type=str, default='cross_entropy', help='criterion type (default: cross_entropy)')
     parser.add_argument('--lr_decay_step', type=int, default=20, help='learning rate scheduler deacy step (default: 20)')
@@ -426,7 +365,6 @@ if __name__ == '__main__':
     # Container environment
     parser.add_argument('--data_dir', type=str, default=os.environ.get('SM_CHANNEL_TRAIN', '/opt/ml/input/data/train/images'))
     parser.add_argument('--model_dir', type=str, default=os.environ.get('SM_MODEL_DIR', './model'))
-#     parser.add_argument('--freeze', type=bool, default=False, help='model freeze (default: False)')
     parser.add_argument('--patience_limit', type=int, default=3, help='early stopping patience_limit (default: 3)')
     parser.add_argument('--exp_name', type=str, default='mask', help='wandb exp name (default: exp)')
     parser.add_argument('--inference_make', type=bool, default=True, help='inference make info (default : False)')

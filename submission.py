@@ -10,7 +10,7 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 from torchvision.transforms import Resize, ToTensor, Normalize
 
-from dataset import SM_TestDataset
+from dataset import TestDataset, SM_TestDataset
 
 def submission(model, save_dir):
     print("test inference started!")

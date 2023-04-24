@@ -10,6 +10,7 @@ from PIL import Image
 from torch.utils.data import Dataset, Subset, random_split
 from torchvision.transforms import *
 from torch.optim.lr_scheduler import StepLR
+from PIL import ImageEnhance
 
 IMG_EXTENSIONS = [
     ".jpg", ".JPG", ".jpeg", ".JPEG", ".png",
@@ -85,7 +86,7 @@ class realAugmentation:
         self.transform = Compose([
             CenterCrop((380,380)),
             RandomApply([transforms.ColorJitter(brightness=0.2, contrast=0.3, saturation=0.2, hue=0.1)], p=1),
-            RandomSharpness(1.0, p=1.0, always_apply=True)
+            Lambda(lambda img: ImageEnhance.Sharpness(img).enhance(4.0)),
             RandomApply([transforms.RandomHorizontalFlip(p=0.5)], p=1),
             ToTensor(),
             Normalize(mean=mean, std=std)

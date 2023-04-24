@@ -71,3 +71,22 @@ python train.py --data_dir ../input/data/train/images --model_dir ./model --mode
 
 <RealAugmentation> (주름 강조)
 python train.py --data_dir ../input/data/train/images --model_dir ./model --model EfficientNetB3_xavier --epochs 30 --augmentation 'realAugmentation'  --patience_limit 3 --lr 1e-5 --criterion 'cross_entropy' --optimizer AdamW --name 'AdamW_realaug' --exp_name 'yoon_realaug'
+
+
+
+<마스크(bestAug),성별 + 나이(realAug) / AdamW + cross>
+python train.py --model_type MaskGender --dataset MaskGenderDataset --model EfficientNetB3_init --criterion cross_entropy --augmentation bestAugmentation --optimizer AdamW --epochs 20 --lr 0.00001 --model_dir ./model  --name yoon_eff3init_cross_mix1 --exp_name yoon_eff3init_cross_mix1 --data_dir ../input/data/train/images ;
+
+python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3_init --criterion cross_entropy --augmentation realAugmentation --optimizer AdamW --epochs 20 --lr 0.00001 --model_dir ./model  --name yoon_eff3init_cross_mix2 --exp_name yoon_eff3init_cross_mix2 --data_dir ../input/data/train/images ;
+
+
+<마스크(bestAug),성별 + 나이(realAug) / AdamW + label smooth>
+python train.py --model_type MaskGender --dataset MaskGenderDataset --model EfficientNetB3_init --criterion label_smoothing --augmentation bestAugmentation --optimizer AdamW --epochs 20 --lr 0.00001 --model_dir ./model  --name yoon_eff3init_LS_mix1 1—exp_name yoon_eff3init_LS_mix1 --data_dir ../input/data/train/images ;
+
+python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3_init --criterion label_smoothing --augmentation realAugmentation --optimizer AdamW --epochs 20 --lr 0.00001 --model_dir ./model --name yoon_eff3init_LS_mix2 --exp_name yoon_eff3init_LS_mix2 --data_dir ../input/data/train/images ;
+
+
+<마스크, 성별   + 나이(승희eff3init, cross, bestaugmentation) >
+python train.py --model_type MaskGender --dataset MaskGenderDataset --model EfficientNetB3_init --criterion cross_entropy --augmentation bestAugmentation --optimizer AdamW --epochs 20 --lr 0.00001 --model_dir ./model --name yoon_eff3init_cross_best1 —exp_name yoon_eff3init_cross_best1 --data_dir ../input/data/train/images ;
+
+python train.py --model_type Age --dataset AgeDataset --model EfficientNetB3_init --criterion cross_entropy --augmentation bestAugmentation --optimizer Adam --epochs 20 --lr 0.00001 --model_dir ./model --name yoon_eff3init_cross_best2 --exp_name yoon_eff3init_cross_best2 --data_dir ../input/data/train/images

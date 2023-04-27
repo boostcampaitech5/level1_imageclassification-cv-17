@@ -59,6 +59,31 @@
 <br/>
 
 ## <span style='color:black;background-color:#fff5b1'>파일별 세부 설명</spam>
+### 구조
+```
+├── code
+│   ├── jupyter_notebooks
+│   │   ├── model_list.ipynb
+│   │   ├── multi_inference.ipynb
+│   │   └── sample_submission.ipynb
+│   ├── delplustxt.txt
+│   ├── requirements.txt
+│   ├── terminal.txt
+│   ├── datapreprocess.py
+│   ├── dataset.py
+│   ├── f1score.py
+│   ├── inference.py
+│   ├── loss.py
+│   ├── model.py
+│   ├── submission.py
+│   ├── train-vit.py
+│   └── train.py
+└── input
+    ├── csv.ipynb
+    └── data
+        ├── eval
+        └── train
+```
 ### dataset.py : 데이터셋 함수 및 클래스 정의
 - function
     is_image_file(filename) : 이미지 파일 확인하는 함수

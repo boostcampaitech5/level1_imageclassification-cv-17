@@ -181,4 +181,16 @@ dataset.py, loss.py의 함수를 import 해서 사용함
 
 - ### **모델 성능**
     <img src="https://ifh.cc/g/2jHcpt.png">
+    
+    
+## <span style='color:black;background-color:#fff5b1'>팀원 및 역할</spam>
+
+  |팀원|역할|
+  |:---:|:---:|
+  |전체| Wrap up report 작성, 실험 관리|
+  |김용우|code debugging, code implementation, outlier remove, weight normalization, Mask+Gender model experiment|
+  |박승희|팀내 의견 수집 및 의견 정리, 각 팀원 코드 모음 및 팀 실험 코드 관리, Age모델 실험|
+  |이다현|모델 리서치, data augmentation, 모델 성능 실험, Age 모델 실험|
+  |이상민|EDA, 데이터 시각화, 모델 앙상블, 병렬모델 실험, upsampling 실험|
+  |이윤표|data augmentation, lr, scheduler, optimizer, loss, 모델 성능 실험, wandb 연동, Mask+gender 모델 실험|
 

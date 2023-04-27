@@ -79,7 +79,6 @@
 │   ├── train-vit.py
 │   └── train.py
 └── input
-    ├── csv.ipynb
     └── data
         ├── eval
         └── train
